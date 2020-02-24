@@ -1,0 +1,119 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+    font-weight: normal;
+}
+
+
+$CELL_WIDTH: 18px;
+$CELL_HEIGHT: 18px;
+
+$CELL_SEPARATOR: 15px;
+
+
+.ribbon {
+
+    display: block;
+    width: 1500px;
+
+    &__category {
+        display: block;
+        margin-bottom: 0.5rem;
+        margin-top: 12.4rem;
+
+        &--separator {
+            display: inline-block;
+            padding: 0px $CELL_SEPARATOR;
+        }
+
+        &--cell {
+            display: inline-block;
+            width: $CELL_WIDTH;
+            outline: none;
+            text-align: left;
+            white-space: nowrap;
+            transform: translateY(-2px) rotate(-45deg);
+            
+            &:hover {
+                cursor: pointer;
+                font-weight: bold;
+            }
+        }
+    }
+
+
+    &__subject {
+        display: block;
+        padding-bottom: 0.05rem;
+
+        &__label {
+            &--left {
+                display: inline-block;
+                width: 140px;
+            }
+
+            &--right {
+                display: inline-block;
+                margin-left: 1rem;
+            }
+        }
+
+
+        &--separator {
+            display: inline-block;
+            padding: 0px $CELL_SEPARATOR;
+        }
+
+        &--cell {
+            display: inline-block;
+            width: $CELL_WIDTH;
+            height: $CELL_HEIGHT;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.26);
+            outline: none;
+            text-align: center;
+            
+            &--hover {
+                cursor: pointer;
+                border: 1px solid black;                
+            }
+
+            &--no-annotation {
+                display: inline-block;
+                width: $CELL_WIDTH;
+                height: $CELL_HEIGHT;
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.26);
+                outline: none;
+                text-align: center;
+
+                &:hover {
+                    cursor: not-allowed !important;                    
+                }
+            }
+
+
+            &--disabled {
+                display: inline-block;
+                width: $CELL_WIDTH;
+                height: $CELL_HEIGHT;
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.26);
+                outline: none;
+                text-align: center;
+
+                background: repeating-linear-gradient(
+                    45deg,
+                    #ffffff,
+                    rgba(0, 0, 0, 0.1) 1px,
+                    #ffffff 2px,
+                    #ffffff 12px
+                );                
+            }
+
+        }
+    }
+}
+
+.selected {
+    font-weight: bold;
+}
+

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+  <title>Generic Ribbon - WC</title>
+
+  <script type="module" src="/build/wc-ribbon-strips.esm.js"></script>
+  <script nomodule src="/build/wc-ribbon-strips.js"></script>
+
+</head>
+<body>
+
+  <!-- <wc-ribbon-strips subjects="RGD:620474,RGD:3889" /> -->
+
+
+  <script>
+
+        let baseAPIURL = "http://api.geneontology.org/api/ontology/ribbon/";
+        let subjects = ["RGD:620474","RGD:3889"].join("&subject=");
+        let query = baseAPIURL + '?subset=goslim_agr&subject=' + subjects;
+        console.log('API query is ' + query);
+
+        // fetch(query)
+        // .then(response => {
+        //   response.json().then(data => {
+        //     var element = document.createElement("wc-ribbon-strips");
+        //     // element.setAttribute("subjects", subjects);
+        //     element.setAttribute("data", JSON.stringify(data));
+        //     document.body.appendChild(element);
+        //   })
+        // })
+
+
+        async function loadData() {
+          // fetch the json data
+          let response = await fetch(query);
+          let data = await response.json();
+
+          // create the ribbon strips element
+          var element = await document.createElement("wc-ribbon-strips");
+          element.setAttribute("data", JSON.stringify(data));
+          element.setAttribute("binary-color", "false");
+          element.setAttribute("new-tab", "true");
+          element.setAttribute("selection-mode", 1);
+          element.setAttribute("subject-position", 1);
+          await document.body.appendChild(element);
+
+          // add a listener whenever a cell is clicked
+          document.addEventListener('cellClick', function hideMenu(e, v) {
+            console.log('Cell Clicked' , e.detail);
+          });
+
+          // add a listener whenever a group is clicked
+          document.addEventListener('groupClick', function hideMenu(e, v) {
+            console.log('Group Clicked' , e.detail);
+          });
+        }
+
+        loadData();
+
+
+  </script>
+
+</body>
+</html>
