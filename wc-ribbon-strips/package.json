@@ -1,6 +1,6 @@
 {
   "name": "wc-ribbon-strips",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Ribbon Strips Web Component",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -25,6 +25,15 @@
     "@stencil/core": "^1.8.8",
     "@stencil/sass": "^1.1.1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geneontology/wc-ribbon.git"
+  },
+  "bugs": {
+    "url": "https://https://github.com/geneontology/wc-ribbon/issues"
+  },
+  "homepage": "https://github.com/geneontology/wc-ribbon#readme",
+  "author": "Laurent-Philippe Albou",
   "license": "MIT",
   "dependencies": {}
 }
