@@ -1,5 +1,5 @@
 {
-  "name": "wc-ribbon-strips",
+  "name": "@geneontology/wc-ribbon-strips",
   "version": "0.0.2",
   "description": "Ribbon Strips Web Component",
   "main": "dist/index.js",
