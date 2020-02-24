@@ -26,13 +26,13 @@ npm test
 
 ### Script tag
 
-- Put a script tag  `<script src='https://unpkg.com/wc-ribbon-strips@0.0.1/dist/wc-ribbon-strips.js'></script>` in the head of your index.html
+- Put a script tag  `<script src='https://unpkg.com/@geneontology/wc-ribbon-strips/dist/wc-ribbon-strips.js'></script>` in the head of your index.html
 - Then you can use the element anywhere in your template, JSX, html etc
 
 ```html
 <html>
 <head>
-    <script src="https://unpkg.com/wc-ribbon-strips@0.0.1/dist/wc-ribbon-strips.js"/>
+    <script src="https://unpkg.com/@geneontology/wc-ribbon-strips/dist/wc-ribbon-strips.js"/>
 </head>
 <body>
   <wc-ribbon-strips subjects="RGD:620474,RGD:3889"></wc-ribbon-strips>
