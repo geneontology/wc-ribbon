@@ -1,5 +1,5 @@
 {
-  "name": "wc-ribbon-table",
+  "name": "@geneontology/wc-ribbon-table",
   "version": "0.0.1",
   "description": "Ribbon Table Web Component",
   "main": "dist/index.js",
@@ -25,5 +25,15 @@
     "@stencil/core": "^1.8.8",
     "@stencil/sass": "^1.1.1"
   },
-  "license": "MIT"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geneontology/wc-ribbon.git"
+  },
+  "bugs": {
+    "url": "https://https://github.com/geneontology/wc-ribbon/issues"
+  },
+  "homepage": "https://github.com/geneontology/wc-ribbon#readme",
+  "author": "Laurent-Philippe Albou",
+  "license": "BSD-3",
+  "dependencies": {}
 }
