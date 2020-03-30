@@ -12,6 +12,9 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 export namespace Components {
   interface WcRibbonTable {
     'baseApiUrl': string;
+    /**
+    * Must follow the appropriate json data model
+    */
     'data': string;
     'groupBaseUrl': string;
     'subjectBaseUrl': string;
@@ -34,6 +37,9 @@ declare global {
 declare namespace LocalJSX {
   interface WcRibbonTable {
     'baseApiUrl'?: string;
+    /**
+    * Must follow the appropriate json data model
+    */
     'data'?: string;
     'groupBaseUrl'?: string;
     'subjectBaseUrl'?: string;
