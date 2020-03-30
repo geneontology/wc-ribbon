@@ -17,11 +17,21 @@ export class RibbonTable {
   @Prop() subjectBaseUrl: string = "http://amigo.geneontology.org/amigo/gene_product/";
   @Prop() groupBaseUrl: string = "http://amigo.geneontology.org/amigo/term/";
 
+  /**
+   * Must follow the appropriate json data model
+   */
   @Prop() data : string;
 
   table = dataMockup;
 
   componentWillLoad() {
+    if(this.data) {
+      if(typeof this.data == "string") {
+        this.table = JSON.parse(this.data);
+      } else {
+          this.table = this.data;
+      }
+    }
   }
 
   // fetchData() {
