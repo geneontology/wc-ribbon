@@ -1,3 +1,13 @@
+$ribbon__cell--width: 18px !default;
+$ribbon__cell--height: 18px !default;
+$ribbon__cell--separator: 15px !default;
+
+$ribbon--width : 1500px !default;
+
+$ribbon__subject__label-left--width : 140px !default;
+$ribbon__subject__label-right--margin-left : 1rem !default;
+$ribbon__subject__cell--box-shadow : 0 1px 4px rgba(0, 0, 0, 0.26);
+
 * {
 	margin: 0;
 	padding: 0;
@@ -5,17 +15,10 @@
     font-weight: normal;
 }
 
-
-$CELL_WIDTH: 18px;
-$CELL_HEIGHT: 18px;
-
-$CELL_SEPARATOR: 15px;
-
-
 .ribbon {
 
     display: block;
-    width: 1500px;
+    width: $ribbon--width;
 
     &__category {
         display: block;
@@ -24,12 +27,12 @@ $CELL_SEPARATOR: 15px;
 
         &--separator {
             display: inline-block;
-            padding: 0px $CELL_SEPARATOR;
+            padding: 0px $ribbon__cell--separator;
         }
 
         &--cell {
             display: inline-block;
-            width: $CELL_WIDTH;
+            width: $ribbon__cell--width;
             outline: none;
             text-align: left;
             white-space: nowrap;
@@ -50,26 +53,26 @@ $CELL_SEPARATOR: 15px;
         &__label {
             &--left {
                 display: inline-block;
-                width: 140px;
+                width: $ribbon__subject__label-left--width;
             }
 
             &--right {
                 display: inline-block;
-                margin-left: 1rem;
+                margin-left: $ribbon__subject__label-right--margin-left;
             }
         }
 
 
         &--separator {
             display: inline-block;
-            padding: 0px $CELL_SEPARATOR;
+            padding: 0px $ribbon__cell--separator;
         }
 
         &--cell {
             display: inline-block;
-            width: $CELL_WIDTH;
-            height: $CELL_HEIGHT;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.26);
+            width: $ribbon__cell--width;
+            height: $ribbon__cell--height;
+            box-shadow: $ribbon__subject__cell--box-shadow;
             outline: none;
             text-align: center;
             
@@ -80,9 +83,9 @@ $CELL_SEPARATOR: 15px;
 
             &--no-annotation {
                 display: inline-block;
-                width: $CELL_WIDTH;
-                height: $CELL_HEIGHT;
-                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.26);
+                width: $ribbon__cell--width;
+                height: $ribbon__cell--height;
+                box-shadow: $ribbon__subject__cell--box-shadow;
                 outline: none;
                 text-align: center;
 
@@ -94,9 +97,9 @@ $CELL_SEPARATOR: 15px;
 
             &--disabled {
                 display: inline-block;
-                width: $CELL_WIDTH;
-                height: $CELL_HEIGHT;
-                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.26);
+                width: $ribbon__cell--width;
+                height: $ribbon__cell--height;
+                box-shadow: $ribbon__subject__cell--box-shadow;
                 outline: none;
                 text-align: center;
 

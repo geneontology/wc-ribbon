@@ -80,7 +80,7 @@ export class RibbonStrips {
     onlyExperimental = false;
 
 
-    groupAll = {
+    groupAll : RibbonGroup = {
         id: "All",
         label: "all annotations",
         description: "Show all annotations for all categories",

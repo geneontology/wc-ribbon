@@ -10,7 +10,12 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-  interface WcRibbonTable {}
+  interface WcRibbonTable {
+    'baseApiUrl': string;
+    'data': string;
+    'groupBaseUrl': string;
+    'subjectBaseUrl': string;
+  }
 }
 
 declare global {
@@ -27,7 +32,12 @@ declare global {
 }
 
 declare namespace LocalJSX {
-  interface WcRibbonTable {}
+  interface WcRibbonTable {
+    'baseApiUrl'?: string;
+    'data'?: string;
+    'groupBaseUrl'?: string;
+    'subjectBaseUrl'?: string;
+  }
 
   interface IntrinsicElements {
     'wc-ribbon-table': WcRibbonTable;
