@@ -8,3 +8,5 @@ export const POSITION = { "NONE" : 0, "LEFT" : 1, "RIGHT" : 2, "BOTTOM": 3 }
 export const SELECTION = { "CELL" : 0, "COLUMN" : 1 }
 
 export const EXP_CODES = ['EXP', 'IDA', 'IPI', 'IMP', 'IGI', 'IEP', 'HTP', 'HDA', 'HMP', 'HGI', 'HEP'];
+
+export const CELL_TYPES = { "ALL" : "All", "TERM": "Term", "OTHER": "Other" };

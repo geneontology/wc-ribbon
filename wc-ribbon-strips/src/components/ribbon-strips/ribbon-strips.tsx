@@ -3,7 +3,7 @@ import { h } from '@stencil/core';
 import { Component, Prop, Element, Event, EventEmitter } from '@stencil/core';
 
 import { truncate, darken, groupKey, subjectGroupKey, arraysMatch } from '../../globals/utils';
-import { COLOR_BY, POSITION, SELECTION, EXP_CODES } from '../../globals/enums';
+import { COLOR_BY, POSITION, SELECTION, EXP_CODES, CELL_TYPES } from '../../globals/enums';
 
 import { RibbonModel, RibbonCategory, RibbonGroup, RibbonSubject, RibbonCellEvent, RibbonCellClick } from '../../globals/models';
 
@@ -37,6 +37,8 @@ export class RibbonStrips {
     @Prop() maxColor = [24, 73, 180];
     @Prop() maxHeatLevel = 48;
     @Prop() groupMaxLabelSize = 60;
+
+    @Prop() showOtherCategory = false;
 
     /**
      * Position the subject label of each row
@@ -280,7 +282,7 @@ export class RibbonStrips {
     }
 
     render() {
-        console.log("render:\n- loading: " , this.loading , "\n- summary: ", this.ribbonSummary);
+        // console.log("render:\n- loading: " , this.loading , "\n- summary: ", this.ribbonSummary);
 
         // Still loading (executing fetch)
         if(this.loading) {
@@ -340,6 +342,9 @@ export class RibbonStrips {
                         return [
                             <th class="ribbon__category--separator"></th>,
                             category.groups.map( (group : RibbonGroup) => {
+                                if(group.type == CELL_TYPES.OTHER && !this.showOtherCategory) {
+                                    return ;
+                                }
                                 return <th class="ribbon__category--cell"
                                     id={groupKey(group)}
                                     title={group.id + ": " + group.label + "\n\n" + group.description}
@@ -394,7 +399,10 @@ export class RibbonStrips {
                                     <td class="ribbon__subject--separator"></td>,
                                     category.groups.map( (group : RibbonGroup) => {
                                         let nbAnnotations = group.id in subject.groups ? subject.groups[group.id]["ALL"]["nb_annotations"] : 0;
-
+                                        // console.log("reading group: ", group , group.type == CELL_TYPES.OTHER);
+                                        if(group.type == CELL_TYPES.OTHER && !this.showOtherCategory) {
+                                            return ;
+                                        }
                                         // TODO: that's where i can check for group.available; by default true if not here
                                         return(
                                         <wc-ribbon-cell     class={(nbAnnotations == 0 ? "ribbon__subject--cell--no-annotation" : "ribbon__subject--cell")}

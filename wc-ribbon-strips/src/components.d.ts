@@ -52,6 +52,7 @@ export namespace Components {
     * Click handling of a cell.  0 = select only the cell (1 subject, 1 group) 1 = select the whole column (all subjects, 1 group)
     */
     'selectionMode': any;
+    'showOtherCategory': boolean;
     'subjectBaseUrl': string;
     'subjectOpenNewTab': boolean;
     /**
@@ -150,6 +151,7 @@ declare namespace LocalJSX {
     * Click handling of a cell.  0 = select only the cell (1 subject, 1 group) 1 = select the whole column (all subjects, 1 group)
     */
     'selectionMode'?: any;
+    'showOtherCategory'?: boolean;
     'subjectBaseUrl'?: string;
     'subjectOpenNewTab'?: boolean;
     /**
