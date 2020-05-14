@@ -33,8 +33,26 @@ export namespace Components {
     'addCellAll': boolean;
     'annotationLabels': string[];
     'baseApiUrl': string;
+    /**
+    * false = show a gradient of colors to indicate the value of a cell true = show only two colors (minColor; maxColor) to indicate the values of a cell
+    */
     'binaryColor': boolean;
+    /**
+    * 0 = Normal 1 = Bold
+    */
+    'categoryAllStyle': any;
+    /**
+    * Override of the category case 0 (default) = unchanged 1 = to lower case 2 = to upper case
+    */
+    'categoryCase': any;
+    /**
+    * 0 = Normal 1 = Bold
+    */
+    'categoryOtherStyle': any;
     'classLabels': string[];
+    /**
+    * Which value to base the cell color on 0 = class count 1 = annotation count
+    */
     'colorBy': any;
     /**
     * if provided, will override any value provided in subjects and subset
@@ -128,8 +146,26 @@ declare namespace LocalJSX {
     'addCellAll'?: boolean;
     'annotationLabels'?: string[];
     'baseApiUrl'?: string;
+    /**
+    * false = show a gradient of colors to indicate the value of a cell true = show only two colors (minColor; maxColor) to indicate the values of a cell
+    */
     'binaryColor'?: boolean;
+    /**
+    * 0 = Normal 1 = Bold
+    */
+    'categoryAllStyle'?: any;
+    /**
+    * Override of the category case 0 (default) = unchanged 1 = to lower case 2 = to upper case
+    */
+    'categoryCase'?: any;
+    /**
+    * 0 = Normal 1 = Bold
+    */
+    'categoryOtherStyle'?: any;
     'classLabels'?: string[];
+    /**
+    * Which value to base the cell color on 0 = class count 1 = annotation count
+    */
     'colorBy'?: any;
     /**
     * if provided, will override any value provided in subjects and subset

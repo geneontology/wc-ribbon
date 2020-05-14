@@ -12,7 +12,7 @@ export function truncate(text, size, ending) {
       return text;
     }
   };
-  
+ 
   export function transformID(txt) {
     return txt.replace(":", "_");
   }

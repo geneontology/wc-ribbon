@@ -3,7 +3,7 @@ import { h } from '@stencil/core';
 import { Component, Prop, Element, Event, EventEmitter } from '@stencil/core';
 
 import { truncate, darken, groupKey, subjectGroupKey, arraysMatch } from '../../globals/utils';
-import { COLOR_BY, POSITION, SELECTION, EXP_CODES, CELL_TYPES } from '../../globals/enums';
+import { COLOR_BY, POSITION, SELECTION, EXP_CODES, CELL_TYPES, FONT_CASE, FONT_STYLE } from '../../globals/enums';
 
 import { RibbonModel, RibbonCategory, RibbonGroup, RibbonSubject, RibbonCellEvent, RibbonCellClick } from '../../globals/models';
 
@@ -31,12 +31,42 @@ export class RibbonStrips {
 
     @Prop() classLabels = ["term", "terms"];
     @Prop() annotationLabels = ["annotation", "annotations"];
+
+    /**
+     * Which value to base the cell color on
+     * 0 = class count
+     * 1 = annotation count
+     */
     @Prop() colorBy = COLOR_BY.ANNOTATION_COUNT;
+
+    /**
+     * false = show a gradient of colors to indicate the value of a cell
+     * true = show only two colors (minColor; maxColor) to indicate the values of a cell
+     */
     @Prop() binaryColor = false;
     @Prop() minColor = [255, 255, 255];
     @Prop() maxColor = [24, 73, 180];
     @Prop() maxHeatLevel = 48;
     @Prop() groupMaxLabelSize = 60;
+
+    /**
+     * Override of the category case
+     * 0 (default) = unchanged
+     * 1 = to lower case
+     * 2 = to upper case
+     */
+    @Prop() categoryCase = FONT_CASE.LOWER_CASE;
+
+    /**
+     * 0 = Normal
+     * 1 = Bold
+     */
+    @Prop() categoryAllStyle = FONT_STYLE.NORMAL;
+    /**
+     * 0 = Normal
+     * 1 = Bold
+     */
+    @Prop() categoryOtherStyle = FONT_STYLE.NORMAL;
 
     @Prop() showOtherCategory = false;
 
@@ -317,6 +347,33 @@ export class RibbonStrips {
         );
     }
 
+    applyCategoryStyling(category) {
+        let cc0 = truncate(category, this.groupMaxLabelSize, "...");
+        let cc1 = this.applyCategoryCase(cc0);
+        let cc2 = this.applyCategoryBold(cc1);
+        return cc2;
+    }
+
+    applyCategoryBold(category) {
+        let lc = category.toLowerCase();
+        if(lc.startsWith("all") && this.categoryAllStyle == FONT_STYLE.BOLD) {
+            return <b>{category}</b>;
+        }
+        if(lc.startsWith("other") && this.categoryOtherStyle == FONT_STYLE.BOLD) {
+            return <b>{category}</b>;
+        }
+        return category;
+    }
+
+    applyCategoryCase(category) {
+        if(this.categoryCase == FONT_CASE.LOWER_CASE) {
+            return category.toLowerCase();
+        } else if(this.categoryCase == FONT_CASE.UPPER_CASE) {
+            return category.toUpperCase();
+        }
+        return category;
+    }
+
     renderCategory() {
         return (
             <tr class="ribbon__category">
@@ -331,8 +388,7 @@ export class RibbonStrips {
                             id={groupKey(this.groupAll)}
                             title={this.groupAll.id + ": " + this.groupAll.label + "\n\n" + this.groupAll.description}
                             onClick={ (this.groupClickable) ? () => this.onGroupClick(this.groupAll) : undefined }>
-                            {truncate(this.groupAll.label, this.groupMaxLabelSize, "...")}
-                            
+                            {this.applyCategoryStyling(this.groupAll.label)}  
                     </th>                
                     : ""
                 }
@@ -345,12 +401,12 @@ export class RibbonStrips {
                                 if(group.type == CELL_TYPES.OTHER && !this.showOtherCategory) {
                                     return ;
                                 }
+
                                 return <th class="ribbon__category--cell"
                                     id={groupKey(group)}
                                     title={group.id + ": " + group.label + "\n\n" + group.description}
                                     onClick={ (this.groupClickable) ? () => this.onGroupClick(group) : undefined }>
-                                    {truncate(group.label, this.groupMaxLabelSize, "...")}
-                                    
+                                    {this.applyCategoryStyling(group.label)}       
                                 </th>
                             })
                         ];

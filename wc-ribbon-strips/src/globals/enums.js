@@ -10,3 +10,7 @@ export const SELECTION = { "CELL" : 0, "COLUMN" : 1 }
 export const EXP_CODES = ['EXP', 'IDA', 'IPI', 'IMP', 'IGI', 'IEP', 'HTP', 'HDA', 'HMP', 'HGI', 'HEP'];
 
 export const CELL_TYPES = { "ALL" : "All", "TERM": "Term", "OTHER": "Other" };
+
+export const FONT_CASE = { "UNCHANGED" : 0, "LOWER_CASE" : 1, "UPPER_CASE": 2};
+
+export const FONT_STYLE = { "NORMAL" : 0, "BOLD": 1 }
