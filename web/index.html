@@ -22,9 +22,9 @@
   <wc-ribbon-table></wc-ribbon-table> -->
 
 
-  <div id="ribbon-strips"></div>
-
-  <div id="ribbon-table"></div>
+  <div id="ribbon-strips" style="width: 1500px"></div>
+    <br>
+  <div id="ribbon-table" style="width: 1500px"></div>
 
 
 
@@ -53,20 +53,17 @@
         // add a listener whenever a cell is clicked
         document.addEventListener('cellClick', function hideMenu(e, v) {
           console.log('Cell Clicked' , e.detail);
-
           loadAssociations(e.detail);
         });
 
         // add a listener whenever a group is clicked
         document.addEventListener('groupClick', function hideMenu(e, v) {
           console.log('Group Clicked' , e.detail);
-
         });
       }
 
+
       async function loadAssociations(details) {
-
-
         let group = details.group;
         let group_ids, group_labels;
 
@@ -116,7 +113,7 @@
             {
               label : "Evidence",
               id: "evidence",
-              baseURL : "https://www.ebi.ac.uk/ols/ontologies/eco/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2F"
+              baseURL : "http://purl.obolibrary.org/obo/"
             },
             {
               label : "Reference",

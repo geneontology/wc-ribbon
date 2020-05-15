@@ -3,7 +3,7 @@ import { Component, h } from '@stencil/core';
 import { dataMockup, Table } from '../../globals/models';
 import { Prop } from '@stencil/core';
 
-import { addEndingSlash, removeBaseURL } from '../../globals/utils';
+// import { addEndingSlash, removeBaseURL } from '../../globals/utils';
 
 // import { Table, Cell, Header, HeaderCell } from '../../globals/models';
 
@@ -117,11 +117,14 @@ export class RibbonTable {
               row.cells.map( cell => {
                 let header = this.headerMap.get(cell.headerId);
                 let baseURL = header.baseURL;
-                baseURL = baseURL ? addEndingSlash(baseURL) : "";
+                // adding automatically the ending slash cause too many problem (eg base URL that are example.com/tototo?uri=)
+                // baseURL = baseURL ? addEndingSlash(baseURL) : "";
+                baseURL = baseURL ? baseURL : "";
 
                 let url = cell.url;
                 if(url && baseURL.length > 0) {
-                  url = baseURL + removeBaseURL(url);
+                  // url = baseURL + removeBaseURL(url);
+                  url = baseURL + url.replace(baseURL, "");
                 }
 
                 return [
