@@ -17,9 +17,157 @@
 
 <body>
 
-  <wc-ribbon-strips subjects="RGD:620474,RGD:3889"></wc-ribbon-strips>
+  <!-- <wc-ribbon-strips subjects="RGD:620474,RGD:3889"></wc-ribbon-strips>
 
-  <wc-ribbon-table></wc-ribbon-table>
+  <wc-ribbon-table></wc-ribbon-table> -->
+
+
+  <div id="ribbon-strips"></div>
+
+  <div id="ribbon-table"></div>
+
+
+
+  <script>
+
+      let baseAPIURL = "http://api.geneontology.org/api/ontology/ribbon/";
+      let subjects = ["RGD:620474","RGD:3889"].join("&subject=");
+      let query = baseAPIURL + '?subset=goslim_agr&subject=' + subjects;
+      console.log('API query is ' + query);
+
+      async function loadData() {
+        // fetch the json data
+        let response = await fetch(query);
+        let data = await response.json();
+
+        // create the ribbon strips element
+        var element = await document.createElement("wc-ribbon-strips");
+        element.setAttribute("data", JSON.stringify(data));
+        element.setAttribute("binary-color", "false");
+        element.setAttribute("category-all-style", 1);
+        element.setAttribute("new-tab", "true");
+        element.setAttribute("selection-mode", 1);
+        element.setAttribute("subject-position", 1);
+        await document.getElementById("ribbon-strips").appendChild(element);
+
+        // add a listener whenever a cell is clicked
+        document.addEventListener('cellClick', function hideMenu(e, v) {
+          console.log('Cell Clicked' , e.detail);
+
+          loadAssociations(e.detail);
+        });
+
+        // add a listener whenever a group is clicked
+        document.addEventListener('groupClick', function hideMenu(e, v) {
+          console.log('Group Clicked' , e.detail);
+
+        });
+      }
+
+      async function loadAssociations(details) {
+
+
+        let group = details.group;
+        let group_ids, group_labels;
+
+        let subject_ids = details.subjects.map(elt => elt.id );
+        let subject_labels = details.subjects.map(elt => elt.label );
+        
+        if(group == 'all') {
+          // var groups = this.state.ribbon.categories.map(elt => {
+          //   return elt.id;
+          // });
+          // group = groups.join('&slim=');
+        // } else if (group instanceof Array) {
+        //   group_id = group.join('&slim=');
+        } else {
+          group_ids = group.id;
+          group_labels = group.label;
+        }
+
+        let tableElement = document.getElementById("ribbon-table");
+
+        tableElement.innerHTML = "<br>Loading associations for <b>" + group_labels + "</b> and <b>" + subject_labels.join(", ") + "</b> genes ...";
+
+        const goApiUrl = 'https://api.geneontology.org/api/';
+        subject_ids = subject_ids.join('&subject=');
+        let query = goApiUrl + 'bioentityset/slimmer/function?slim=' + group_ids + '&subject=' + subject_ids + '&rows=-1';
+        console.log("query: ", query);
+
+        // fetch the json data
+        let response = await fetch(query);
+        let data = await response.json();
+
+        console.log("RETR: " , data);
+
+        let table = {
+          newTab: true,
+          header : [
+            {
+              label : "Gene",
+              id: "gene",
+              baseURL : "http://amigo.geneontology.org/amigo/gene_product/"
+            },
+            {
+              label : "Term",
+              id: "term",
+              baseURL : "http://amigo.geneontology.org/amigo/term/"
+            },
+            {
+              label : "Evidence",
+              id: "evidence",
+              baseURL : "https://www.ebi.ac.uk/ols/ontologies/eco/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2F"
+            },
+            {
+              label : "Reference",
+              id: "reference"
+            }            
+          ],
+
+          rows : [ ]
+        };
+
+        for(let assoc of data[0].assocs) {
+          table.rows.push({
+            cells: [
+              {
+                label: assoc.subject.label,
+                headerId: "gene",
+                url : assoc.subject.id
+              },
+              {
+                label: assoc.object.label,
+                headerId: "term",
+                url : assoc.object.id
+              },
+              {
+                label: assoc.evidence_type,
+                headerId: "evidence",
+                url: assoc.evidence
+              },
+              {
+                label: assoc.reference.join("; "),
+                headerId: "reference"
+              }
+            ]
+          })
+        }
+
+        console.log("table: ", table);
+
+        // create the ribbon strips element
+        var element = await document.createElement("wc-ribbon-table");
+        element.setAttribute("data", JSON.stringify(table));
+        tableElement.innerHTML = "";
+        await document.getElementById("ribbon-table").appendChild(element);
+      }
+
+      loadData();
+
+
+</script>
+
+
 
 </body>
 

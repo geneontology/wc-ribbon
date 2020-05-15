@@ -39,11 +39,13 @@ export const dataMockup : Table = {
         {
           label: "header-1",
           id: "hid-1",
-          description: "description of header 1"
+          description: "description of header 1 - no base URL"
         },
         {
-          label: "header-2",
-          id: "hid-2"
+          label: "header-2x",
+          id: "hid-2",
+          baseURL : "http://example.com",
+          description: "description of header 2 - with base URL"
         },
         {
           label: "header-3",
@@ -62,7 +64,7 @@ export const dataMockup : Table = {
             {
               label: "r1-h2",
               headerId: "hid-2",
-              url: "http://example.com"
+              url: "http://example.com/some-page-1-2"
             },
             {
                 label: "r1-h3",
@@ -79,7 +81,8 @@ export const dataMockup : Table = {
               },
               {
                 label: "r2-h2",
-                headerId: "hid-2"
+                headerId: "hid-2",
+                url: "some-page-2-2"
               },
               {
                   label: "r2-h3",
@@ -97,12 +100,13 @@ export const dataMockup : Table = {
               {
                 label: "r3-h2",
                 headerId: "hid-2",
-                url: "http://example.com"
+                url: "some-page-3-2"
               },
               {
                   label: "r3-h3",
                   headerId: "hid-3",
-                  description: "description of row 3 header 3"
+                  description: "description of row 3 header 3",
+                  url: "some-page-3-3"
                 }
             ]
           }          
@@ -110,3 +114,4 @@ export const dataMockup : Table = {
       ]
     
   }
+

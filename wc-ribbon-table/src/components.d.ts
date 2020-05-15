@@ -13,7 +13,7 @@ export namespace Components {
   interface WcRibbonTable {
     'baseApiUrl': string;
     /**
-    * Must follow the appropriate json data model
+    * Must follow the appropriate JSON data model Can be given as either JSON or stringified JSON
     */
     'data': string;
     'groupBaseUrl': string;
@@ -38,7 +38,7 @@ declare namespace LocalJSX {
   interface WcRibbonTable {
     'baseApiUrl'?: string;
     /**
-    * Must follow the appropriate json data model
+    * Must follow the appropriate JSON data model Can be given as either JSON or stringified JSON
     */
     'data'?: string;
     'groupBaseUrl'?: string;

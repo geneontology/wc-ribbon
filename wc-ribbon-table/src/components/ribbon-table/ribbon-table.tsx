@@ -1,7 +1,9 @@
 import { Component, h } from '@stencil/core';
 
-import { dataMockup } from '../../globals/models';
+import { dataMockup, Table } from '../../globals/models';
 import { Prop } from '@stencil/core';
+
+import { addEndingSlash, removeBaseURL } from '../../globals/utils';
 
 // import { Table, Cell, Header, HeaderCell } from '../../globals/models';
 
@@ -18,11 +20,21 @@ export class RibbonTable {
   @Prop() groupBaseUrl: string = "http://amigo.geneontology.org/amigo/term/";
 
   /**
-   * Must follow the appropriate json data model
+   * Must follow the appropriate JSON data model
+   * Can be given as either JSON or stringified JSON
    */
   @Prop() data : string;
 
-  table = dataMockup;
+  /**
+   * Contains the data object with the correct model (see model.tsx)
+   */
+  table : Table = dataMockup;
+
+  /**
+   * Contains (header_id ; header)
+   * Used to speed up some cell processing (eg access baseURL)
+   */
+  headerMap;
 
   componentWillLoad() {
     if(this.data) {
@@ -31,6 +43,16 @@ export class RibbonTable {
       } else {
           this.table = this.data;
       }
+    }
+    if(this.table) {
+      this.createHeaderMap();
+    }
+  }
+
+  createHeaderMap() {
+    this.headerMap = new Map();
+    for(let header of this.table.header) {
+      this.headerMap.set(header.id, header);
     }
   }
 
@@ -61,8 +83,8 @@ export class RibbonTable {
   //   })
   // }      
 
-  render() {
 
+  render() {
     return (
       <div>
         <table class="table">
@@ -86,17 +108,27 @@ export class RibbonTable {
   }
 
   renderRows() {
+    console.log("data: ", this.table);
     return ( 
       this.table.rows.map( row => {
         return [
           <tr class="table__row">
             {
               row.cells.map( cell => {
+                let header = this.headerMap.get(cell.headerId);
+                let baseURL = header.baseURL;
+                baseURL = baseURL ? addEndingSlash(baseURL) : "";
+
+                let url = cell.url;
+                if(url && baseURL.length > 0) {
+                  url = baseURL + removeBaseURL(url);
+                }
+
                 return [
                     <td title={cell.description} class="table__row__cell">
                         { 
                           cell.url 
-                            ? <a href={cell.url} target={this.table.newTab ? "_blank" : "_self"}>{cell.label}</a> 
+                            ? <a href={url} target={this.table.newTab ? "_blank" : "_self"}>{cell.label}</a> 
                             : <div  onClick={cell.clickable ? (() => this.onCellClick(cell)) : () => "" }>{cell.label}</div>
                         }
                     </td>
