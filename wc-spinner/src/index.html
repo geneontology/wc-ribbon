@@ -3,15 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
-  <title>Stencil Component Starter</title>
+  <title>Web Component Spinner</title>
 
   <script type="module" src="/build/wc-spinner.esm.js"></script>
   <script nomodule src="/build/wc-spinner.js"></script>
 
+  <style>
+    html {
+      --color-primary: black;
+    }
+  </style>
+
 </head>
 <body>
 
-  <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
+  <wc-spinner spinner-style="ripple" spinner-color=blue spinner-size=80></wc-spinner>
 
 </body>
 </html>

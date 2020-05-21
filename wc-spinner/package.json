@@ -1,6 +1,6 @@
 {
-  "name": "wc-spinner",
-  "version": "0.0.1",
+  "name": "@geneontology/wc-spinner",
+  "version": "0.0.2",
   "description": "WebComponent Spinner",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

@@ -42,7 +42,7 @@ npm test
 
 ### Node Modules
 - Run `npm install wc-ribbon-strips --save`
-- Put a script tag similar to this `<script src='node_modules/wc-ribbon-strips/dist/wc-ribbon-strips.js'></script>` in the head of your index.html
+- Put a script tag similar to this `<script src='node_modules/@geneontology/wc-ribbon-strips/dist/wc-ribbon-strips.js'></script>` in the head of your index.html
 - Then you can use the element anywhere in your template, JSX, html etc
 
 ## More advanced integration

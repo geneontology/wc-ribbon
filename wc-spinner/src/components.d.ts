@@ -6,56 +6,56 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface MyComponent {
+    interface WcSpinner {
         /**
-          * The first name
+          * Define the color of the spinner. This parameter is optional and will override any declared CSS variable
          */
-        "first": string;
+        "spinnerColor": string;
         /**
-          * The last name
+          * Define the size of the spinner (TO DO).
          */
-        "last": string;
+        "spinnerSize": number;
         /**
-          * The middle name
+          * Define the style of the spinner. Accepted values: default, spinner, circle, ring, dual-ring, roller, ellipsis, grid, hourglass, ripple, facebook, heart
          */
-        "middle": string;
+        "spinnerStyle": string;
     }
 }
 declare global {
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    interface HTMLWcSpinnerElement extends Components.WcSpinner, HTMLStencilElement {
     }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    var HTMLWcSpinnerElement: {
+        prototype: HTMLWcSpinnerElement;
+        new (): HTMLWcSpinnerElement;
     };
     interface HTMLElementTagNameMap {
-        "my-component": HTMLMyComponentElement;
+        "wc-spinner": HTMLWcSpinnerElement;
     }
 }
 declare namespace LocalJSX {
-    interface MyComponent {
+    interface WcSpinner {
         /**
-          * The first name
+          * Define the color of the spinner. This parameter is optional and will override any declared CSS variable
          */
-        "first"?: string;
+        "spinnerColor"?: string;
         /**
-          * The last name
+          * Define the size of the spinner (TO DO).
          */
-        "last"?: string;
+        "spinnerSize"?: number;
         /**
-          * The middle name
+          * Define the style of the spinner. Accepted values: default, spinner, circle, ring, dual-ring, roller, ellipsis, grid, hourglass, ripple, facebook, heart
          */
-        "middle"?: string;
+        "spinnerStyle"?: string;
     }
     interface IntrinsicElements {
-        "my-component": MyComponent;
+        "wc-spinner": WcSpinner;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "wc-spinner": LocalJSX.WcSpinner & JSXBase.HTMLAttributes<HTMLWcSpinnerElement>;
         }
     }
 }
