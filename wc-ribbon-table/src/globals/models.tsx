@@ -21,7 +21,7 @@ export class RowCell extends Cell {
 
 export class Row {
     foldable?: boolean;
-    id?: string;
+    // id?: string;
     cells: RowCell[];
 }
 
@@ -50,11 +50,16 @@ export const dataMockup : Table = {
         {
           label: "header-3",
           id: "hid-3"
+        },
+        {
+          label: "header-4",
+          id: "hid-4"
         }
     ],
 
     rows: [
         {
+          // id: 1,
           cells: [
             {
               label: "r1-h1",
@@ -69,47 +74,84 @@ export const dataMockup : Table = {
             {
                 label: "r1-h3",
                 headerId: "hid-3"
+            },
+            {
+                label: "r1-h4",
+                headerId: "hid-4"
             }
           ]
         },
         
         {
-            cells: [
-              {
-                label: "r2-h1",
-                headerId: "hid-1"
-              },
-              {
-                label: "r2-h2",
-                headerId: "hid-2",
-                url: "some-page-2-2"
-              },
-              {
-                  label: "r2-h3",
-                  headerId: "hid-3"
-              }
-            ]
-          },
+          // id: 2,
+          cells: [
+            {
+              label: "r2-h1",
+              headerId: "hid-1"
+            },
+            {
+              label: "r2-h2",
+              headerId: "hid-2",
+              url: "some-page-2-2"
+            },
+            {
+                label: "r2-h3",
+                headerId: "hid-3"
+            },
+            {
+                label: "r2-h4",
+                headerId: "hid-4"
+            }
+          ]
+        },
 
-          {
-            cells: [
-              {
-                label: "r3-h1",
-                headerId: "hid-1"
-              },
-              {
-                label: "r3-h2",
-                headerId: "hid-2",
-                url: "some-page-3-2"
-              },
-              {
-                  label: "r3-h3",
-                  headerId: "hid-3",
-                  description: "description of row 3 header 3",
-                  url: "some-page-3-3"
-                }
-            ]
-          }          
+        {
+          // id: 3,
+          cells: [
+            {
+              label: "r3-h1",
+              headerId: "hid-1"
+            },
+            {
+              label: "r3-h2",
+              headerId: "hid-2",
+              url: "some-page-3-2"
+            },
+            {
+              label: "r3-h3",
+              headerId: "hid-3",
+              description: "description of row 3 header 3",
+              url: "some-page-3-3"
+            },
+            {
+                label: "r3-h4",
+                headerId: "hid-4"
+            }            
+          ]
+        },
+      
+        {
+          // id: 4,
+          cells: [
+            {
+              label: "r2-h1",
+              headerId: "hid-1"
+            },
+            {
+              label: "r2-h2",
+              headerId: "hid-2",
+              url: "some-page-2-2"
+            },
+            {
+                label: "r2-h3",
+                headerId: "hid-3"
+            },
+            {
+                label: "r2-h4",
+                headerId: "hid-4"
+            }
+          ]
+        }          
 
       ]
     

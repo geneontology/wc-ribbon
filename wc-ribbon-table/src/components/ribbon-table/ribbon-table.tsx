@@ -84,7 +84,57 @@ export class RibbonTable {
   // }      
 
 
+  /**
+   * Will group the table rows based on unique values in specified columns
+   * @param keyColumns ids of the columns to create unique rows
+   * @param filterRedudancy if true, the values of merged columns will be filtered
+   */
+  groupByColumns(keyColumns, filterRedudancy = true) {
+    var firstRow = this.table.rows[0].cells;
+    var otherCells = firstRow.filter(elt => !keyColumns.includes(elt.headerId));
+    var otherColumns = otherCells.map(elt => elt.headerId);
+    console.log("other cols: ", otherColumns);
+    
+    // building the list of unique rows
+    var uRows = new Map();
+    for(let i = 0; i < this.table.rows.length; i++) {
+      let row = this.table.rows[i];
+      let keyCells = row.cells.filter(elt => keyColumns.includes(elt.headerId));
+      let key = keyCells.map(elt => elt.label).join("-");
+
+      let rows = [];
+      if(uRows.has(key)) {
+        rows = uRows.get(key);
+      } else {
+        uRows.set(key, rows);
+      }
+      rows.push(row);
+    }
+    console.log("unique rows: ", uRows);
+
+    var newTable = { newTab: this.table.newTab, header : this.table.header, rows : [] }
+
+    for(let [urow, rrows] of uRows.entries()) {
+      console.log(urow , rrows);
+      let row = { cells: [] }
+
+      // recreating the key columns
+      for(let kc of keyColumns) {
+        let eqcell = rrows[0].cells.filter(elt => elt.headerId == kc);
+        row.cells.push(eqcell);
+      }
+
+      // now merging the other columns
+      for(let oc of otherColumns) {
+        // let orcell = 
+      }
+    }
+    return newTable;
+  }
+
+
   render() {
+    this.groupByColumns(["hid-1", "hid-3"], false);
     return (
       <div>
         <table class="table">
