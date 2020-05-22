@@ -455,7 +455,8 @@ export class RibbonStrips {
                                     return ;
                                 }
 
-                                return <th class="ribbon__category--cell"
+                                let classes = this.groupClickable ? "ribbon__category--cell clickable" : "ribbon__category--cell";
+                                return <th class={classes}
                                     id={groupKey(group)}
                                     title={group.id + ": " + group.label + "\n\n" + group.description}
                                     onMouseEnter={() => this.onGroupEnter(category, group)}
