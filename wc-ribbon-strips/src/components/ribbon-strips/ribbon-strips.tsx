@@ -6,6 +6,7 @@ import { truncate, groupKey, subjectGroupKey, arraysMatch } from '../../globals/
 import { COLOR_BY, POSITION, SELECTION, EXP_CODES, CELL_TYPES, FONT_CASE, FONT_STYLE } from '../../globals/enums';
 
 import { RibbonModel, RibbonCategory, RibbonGroup, RibbonSubject, RibbonCellEvent, RibbonCellClick, RibbonGroupEvent } from '../../globals/models';
+import { State } from '@stencil/core';
 
 
 @Component({
@@ -99,6 +100,8 @@ export class RibbonStrips {
      * if provided, will override any value provided in subjects and subset
      */
     @Prop() data : string;
+
+    @State() selectedGroup: RibbonGroup;
 
     @Event() cellClick: EventEmitter;
     @Event() cellEnter: EventEmitter;
@@ -296,11 +299,18 @@ export class RibbonStrips {
         this.previouslySelected = [];
 
         let selected : boolean[] = [];
+        let lastCell;
         for(let subject of subjects) {
             let cell = this.ribbonElement.querySelector("#" + subjectGroupKey(subject, group));
             cell.selected = !cell.selected;
             selected.push(cell.selected);
             this.previouslySelected.push(cell);
+            lastCell = cell;
+        }
+        if(lastCell.selected) {
+            this.selectedGroup = group;
+        } else {
+            this.selectedGroup = undefined;
         }
         return selected;
     }
@@ -316,8 +326,9 @@ export class RibbonStrips {
         this.cellClick.emit(event);
     }
 
-    onGroupClick(group) {
-        let event = { group : group }
+    onGroupClick(category, group) {
+        this.selectCells(this.ribbonSummary.subjects, group);
+        let event = { category : category, group : group }
         this.groupClick.emit(event);
     }
 
@@ -429,7 +440,7 @@ export class RibbonStrips {
                             title={this.groupAll.id + ": " + this.groupAll.label + "\n\n" + this.groupAll.description}
                             onMouseEnter={() => this.onGroupEnter(null, this.groupAll)}
                             onMouseLeave={() => this.onGroupLeave(null, this.groupAll)}
-                            onClick={ (this.groupClickable) ? () => this.onGroupClick(this.groupAll) : undefined }>
+                            onClick={ (this.groupClickable) ? () => this.onGroupClick(undefined, this.groupAll) : undefined }>
                             {this.applyCategoryStyling(this.groupAll.label)}  
                     </th>                
                     : ""
@@ -449,8 +460,8 @@ export class RibbonStrips {
                                     title={group.id + ": " + group.label + "\n\n" + group.description}
                                     onMouseEnter={() => this.onGroupEnter(category, group)}
                                     onMouseLeave={() => this.onGroupLeave(category, group)}
-                                    onClick={ (this.groupClickable) ? () => this.onGroupClick(group) : undefined }>
-                                    {this.applyCategoryStyling(group.label)}       
+                                    onClick={ (this.groupClickable) ? () => this.onGroupClick(category, group) : undefined }>
+                                    {this.selectedGroup == group ? <b>{this.applyCategoryStyling(group.label)}</b> : this.applyCategoryStyling(group.label) }       
                                 </th>
                             })
                         ];
