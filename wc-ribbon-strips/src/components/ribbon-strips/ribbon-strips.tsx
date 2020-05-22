@@ -2,10 +2,10 @@ import { h } from '@stencil/core';
 
 import { Component, Prop, Element, Event, EventEmitter } from '@stencil/core';
 
-import { truncate, darken, groupKey, subjectGroupKey, arraysMatch } from '../../globals/utils';
+import { truncate, groupKey, subjectGroupKey, arraysMatch } from '../../globals/utils';
 import { COLOR_BY, POSITION, SELECTION, EXP_CODES, CELL_TYPES, FONT_CASE, FONT_STYLE } from '../../globals/enums';
 
-import { RibbonModel, RibbonCategory, RibbonGroup, RibbonSubject, RibbonCellEvent, RibbonCellClick } from '../../globals/models';
+import { RibbonModel, RibbonCategory, RibbonGroup, RibbonSubject, RibbonCellEvent, RibbonCellClick, RibbonGroupEvent } from '../../globals/models';
 
 
 @Component({
@@ -105,6 +105,8 @@ export class RibbonStrips {
     @Event() cellLeave: EventEmitter;
 
     @Event() groupClick: EventEmitter;
+    @Event() groupEnter: EventEmitter;
+    @Event() groupLeave: EventEmitter;
 
     @Prop() ribbonSummary: RibbonModel;
     
@@ -180,6 +182,7 @@ export class RibbonStrips {
         })
     }    
 
+
     formerColor;
     formerColors;
     onCellEnter(subjects, group) {
@@ -192,12 +195,8 @@ export class RibbonStrips {
 
             for(let subject of subjects) {
                 let el = this.ribbonElement.querySelector("#" + subjectGroupKey(subject, group));
-                    
+                el.hovered = true;
                 el.style.cursor = "pointer";
-                this.formerColors.set(subject, el.style.background.replace(/[^\d,]/g, '').split(','));
-                let newColor = darken(this.formerColors.get(subject), 0.4);
-                el.style.background = "rgb(" + newColor.join(",") + ")";
-
             }
 
         } else {
@@ -215,9 +214,7 @@ export class RibbonStrips {
             el.style.cursor = nbAnnotations == 0 ? "not-allowed" : "pointer";
             
             if(nbAnnotations > 0) {
-                this.formerColor = el.style.background.replace(/[^\d,]/g, '').split(',');
-                let newColor = darken(this.formerColor, 0.4);
-                el.style.background = "rgb(" + newColor.join(",") + ")";
+                el.hovered = true;
 
                 // change header style
                 el = this.ribbonElement.querySelector("#" + groupKey(group));
@@ -237,19 +234,14 @@ export class RibbonStrips {
 
             for(let subject of subjects) {
                 let el = this.ribbonElement.querySelector("#" + subjectGroupKey(subject, group));
-                if(this.formerColors) {
-                    el.style.background = "rgb(" + this.formerColors.get(subject).join(",") + ")";
-                }
+                el.hovered = false;
             }
             this.formerColors = undefined;
 
         } else {
             // change the cell style
             let el = this.ribbonElement.querySelector("#" + subjectGroupKey(subjects, group));
-            if(this.formerColor) {
-                el.style.background = "rgb(" + this.formerColor.join(",") + ")";
-                this.formerColor = undefined;
-            }
+            el.hovered = false;
 
             // change the header style
             el = this.ribbonElement.querySelector("#" + groupKey(group));
@@ -259,8 +251,35 @@ export class RibbonStrips {
         this.cellLeave.emit(event);
     }
 
+    previouslyHovered = [];
+    overCells(subjects, group) {
+        if(!(subjects instanceof Array)) {
+            subjects = [subjects];
+        }
+
+        let subs = subjects.map(elt => elt.id + "@" + group.id);
+        let prevSubs = this.previouslyHovered.map(elt => elt.subject.id + "@" + elt.group.id);
+        let same = arraysMatch(subs, prevSubs);
+
+        if(!same) {
+            for(let cell of this.previouslyHovered) {
+                cell.hovered = false;
+            }
+        }
+        this.previouslyHovered = [];
+
+        let hovered : boolean[] = [];
+        for(let subject of subjects) {
+            let cell = this.ribbonElement.querySelector("#" + subjectGroupKey(subject, group));
+            cell.hovered = !cell.hovered;
+            hovered.push(cell.hovered);
+            this.previouslyHovered.push(cell);
+        }
+        return hovered;
+    }
+
     previouslySelected = [];
-    onCellClick(subjects, group) {
+    selectCells(subjects, group) {
         if(!(subjects instanceof Array)) {
             subjects = [subjects];
         }
@@ -283,6 +302,15 @@ export class RibbonStrips {
             selected.push(cell.selected);
             this.previouslySelected.push(cell);
         }
+        return selected;
+    }
+
+    onCellClick(subjects, group) {
+        if(!(subjects instanceof Array)) {
+            subjects = [subjects];
+        }
+        
+        let selected = this.selectCells(subjects, group);
 
         let event : RibbonCellClick = { subjects : subjects, group: group, selected : selected };
         this.cellClick.emit(event);
@@ -309,6 +337,18 @@ export class RibbonStrips {
                 this.loading = false;
             }
         );
+    }
+
+    onGroupEnter(category, group) {
+        this.overCells(this.ribbonSummary.subjects, group);
+        let event : RibbonGroupEvent = { subjects : this.ribbonSummary.subjects, category : category, group: group };
+        this.groupEnter.emit(event);        
+    }
+
+    onGroupLeave(category, group) {
+        this.overCells(this.ribbonSummary.subjects, group);
+        let event : RibbonGroupEvent = { subjects : this.ribbonSummary.subjects, category : category, group: group };
+        this.groupLeave.emit(event);        
     }
 
     render() {
@@ -387,6 +427,8 @@ export class RibbonStrips {
                     <th     class="ribbon__category--cell"
                             id={groupKey(this.groupAll)}
                             title={this.groupAll.id + ": " + this.groupAll.label + "\n\n" + this.groupAll.description}
+                            onMouseEnter={() => this.onGroupEnter(null, this.groupAll)}
+                            onMouseLeave={() => this.onGroupLeave(null, this.groupAll)}
                             onClick={ (this.groupClickable) ? () => this.onGroupClick(this.groupAll) : undefined }>
                             {this.applyCategoryStyling(this.groupAll.label)}  
                     </th>                
@@ -405,6 +447,8 @@ export class RibbonStrips {
                                 return <th class="ribbon__category--cell"
                                     id={groupKey(group)}
                                     title={group.id + ": " + group.label + "\n\n" + group.description}
+                                    onMouseEnter={() => this.onGroupEnter(category, group)}
+                                    onMouseLeave={() => this.onGroupLeave(category, group)}
                                     onClick={ (this.groupClickable) ? () => this.onGroupClick(group) : undefined }>
                                     {this.applyCategoryStyling(group.label)}       
                                 </th>

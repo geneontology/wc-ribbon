@@ -2,7 +2,7 @@ import { h } from '@stencil/core';
 
 import { Component, Prop, Element } from '@stencil/core';
 
-import { heatColor } from '../../globals/utils';
+import { heatColor, darken } from '../../globals/utils';
 import { COLOR_BY } from '../../globals/enums';
 
 import { RibbonGroup, RibbonSubject } from '../../globals/models';
@@ -29,11 +29,18 @@ export class RibbonCell {
     @Prop() maxHeatLevel = 48;
 
     @Prop() selected = false;
+    @Prop() hovered = false;
 
 
     cellColor(nbClasses, nbAnnotations) {
         var levels = (this.colorBy == COLOR_BY.CLASS_COUNT) ? nbClasses : nbAnnotations;
-        return heatColor(levels, this.maxHeatLevel, this.minColor, this.maxColor, this.binaryColor);
+        let newColor = heatColor(levels, this.maxHeatLevel, this.minColor, this.maxColor, this.binaryColor);
+        if(this.hovered) {
+            let tmp = newColor.replace(/[^\d,]/g, '').split(',');
+            let val = darken(tmp, 0.4);
+            newColor = "rgb(" + val.join(",") + ")";
+        }
+        return newColor;
     }
 
     render() {
@@ -60,6 +67,7 @@ export class RibbonCell {
         }
 
         let classes = (this.selected && nbAnnotations > 0) ? "ribbon__subject--cell clicked" : "ribbon__subject--cell"
+        classes += (this.hovered && nbAnnotations > 0) ? " hovered" : ""
         return (<td title={title} class={classes}> </td>);
     }
 

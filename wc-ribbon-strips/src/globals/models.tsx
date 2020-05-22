@@ -32,6 +32,12 @@ export class RibbonCellEvent {
     group : RibbonGroup;
 }
 
+export class RibbonGroupEvent {
+    subjects : [RibbonSubject];
+    category : RibbonCategory;
+    group : RibbonGroup;
+}
+
 export class RibbonCellClick extends RibbonCellEvent {
     selected : boolean[];
 }

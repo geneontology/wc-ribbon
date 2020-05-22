@@ -20,6 +20,7 @@ export namespace Components {
     'classLabels': string[];
     'colorBy': any;
     'group': RibbonGroup;
+    'hovered': boolean;
     'maxColor': number[];
     'maxHeatLevel': number;
     'minColor': number[];
@@ -133,6 +134,7 @@ declare namespace LocalJSX {
     'classLabels'?: string[];
     'colorBy'?: any;
     'group'?: RibbonGroup;
+    'hovered'?: boolean;
     'maxColor'?: number[];
     'maxHeatLevel'?: number;
     'minColor'?: number[];
@@ -182,6 +184,8 @@ declare namespace LocalJSX {
     'onCellEnter'?: (event: CustomEvent<any>) => void;
     'onCellLeave'?: (event: CustomEvent<any>) => void;
     'onGroupClick'?: (event: CustomEvent<any>) => void;
+    'onGroupEnter'?: (event: CustomEvent<any>) => void;
+    'onGroupLeave'?: (event: CustomEvent<any>) => void;
     'ribbonSummary'?: RibbonModel;
     /**
     * Click handling of a cell.  0 = select only the cell (1 subject, 1 group) 1 = select the whole column (all subjects, 1 group)
