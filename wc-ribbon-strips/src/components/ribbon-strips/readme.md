@@ -39,14 +39,14 @@
 
 ## Events
 
-| Event        | Description | Type               |
-| ------------ | ----------- | ------------------ |
-| `cellClick`  |             | `CustomEvent<any>` |
-| `cellEnter`  |             | `CustomEvent<any>` |
-| `cellLeave`  |             | `CustomEvent<any>` |
-| `groupClick` |             | `CustomEvent<any>` |
-| `groupEnter` |             | `CustomEvent<any>` |
-| `groupLeave` |             | `CustomEvent<any>` |
+| Event        | Description                                                         | Type               |
+| ------------ | ------------------------------------------------------------------- | ------------------ |
+| `cellClick`  | This event is triggered whenever a ribbon cell is clicked           | `CustomEvent<any>` |
+| `cellEnter`  | This event is triggered whenever the mouse enters a cell area       | `CustomEvent<any>` |
+| `cellLeave`  | This event is triggered whenever the mouse leaves a cell area       | `CustomEvent<any>` |
+| `groupClick` | This event is triggered whenever a group cell is clicked            | `CustomEvent<any>` |
+| `groupEnter` | This event is triggered whenever the mouse enters a group cell area | `CustomEvent<any>` |
+| `groupLeave` | This event is triggered whenever the mouse leaves a group cell area | `CustomEvent<any>` |
 
 
 ## Dependencies
