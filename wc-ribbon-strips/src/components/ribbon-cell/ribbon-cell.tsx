@@ -28,6 +28,11 @@ export class RibbonCell {
     @Prop() maxColor = [24, 73, 180];
     @Prop() maxHeatLevel = 48;
 
+    /**
+     * If set to true, won't show any color and can not be hovered or selected
+     * This is used for group that can not have annotation for a given subject
+     */
+    @Prop() available = true;
     @Prop() selected = false;
     @Prop() hovered = false;
 
@@ -44,6 +49,12 @@ export class RibbonCell {
     }
 
     render() {
+        if(!this.available) {
+            let title = this.subject.label + " can not have data for " + this.group.label;
+            let classes = "ribbon__subject--cell unavailable";
+            return (<td title={title} class={classes}> </td>);            
+        }
+
         let nbClasses = 0;
         let nbAnnotations = 0;
 

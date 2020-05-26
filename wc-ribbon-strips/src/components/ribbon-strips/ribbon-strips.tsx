@@ -103,12 +103,34 @@ export class RibbonStrips {
 
     @State() selectedGroup: RibbonGroup;
 
+    /**
+     * This event is triggered whenever a ribbon cell is clicked
+     */
     @Event() cellClick: EventEmitter;
+
+    /**
+     * This event is triggered whenever the mouse enters a cell area
+     */
     @Event() cellEnter: EventEmitter;
+
+    /**
+     * This event is triggered whenever the mouse leaves a cell area
+     */
     @Event() cellLeave: EventEmitter;
 
+    /**
+     * This event is triggered whenever a group cell is clicked
+     */
     @Event() groupClick: EventEmitter;
+
+    /**
+     * This event is triggered whenever the mouse enters a group cell area
+     */
     @Event() groupEnter: EventEmitter;
+
+    /**
+     * This event is triggered whenever the mouse leaves a group cell area 
+     */
     @Event() groupLeave: EventEmitter;
 
     @Prop() ribbonSummary: RibbonModel;
@@ -127,7 +149,10 @@ export class RibbonStrips {
 
 
 
-    componentWillLoad() {
+    /** 
+     * Once the component is loaded, fetch the data
+    */
+    componentDidLoad() {
         // Prioritize data if provided
         if(this.data) {
             // If was injected as string, transform to json
@@ -363,11 +388,12 @@ export class RibbonStrips {
     }
 
     render() {
-        // console.log("render:\n- loading: " , this.loading , "\n- summary: ", this.ribbonSummary);
+        // return [ "hello", <Spinner spinner-style='default' spinner-color='blue' style='display:block;width:100px;height:100px'/>]
 
         // Still loading (executing fetch)
         if(this.loading) {
-            return ( "Loading Ribbon..." );
+            // return ( "Loading Ribbon..." );
+            return <wc-spinner spinner-style='default' spinner-color='blue'></wc-spinner>
         }
 
         if(!this.subjects && !this.ribbonSummary) {
@@ -493,7 +519,7 @@ export class RibbonStrips {
                         {         
                             this.addCellAll ? 
                             <wc-ribbon-cell     class="ribbon__subject--cell"
-                                                id={subjectGroupKey(subject, this.groupAll)}
+                                                id={subjectGroupKey(subject, this.groupAll)}                                                
                                                 subject={subject} 
                                                 group={this.groupAll}
                                                 colorBy={this.colorBy}
@@ -510,17 +536,27 @@ export class RibbonStrips {
                                 return [
                                     <td class="ribbon__subject--separator"></td>,
                                     category.groups.map( (group : RibbonGroup) => {
-                                        let nbAnnotations = group.id in subject.groups ? subject.groups[group.id]["ALL"]["nb_annotations"] : 0;
-                                        // console.log("reading group: ", group , group.type == CELL_TYPES.OTHER);
+                                        let cell = group.id in subject.groups ? subject.groups[group.id] : undefined;
+
+                                        let nbAnnotations = cell ? cell["ALL"]["nb_annotations"] : 0;
+                                        
+                                        // by default the group should be available
+                                        let available = true;
+
+                                        // if a value was given, then override the default value
+                                        if(cell && cell.available) available = cell.available;
+
+                                        // TODO: fix the Cells of type "Other"
                                         if(group.type == CELL_TYPES.OTHER && !this.showOtherCategory) {
                                             return ;
                                         }
-                                        // TODO: that's where i can check for group.available; by default true if not here
+
                                         return(
                                         <wc-ribbon-cell     class={(nbAnnotations == 0 ? "ribbon__subject--cell--no-annotation" : "ribbon__subject--cell")}
                                                             id={subjectGroupKey(subject, group)}
                                                             subject={subject} 
                                                             group={group}
+                                                            available={available}
                                                             colorBy={this.colorBy}
                                                             binaryColor={this.binaryColor}
                                                             onClick={() => this.onCellClick(subjects, group)}

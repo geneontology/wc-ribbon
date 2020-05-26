@@ -16,6 +16,10 @@ import {
 export namespace Components {
   interface WcRibbonCell {
     'annotationLabels': string[];
+    /**
+    * If set to true, won't show any color and can not be hovered or selected This is used for group that can not have annotation for a given subject
+    */
+    'available': boolean;
     'binaryColor': boolean;
     'classLabels': string[];
     'colorBy': any;
@@ -130,6 +134,10 @@ declare global {
 declare namespace LocalJSX {
   interface WcRibbonCell {
     'annotationLabels'?: string[];
+    /**
+    * If set to true, won't show any color and can not be hovered or selected This is used for group that can not have annotation for a given subject
+    */
+    'available'?: boolean;
     'binaryColor'?: boolean;
     'classLabels'?: string[];
     'colorBy'?: any;
@@ -180,11 +188,29 @@ declare namespace LocalJSX {
     'maxColor'?: number[];
     'maxHeatLevel'?: number;
     'minColor'?: number[];
+    /**
+    * This event is triggered whenever a ribbon cell is clicked
+    */
     'onCellClick'?: (event: CustomEvent<any>) => void;
+    /**
+    * This event is triggered whenever the mouse enters a cell area
+    */
     'onCellEnter'?: (event: CustomEvent<any>) => void;
+    /**
+    * This event is triggered whenever the mouse leaves a cell area
+    */
     'onCellLeave'?: (event: CustomEvent<any>) => void;
+    /**
+    * This event is triggered whenever a group cell is clicked
+    */
     'onGroupClick'?: (event: CustomEvent<any>) => void;
+    /**
+    * This event is triggered whenever the mouse enters a group cell area
+    */
     'onGroupEnter'?: (event: CustomEvent<any>) => void;
+    /**
+    * This event is triggered whenever the mouse leaves a group cell area
+    */
     'onGroupLeave'?: (event: CustomEvent<any>) => void;
     'ribbonSummary'?: RibbonModel;
     /**

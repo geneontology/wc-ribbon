@@ -35,5 +35,7 @@
   "homepage": "https://github.com/geneontology/wc-ribbon#readme",
   "author": "Laurent-Philippe Albou",
   "license": "BSD-3",
-  "dependencies": {}
+  "dependencies": {
+    "@geneontology/wc-spinner": "0.0.2"
+  }
 }

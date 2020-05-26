@@ -45,6 +45,8 @@
 | `cellEnter`  |             | `CustomEvent<any>` |
 | `cellLeave`  |             | `CustomEvent<any>` |
 | `groupClick` |             | `CustomEvent<any>` |
+| `groupEnter` |             | `CustomEvent<any>` |
+| `groupLeave` |             | `CustomEvent<any>` |
 
 
 ## Dependencies
