@@ -2,9 +2,11 @@
 
 # Ribbon Web Component
 
-This Web Component is divided in two parts:
+This Web Component is divided in three parts:
 - wc-ribbon-strips : graphical part of the ribbon with cells
 - wc-ribbon-table (under development) : a table to load the association data upon a click of a cell
+- wc-spinner: simple spinner shared across components and used when loading data
 
 An integrated simple to use Web Component that uses both these parts will be available in the folder wc-ribbon
 
+An example of web integration is available in the web/ folder
