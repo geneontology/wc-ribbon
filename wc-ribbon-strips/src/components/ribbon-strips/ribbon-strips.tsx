@@ -104,7 +104,9 @@ export class RibbonStrips {
 
     @Watch('data')
     dataChanged(newValue, oldValue) {
-        this.loadData(newValue);
+        if(newValue != oldValue) {
+            this.loadData(newValue);
+        }
     }
 
     @State() selectedGroup: RibbonGroup;
