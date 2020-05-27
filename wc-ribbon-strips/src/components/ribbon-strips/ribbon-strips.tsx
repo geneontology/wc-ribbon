@@ -7,6 +7,7 @@ import { COLOR_BY, POSITION, SELECTION, EXP_CODES, CELL_TYPES, FONT_CASE, FONT_S
 
 import { RibbonModel, RibbonCategory, RibbonGroup, RibbonSubject, RibbonCellEvent, RibbonCellClick, RibbonGroupEvent } from '../../globals/models';
 import { State } from '@stencil/core';
+import { Watch } from '@stencil/core';
 
 
 @Component({
@@ -101,6 +102,11 @@ export class RibbonStrips {
      */
     @Prop() data : string;
 
+    @Watch('data')
+    dataChanged(newValue, oldValue) {
+        this.loadData(newValue);
+    }
+
     @State() selectedGroup: RibbonGroup;
 
     /**
@@ -148,23 +154,27 @@ export class RibbonStrips {
 
 
 
+    loadData(data) {
+        if(data) {
+            // If was injected as string, transform to json
+            if(typeof data == "string") {
+                this.ribbonSummary = JSON.parse(data);
+            } else {
+                this.ribbonSummary = data;
+            }
+            this.loading = false;
+            this.subjects = this.ribbonSummary.subjects.map((elt => elt.id )).join(",");
+            return;
+        }        
+    }
+
 
     /** 
      * Once the component is loaded, fetch the data
     */
     componentDidLoad() {
         // Prioritize data if provided
-        if(this.data) {
-            // If was injected as string, transform to json
-            if(typeof this.data == "string") {
-                this.ribbonSummary = JSON.parse(this.data);
-            } else {
-                this.ribbonSummary = this.data;
-            }
-            this.loading = false;
-            this.subjects = this.ribbonSummary.subjects.map((elt => elt.id )).join(",");
-            return;
-        }
+        this.loadData(this.data);
 
         // If no subjects were provided, don't try to fetch data
         if(!this.subjects) {
