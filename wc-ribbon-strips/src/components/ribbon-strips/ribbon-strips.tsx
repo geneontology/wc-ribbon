@@ -93,6 +93,22 @@ export class RibbonStrips {
     @Prop() selectionMode = SELECTION.COLUMN;
 
     /**
+     * If no value is provided, the ribbon will load without any group selected.
+     * If a value is provided, the ribbon will show the requested group as selected
+     * The value should be the id of the group to be selected
+     */
+    @Prop() selected;
+    
+    // @Watch('selected')
+    // selectedChanged(newValue, oldValue) {
+    //     console.log("selectedChanged(", newValue , oldValue , ")");
+    //     if(newValue != oldValue) {
+    //         let gp = this.getGroup(newValue);
+    //         this.selectCells(this.ribbonSummary.subjects, gp);
+    //     }
+    // }
+
+    /**
      * add a cell at the beginning of each row/subject to show all annotations
      */
     @Prop() addCellAll: boolean = true;
@@ -171,6 +187,17 @@ export class RibbonStrips {
         return false;
     }
 
+    getGroup(group_id) {
+        if(!this.ribbonSummary)
+            return null;
+        for(let cat of this.ribbonSummary.categories) {
+            for(let gp of cat.groups) {
+                if(gp.id == group_id)
+                    return gp;
+            }
+        }
+        return null;
+    }
 
     /** 
      * Once the component is loaded, fetch the data
@@ -192,13 +219,20 @@ export class RibbonStrips {
             data => {
                 this.ribbonSummary = data;
                 this.loading = false;
-                console.log("RS: " , this.ribbonSummary);
             },
             error => {
                 console.error(error);
                 this.loading = false;
             }
         );
+    }
+
+    componentDidRender() {
+        if(this.selected) {
+            let gp = this.getGroup(this.selected);
+            this.selectCells(this.ribbonSummary.subjects, gp);            
+            this.selected = null;
+        }
     }
 
     fetchData(subjects) {
@@ -380,7 +414,6 @@ export class RibbonStrips {
             data => {
                 this.ribbonSummary = data;
                 this.loading = false;
-                console.log("RS: " , this.ribbonSummary);
             },
             error => {
                 console.error(error);

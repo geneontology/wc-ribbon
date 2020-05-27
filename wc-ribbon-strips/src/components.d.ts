@@ -72,6 +72,10 @@ export namespace Components {
     'minColor': number[];
     'ribbonSummary': RibbonModel;
     /**
+    * If no value is provided, the ribbon will load without any group selected. If a value is provided, the ribbon will show the requested group as selected The value should be the id of the group to be selected
+    */
+    'selected': any;
+    /**
     * Click handling of a cell.  0 = select only the cell (1 subject, 1 group) 1 = select the whole column (all subjects, 1 group)
     */
     'selectionMode': any;
@@ -213,6 +217,10 @@ declare namespace LocalJSX {
     */
     'onGroupLeave'?: (event: CustomEvent<any>) => void;
     'ribbonSummary'?: RibbonModel;
+    /**
+    * If no value is provided, the ribbon will load without any group selected. If a value is provided, the ribbon will show the requested group as selected The value should be the id of the group to be selected
+    */
+    'selected'?: any;
     /**
     * Click handling of a cell.  0 = select only the cell (1 subject, 1 group) 1 = select the whole column (all subjects, 1 group)
     */
