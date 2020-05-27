@@ -148,7 +148,7 @@ export class RibbonStrips {
 
 
     groupAll : RibbonGroup = {
-        id: "All",
+        id: "all",
         label: "all annotations",
         description: "Show all annotations for all categories",
         type: "GlobalAll"
