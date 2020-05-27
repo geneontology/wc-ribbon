@@ -190,6 +190,8 @@ export class RibbonStrips {
     getGroup(group_id) {
         if(!this.ribbonSummary)
             return null;
+        if(group_id == "all")
+            return this.groupAll;
         for(let cat of this.ribbonSummary.categories) {
             for(let gp of cat.groups) {
                 if(gp.id == group_id)
