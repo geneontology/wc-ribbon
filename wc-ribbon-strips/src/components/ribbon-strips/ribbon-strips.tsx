@@ -166,8 +166,9 @@ export class RibbonStrips {
             }
             this.loading = false;
             this.subjects = this.ribbonSummary.subjects.map((elt => elt.id )).join(",");
-            return;
-        }        
+            return true;
+        }
+        return false;
     }
 
 
@@ -176,7 +177,8 @@ export class RibbonStrips {
     */
     componentDidLoad() {
         // Prioritize data if provided
-        this.loadData(this.data);
+        if(this.loadData(this.data))
+            return;
 
         // If no subjects were provided, don't try to fetch data
         if(!this.subjects) {
