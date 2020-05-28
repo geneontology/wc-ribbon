@@ -14,6 +14,13 @@
 | `subjectBaseURL` | `subject-base-u-r-l` |             | `string`                                                                                                                          | `undefined` |
 
 
+## Events
+
+| Event          | Description                                                                                                                                           | Type               |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| `subjectClick` | This event is triggered whenever a subject label is clicked Can call preventDefault() to avoid the default behavior (opening the linked subject page) | `CustomEvent<any>` |
+
+
 ## Dependencies
 
 ### Used by
