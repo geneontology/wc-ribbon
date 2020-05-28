@@ -232,7 +232,7 @@ export class RibbonStrips {
     }
 
     componentDidRender() {
-        if(this.selected) {
+        if(this.selected && this.ribbonSummary) {
             let gp = this.getGroup(this.selected);
             this.selectCells(this.ribbonSummary.subjects, gp);            
             this.selected = null;
