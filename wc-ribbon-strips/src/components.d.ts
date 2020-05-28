@@ -241,6 +241,10 @@ declare namespace LocalJSX {
   }
   interface WcRibbonSubject {
     'newTab'?: boolean;
+    /**
+    * This event is triggered whenever a subject label is clicked Can call preventDefault() to avoid the default behavior (opening the linked subject page)
+    */
+    'onSubjectClick'?: (event: CustomEvent<any>) => void;
     'subject'?: {
       id: string,
       label: string,

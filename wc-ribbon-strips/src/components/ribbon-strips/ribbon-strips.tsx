@@ -130,32 +130,34 @@ export class RibbonStrips {
     /**
      * This event is triggered whenever a ribbon cell is clicked
      */
-    @Event() cellClick: EventEmitter;
+    @Event({eventName: 'cellClick', cancelable: true, bubbles: true}) cellClick: EventEmitter;
 
     /**
      * This event is triggered whenever the mouse enters a cell area
      */
-    @Event() cellEnter: EventEmitter;
+    @Event({eventName: 'cellEnter', cancelable: true, bubbles: true}) cellEnter: EventEmitter;
 
     /**
      * This event is triggered whenever the mouse leaves a cell area
      */
-    @Event() cellLeave: EventEmitter;
+    @Event({eventName: 'cellLeave', cancelable: true, bubbles: true}) cellLeave: EventEmitter;
 
     /**
      * This event is triggered whenever a group cell is clicked
      */
-    @Event() groupClick: EventEmitter;
+    @Event({eventName: 'groupClick', cancelable: true, bubbles: true}) groupClick: EventEmitter;
 
     /**
      * This event is triggered whenever the mouse enters a group cell area
      */
-    @Event() groupEnter: EventEmitter;
+    @Event({eventName: 'groupEnter', cancelable: true, bubbles: true}) groupEnter: EventEmitter;
 
     /**
      * This event is triggered whenever the mouse leaves a group cell area 
      */
-    @Event() groupLeave: EventEmitter;
+    @Event({eventName: 'groupLeave', cancelable: true, bubbles: true}) groupLeave: EventEmitter;
+
+
 
     @Prop() ribbonSummary: RibbonModel;
     
@@ -560,9 +562,13 @@ export class RibbonStrips {
                     <tr class="ribbon__subject">
                     
                         {
-                            this.subjectPosition == POSITION.LEFT ? <wc-ribbon-subject  class="ribbon__subject__label--left"
-                                                subject={subject} 
-                                                subjectBaseURL={this.subjectBaseUrl} newTab={this.subjectOpenNewTab}/> : ""
+                            this.subjectPosition == POSITION.LEFT 
+                                                ? <wc-ribbon-subject    class="ribbon__subject__label--left"
+                                                                        subject={subject} 
+                                                                        subjectBaseURL={this.subjectBaseUrl}
+                                                                        
+                                                                        newTab={this.subjectOpenNewTab}/> 
+                                                : ""
                         }
 
                         {         
@@ -620,9 +626,12 @@ export class RibbonStrips {
                         }
 
                         {
-                            this.subjectPosition == POSITION.RIGHT ? <wc-ribbon-subject  class="ribbon__subject__label--right"
-                                                subject={subject} 
-                                                subjectBaseURL={this.subjectBaseUrl} newTab={this.subjectOpenNewTab}/> : ""
+                            this.subjectPosition == POSITION.RIGHT 
+                                                ? <wc-ribbon-subject    class="ribbon__subject__label--right"
+                                                                        subject={subject} 
+                                                                        subjectBaseURL={this.subjectBaseUrl} 
+                                                                        newTab={this.subjectOpenNewTab}/> 
+                                                : ""
                         }
                         
                     </tr>

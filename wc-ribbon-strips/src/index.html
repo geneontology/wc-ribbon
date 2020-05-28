@@ -50,14 +50,21 @@
           await document.body.appendChild(element);
 
           // add a listener whenever a cell is clicked
-          document.addEventListener('cellClick', function hideMenu(e, v) {
-            console.log('Cell Clicked' , e.detail);
+          document.addEventListener('cellClick', function cellClicked(event) {
+            console.log('Cell Clicked' , event);
           });
 
           // add a listener whenever a group is clicked
-          document.addEventListener('groupClick', function hideMenu(e, v) {
-            console.log('Group Clicked' , e.detail);
+          document.addEventListener('groupClick', function groupClicked(event) {
+            console.log('Group Clicked' , event);
           });
+
+          // add a listener whenever a subject is clicked
+          document.addEventListener('subjectClick', function subjectClicked(event) {
+            console.log('Subject Clicked' , event);
+            // event.detail.originalEvent.preventDefault(); // can use that to override default behavior
+          });
+
         }
 
         loadData();
