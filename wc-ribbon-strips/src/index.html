@@ -13,11 +13,14 @@
 
   <!-- <wc-ribbon-strips subjects="RGD:620474,RGD:3889" /> -->
 
+  <div style="width:1400px" id="ribbon-container"></div>
+
 
   <script>
 
         let baseAPIURL = "http://api.geneontology.org/api/ontology/ribbon/";
-        let subjects = ["RGD:620474","RGD:3889"].join("&subject=");
+        // let subjects = ["RGD:620474","RGD:3889"].join("&subject=");
+        let subjects = ["UniProtKB:Q9BYF1", "UniProtKB:O15393"].join("&subject=");
         let query = baseAPIURL + '?subset=goslim_agr&subject=' + subjects;
         console.log('API query is ' + query);
 
@@ -39,15 +42,17 @@
 
           // create the ribbon strips element
           var element = await document.createElement("wc-ribbon-strips");
-          // element.setAttribute("add-cell-all", "true");
+          element.setAttribute("add-cell-all", "false");
           element.setAttribute("data", JSON.stringify(data));
           element.setAttribute("binary-color", "false");
-          element.setAttribute("category-all-style", 1);
+          element.setAttribute("category-all-style", 0);
           element.setAttribute("new-tab", "true");
           element.setAttribute("selection-mode", 1);
           element.setAttribute("subject-position", 1);
-          element.setAttribute("selected", "all");
-          await document.body.appendChild(element);
+          // element.setAttribute("selected", "all");
+
+          var parent = document.getElementById("ribbon-container");
+          await parent.appendChild(element);
 
           // add a listener whenever a cell is clicked
           document.addEventListener('cellClick', function cellClicked(event) {
