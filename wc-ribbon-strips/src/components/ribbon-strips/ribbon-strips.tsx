@@ -90,7 +90,7 @@ export class RibbonStrips {
      * 0 = select only the cell (1 subject, 1 group)
      * 1 = select the whole column (all subjects, 1 group)
      */
-    @Prop() selectionMode = SELECTION.COLUMN;
+    @Prop() selectionMode = SELECTION.CELL;
 
     /**
      * If no value is provided, the ribbon will load without any group selected.
@@ -98,6 +98,13 @@ export class RibbonStrips {
      * The value should be the id of the group to be selected
      */
     @Prop() selected;
+
+    /**
+     * If true, the ribbon will fire an event if a user click an empty cell
+     * If false, the ribbon will not fire the event on an empty cell
+     * Note: if selectionMode == SELECTION.COLUMN, then the event will trigger if at least one of the selected cells has annotations
+     */
+    @Prop() fireEventOnEmptyCells = false;
     
     // @Watch('selected')
     // selectedChanged(newValue, oldValue) {
@@ -395,6 +402,21 @@ export class RibbonStrips {
     onCellClick(subjects, group) {
         if(!(subjects instanceof Array)) {
             subjects = [subjects];
+        }
+
+        // if don't fire events on empty cells
+        if(!this.fireEventOnEmptyCells) {
+            let hasAnnotations = false;
+            // if single cell selection, check if it has annotations
+            if(this.selectionMode == SELECTION.CELL) {
+                hasAnnotations = group.id in subjects[0].groups && subjects[0].groups[group.id]["ALL"]["nb_annotations"] > 0;
+            // if multiple cells selection, check if at least one has annotations
+            } else {
+                for(let sub of subjects) {
+                    hasAnnotations = hasAnnotations || (group.id in sub.groups && sub.groups[group.id]["ALL"]["nb_annotations"] > 0);
+                }    
+            }
+            if(!hasAnnotations) { return; }
         }
         
         let selected = this.selectCells(subjects, group);

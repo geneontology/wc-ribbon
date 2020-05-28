@@ -1,6 +1,6 @@
 {
   "name": "@geneontology/wc-ribbon-strips",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Ribbon Strips Web Component",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

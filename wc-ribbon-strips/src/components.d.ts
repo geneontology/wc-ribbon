@@ -63,6 +63,10 @@ export namespace Components {
     * if provided, will override any value provided in subjects and subset
     */
     'data': string;
+    /**
+    * If true, the ribbon will fire an event if a user click an empty cell If false, the ribbon will not fire the event on an empty cell Note: if selectionMode == SELECTION.COLUMN, then the event will trigger if at least one of the selected cells has annotations
+    */
+    'fireEventOnEmptyCells': boolean;
     'groupBaseUrl': string;
     'groupClickable': boolean;
     'groupMaxLabelSize': number;
@@ -185,6 +189,10 @@ declare namespace LocalJSX {
     * if provided, will override any value provided in subjects and subset
     */
     'data'?: string;
+    /**
+    * If true, the ribbon will fire an event if a user click an empty cell If false, the ribbon will not fire the event on an empty cell Note: if selectionMode == SELECTION.COLUMN, then the event will trigger if at least one of the selected cells has annotations
+    */
+    'fireEventOnEmptyCells'?: boolean;
     'groupBaseUrl'?: string;
     'groupClickable'?: boolean;
     'groupMaxLabelSize'?: number;

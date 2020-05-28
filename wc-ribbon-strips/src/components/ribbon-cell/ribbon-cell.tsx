@@ -48,6 +48,26 @@ export class RibbonCell {
         return newColor;
     }
 
+    getNbClasses() {
+        if(this.group.type == "GlobalAll") {
+            return this.subject.nb_classes;
+        } else {
+            return this.group.id in this.subject.groups ? this.subject.groups[this.group.id]["ALL"]["nb_classes"] : 0;;
+        }
+    }
+
+    getNbAnnotations() {
+        if(this.group.type == "GlobalAll") {
+            return this.subject.nb_annotations;
+        } else {
+            return this.group.id in this.subject.groups ? this.subject.groups[this.group.id]["ALL"]["nb_annotations"] : 0;;
+        }
+    }
+
+    hasAnnotations() {
+        return this.getNbAnnotations() > 0;
+    }
+
     render() {
         if(!this.available) {
             let title = this.subject.label + " can not have data for " + this.group.label;
@@ -55,26 +75,16 @@ export class RibbonCell {
             return (<td title={title} class={classes}> </td>);            
         }
 
-        let nbClasses = 0;
-        let nbAnnotations = 0;
-
-        if(this.group.type == "GlobalAll") {
-            nbClasses = this.subject.nb_classes;
-            nbAnnotations = this.subject.nb_annotations;
-        } else {
-            nbClasses = this.group.id in this.subject.groups ? this.subject.groups[this.group.id]["ALL"]["nb_classes"] : 0;
-            nbAnnotations = this.group.id in this.subject.groups ? this.subject.groups[this.group.id]["ALL"]["nb_annotations"] : 0;
-        }
+        let nbClasses = this.getNbClasses();
+        let nbAnnotations = this.getNbAnnotations();
 
         let title = "Subject: " + this.subject.id + ":" + this.subject.label + "\n\nGroup: " + this.group.id + ": " + this.group.label;
+        
         if (nbAnnotations > 0) {
             title += "\n\n" + nbClasses + " " + (nbClasses > 1 ? this.classLabels[1] : this.classLabels[0]) + ", " + nbAnnotations + " " + (nbAnnotations > 1 ? this.annotationLabels[1] : this.annotationLabels[0]);
+            this.el.style.setProperty('background', this.cellColor(nbClasses, nbAnnotations));
         } else {
             title += "\n\nNo data available";
-        }
-
-        if(nbAnnotations > 0) {
-            this.el.style.setProperty('background', this.cellColor(nbClasses, nbAnnotations));
         }
 
         let classes = (this.selected && nbAnnotations > 0) ? "ribbon__subject--cell clicked" : "ribbon__subject--cell"
