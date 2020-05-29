@@ -91,7 +91,7 @@ export class RibbonTable {
 
     var newTable = { newTab: this.table.newTab, header : this.table.header, rows : [] }
 
-    for(let [urow, rrows] of uRows.entries()) {
+    for(let rrows of uRows.values()) {
       // console.log(urow , rrows);
       let row = { cells: [] }
 
@@ -116,7 +116,10 @@ export class RibbonTable {
           supercell.foldable = otherCell.foldable;
           supercell.selectable = otherCell.selectable;
           // console.log("-- othercell: " , otherCell);
+          
+          // TODO: can include test here for filder redudancy
           for(let val of otherCell.values) {
+            if(filterRedudancy) { }
             supercell.values.push(val);            
           }
         }
