@@ -138,24 +138,45 @@
           table.rows.push({
             cells: [
               {
-                label: assoc.subject.label,
                 headerId: "gene",
-                url : assoc.subject.id
+                values : [
+                  {
+                    label: assoc.subject.label,
+                    url : assoc.subject.id
+                  }
+                ]
               },
+
               {
-                label: assoc.object.label,
                 headerId: "term",
-                url : assoc.object.id
+                values : [
+                  {
+                    label: assoc.object.label,
+                    url : assoc.object.id
+                  }
+                ]
               },
+
               {
-                label: assoc.evidence_type,
                 headerId: "evidence",
-                url: assoc.evidence.replace(":", "_")
+                values : [
+                  {
+                    label: assoc.evidence_type,
+                    url : assoc.evidence.replace(":", "_")
+                  }
+                ]
               },
+
               {
-                label: assoc.reference.join("; "),
-                headerId: "reference"
+                headerId: "reference",
+                values : [
+                  {
+                    label: assoc.reference.join("; "),
+                    url : assoc.evidence.replace(":", "_")
+                  }
+                ]
               }
+
             ]
           })
         }
