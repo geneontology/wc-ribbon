@@ -20,6 +20,12 @@ export class RibbonTable {
   @Prop() groupBaseUrl: string = "http://amigo.geneontology.org/amigo/term/";
 
   /**
+   * Using this parameter, the table rows can bee grouped based on column ids
+   * Example: hid-1,hid-3
+   */
+  @Prop() groupBy: string;
+
+  /**
    * Must follow the appropriate JSON data model
    * Can be given as either JSON or stringified JSON
    */
@@ -133,7 +139,11 @@ export class RibbonTable {
 
 
   render() {
-    let table = this.groupByColumns(["hid-1", "hid-3"], false);
+    let table = this.table;
+    if(this.groupBy) {
+      table = this.groupByColumns(this.groupBy.split(","), false);
+    }
+
     // console.log("TABLE:", table);
     return (
       <div>
