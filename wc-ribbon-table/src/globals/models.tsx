@@ -147,7 +147,7 @@ export const dataMockup : Table = {
                 headerId: "hid-3"
             },
             {
-                label: "r2-h4",
+                label: "r2x-h4x",
                 headerId: "hid-4"
             }
           ]

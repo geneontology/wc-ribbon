@@ -56,32 +56,9 @@ export class RibbonTable {
     }
   }
 
-  // fetchData() {
-  //   let url = "https://api.geneontology.org/api/bioentityset/slimmer/function?slim=GO:0002376&subject=HGNC:11998&rows=-1";    
-  // }
-
-  // fetchData(subjects, group) {
-  //   if(subjects.includes(",")) {
-  //       subjects = subjects.split(",");
-  //   }
-  //   if(subjects instanceof Array) {
-  //       subjects = subjects.join('&subject=');
-  //   }
-
-  //   let query = this.baseApiUrl + '?subset=' + this.subset + '&subject=' + subjects;
-  //   if(this.onlyExperimental) {
-  //       query += EXP_CODES.map(exp => "&ecodes=" + exp).join("");
-  //   }
-  //   console.log('API query is ' + query);
-
-  //   return fetch(query)
-  //   .then( (response : Response) => {
-  //       return response.json();
-  //   })
-  //   .catch( (error) => {
-  //       return error;
-  //   })
-  // }      
+  mergeCells(cells) {
+    return cells;
+  }
 
 
   /**
@@ -126,7 +103,13 @@ export class RibbonTable {
 
       // now merging the other columns
       for(let oc of otherColumns) {
-        // let orcell = 
+        let values = [];
+        for(let eqrow of rrows) {
+          let otherCell = eqrow.cells.filter(elt => elt.headerId == oc)
+          values.push(otherCell[0]);
+        }
+        console.log("values of", urow , ", ", oc , ": ", values);
+        // row.cells.push(mergedCells);
       }
     }
     return newTable;
