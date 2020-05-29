@@ -1,3 +1,12 @@
+export class SuperCell {
+  id?: string;
+  headerId: string;
+  clickable?: boolean;
+  selectable?: boolean;
+  foldable?: boolean;
+  values: Cell[];
+}
+
 export class Cell {
     id?: string;
     label: string;
@@ -15,14 +24,14 @@ export class HeaderCell extends Cell {
     foldListThr?: number;   // if defined, fold the cells that have more than X items
 }
 
-export class RowCell extends Cell {
-    headerId: string;
-}
+// export class RowCell extends Cell {
+//     headerId: string;
+// }
 
 export class Row {
     foldable?: boolean;
     // id?: string;
-    cells: RowCell[];
+    cells: SuperCell[];
 }
 
 export class Table {
@@ -62,22 +71,38 @@ export const dataMockup : Table = {
           // id: 1,
           cells: [
             {
-              label: "r1-h1",
               headerId: "hid-1",
-              description: "description of row 1 header 1"
+              values: [
+                {
+                  label: "r1-h1",
+                  description: "description of row 1 header 1"
+                }
+              ]
             },
             {
-              label: "r1-h2",
               headerId: "hid-2",
-              url: "http://example.com/some-page-1-2"
+              values: [
+                {
+                  label: "r1-h2",
+                  url: "http://example.com/some-page-1-2"
+                }
+              ]
             },
             {
-                label: "r1-h3",
-                headerId: "hid-3"
+              headerId: "hid-3",
+              values: [
+                {
+                    label: "r1-h3",
+                }
+              ]
             },
             {
-                label: "r1-h4",
-                headerId: "hid-4"
+              headerId: "hid-4",
+              values: [
+                {
+                    label: "r1-h4",
+                }
+              ]
             }
           ]
         },
@@ -86,21 +111,37 @@ export const dataMockup : Table = {
           // id: 2,
           cells: [
             {
-              label: "r2-h1",
-              headerId: "hid-1"
+              headerId: "hid-1",
+              values: [
+                {
+                  label: "r2-h1",
+                }
+              ]
             },
             {
-              label: "r2-h2",
               headerId: "hid-2",
-              url: "some-page-2-2"
+              values: [
+                {
+                  label: "r2-h2",
+                  url: "some-page-2-2"
+                }
+              ]
             },
             {
-                label: "r2-h3",
-                headerId: "hid-3"
+              headerId: "hid-3",
+              values: [
+                {
+                    label: "r2-h3",
+                }
+              ]
             },
             {
-                label: "r2-h4",
-                headerId: "hid-4"
+              headerId: "hid-4",
+              values: [
+                {
+                    label: "r2-h4",
+                }
+              ]
             }
           ]
         },
@@ -109,24 +150,45 @@ export const dataMockup : Table = {
           // id: 3,
           cells: [
             {
-              label: "r3-h1",
-              headerId: "hid-1"
+              headerId: "hid-1",
+              values: [
+                {
+                  label: "r3-h1",
+                }
+              ]
             },
             {
-              label: "r3-h2",
               headerId: "hid-2",
-              url: "some-page-3-2"
+              values: [
+                {
+                  label: "r3-h2",
+                  url: "some-page-3-2"
+                }
+              ]
             },
             {
-              label: "r3-h3",
               headerId: "hid-3",
-              description: "description of row 3 header 3",
-              url: "some-page-3-3"
+              values: [
+                {
+                  label: "r3-h3",
+                  description: "description of row 3 header 3",
+                  url: "some-page-3-3"
+                }
+              ]
             },
             {
-                label: "r3-h4",
-                headerId: "hid-4"
-            }            
+              headerId: "hid-4",
+              values: [
+                {
+                    label: "r3-h4a",
+                    url: "some-page-3-4a"
+                }, 
+                {
+                  label: "r3-h4b",
+                  url: "some-page-3-4b"
+                }            
+              ]
+            }
           ]
         },
       
@@ -134,21 +196,37 @@ export const dataMockup : Table = {
           // id: 4,
           cells: [
             {
-              label: "r2-h1",
-              headerId: "hid-1"
+              headerId: "hid-1",
+              values: [
+                {
+                  label: "r2-h1",
+                }
+              ]
             },
             {
-              label: "r2-h2",
               headerId: "hid-2",
-              url: "some-page-2-2"
+              values: [
+                {
+                  label: "r2-h2",
+                  url: "some-page-2-2"
+                }
+              ]
             },
             {
-                label: "r2-h3",
-                headerId: "hid-3"
+              headerId: "hid-3",
+              values: [
+                {
+                    label: "r2-h3",
+                }
+              ]
             },
             {
-                label: "r2x-h4x",
-                headerId: "hid-4"
+              headerId: "hid-4",
+              values: [
+                {
+                    label: "r2x-h4x",
+                }
+              ]
             }
           ]
         }          

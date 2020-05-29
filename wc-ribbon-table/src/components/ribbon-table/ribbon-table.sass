@@ -33,16 +33,24 @@ $table__row__cell--padding: 2px;
             // border: 1px solid red;
             padding: $table__header__cell--padding;
             font-weight: $table__header__cell--font-weight;
-
-
         }
+
     }
 
     &__row {
         background-color: $table__row--bgcolor;
 
-        &__cell {
-            padding: $table__row__cell--padding;
+        &__supercell {
+
+            &__list {
+                list-style: none;
+            }
+
+            &__cell {
+                padding: $table__row__cell--padding;
+            }
+
         }
+
     } 
 }
