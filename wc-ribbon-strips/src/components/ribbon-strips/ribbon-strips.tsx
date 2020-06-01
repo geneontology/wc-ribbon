@@ -413,7 +413,11 @@ export class RibbonStrips {
             // if multiple cells selection, check if at least one has annotations
             } else {
                 for(let sub of subjects) {
-                    hasAnnotations = hasAnnotations || (group.id in sub.groups && sub.groups[group.id]["ALL"]["nb_annotations"] > 0);
+                    if(group.id == "all") {
+                        hasAnnotations = hasAnnotations || sub.nb_annotations > 0;
+                    } else {
+                        hasAnnotations = hasAnnotations || (group.id in sub.groups && sub.groups[group.id]["ALL"]["nb_annotations"] > 0);
+                    }
                 }    
             }
             if(!hasAnnotations) { return; }
