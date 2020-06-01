@@ -9,15 +9,15 @@ $table__header__cell--font-weight : 800 !default;
 $table__row--bgcolor: white !default;
 $table__row__cell--padding: 2px;
 
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-    font-weight: normal;
-}
-
-
 .table {
+
+    &, & * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-weight: normal;
+    }
+
     width: 100%;
     border: $table__border;
     border-radius: $table__border--radius;
@@ -28,7 +28,7 @@ $table__row__cell--padding: 2px;
         color: $table__header--color;
         text-shadow: 3px 3px 2px #474747;
         box-shadow: 1px 1px 3px 0px black;
-        
+
         &__cell {
             // border: 1px solid red;
             padding: $table__header__cell--padding;
@@ -52,5 +52,5 @@ $table__row__cell--padding: 2px;
 
         }
 
-    } 
+    }
 }

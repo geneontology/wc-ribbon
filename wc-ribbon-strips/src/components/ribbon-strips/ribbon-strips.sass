@@ -8,18 +8,18 @@ $ribbon__subject__label-left--width : 140px !default;
 $ribbon__subject__label-right--margin-left : 1rem !default;
 $ribbon__subject__cell--box-shadow : 0 1px 4px rgba(0, 0, 0, 0.26);
 
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-    font-weight: normal;
-}
-
-b {
-    font-weight: 800;
-}
-
 .ribbon {
+
+    &, & * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-weight: normal;
+    }
+
+    b {
+      font-weight: 800;
+    }
 
     display: table;
     width: $ribbon--width;
@@ -41,7 +41,7 @@ b {
             text-align: left;
             white-space: nowrap;
             transform: translateY(-2px) rotate(-45deg);
-            
+
             &:hover {
                 cursor: help;
                 font-weight: bold;
@@ -79,10 +79,10 @@ b {
             box-shadow: $ribbon__subject__cell--box-shadow;
             outline: none;
             text-align: center;
-            
+
             &--hover {
                 cursor: pointer;
-                border: 1px solid black;                
+                border: 1px solid black;
             }
 
             &--no-annotation {
@@ -94,7 +94,7 @@ b {
                 text-align: center;
 
                 &:hover {
-                    cursor: not-allowed !important;                    
+                    cursor: not-allowed !important;
                 }
             }
 
@@ -113,7 +113,7 @@ b {
                     rgba(0, 0, 0, 0.1) 1px,
                     #ffffff 2px,
                     #ffffff 12px
-                );                
+                );
             }
 
         }
