@@ -101,6 +101,11 @@ export class RibbonTable {
       // console.log(urow , rrows);
       let row = { cells: [] }
 
+      // Todo: keep the original order of the tableD
+      for(let header of this.table.header) {
+
+      }
+
       // recreating the key columns
       for(let kc of keyColumns) {
         let eqcell = rrows[0].cells.filter(elt => elt.headerId == kc)[0];

@@ -104,7 +104,7 @@
         let response = await fetch(query);
         let data = await response.json();
 
-        console.log("RETR: " , data);
+        console.log("Data fetched: " , data);
 
         let table = {
           newTab: true,
@@ -167,26 +167,35 @@
                 ]
               },
 
+              // {
+              //   headerId: "reference",
+              //   values : [
+              //     {
+              //       label: assoc.reference.join("; "),
+              //       url : assoc.evidence.replace(":", "_")
+              //     }
+              //   ]
+              // },
+
               {
                 headerId: "reference",
-                values : [
-                  {
-                    label: assoc.reference.join("; "),
-                    url : assoc.evidence.replace(":", "_")
+                values : assoc.reference.map(elt => {
+                  return {
+                    label : elt
                   }
-                ]
+                })
               }
 
-            ]
-          })
+              ]
+            })
+          }
         }
-      }
 
-        console.log("table: ", table);
 
         // create the ribbon strips element
         var element = await document.createElement("wc-ribbon-table");
         element.setAttribute("data", JSON.stringify(table));
+        element.setAttribute("groupBy", "gene,term");
         tableElement.innerHTML = "<h2>Annotations for <b>" + group_labels + "</b> and <b>" + subject_labels.join(", ") + "</b> gene(s)</h2>";
         // tableElement.innerHTML = "<wc-spinner spinner-style='default' spinner-color='blue'></wc-spinner>"
         await document.getElementById("ribbon-table").appendChild(element);
