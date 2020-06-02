@@ -21,7 +21,8 @@ export class RibbonTable {
 
   /**
    * Using this parameter, the table rows can bee grouped based on column ids
-   * Example: hid-1,hid-3
+   * A multiple step grouping is possible by using a ";" between groups
+   * Example: hid-1,hid-3 OR hid-1,hid-3;hid-2
    */
   @Prop() groupBy: string;
 
@@ -51,6 +52,17 @@ export class RibbonTable {
       }
     }
     if(this.table) {
+      if(this.groupBy) {
+        // multiple steps grouping
+        if(this.groupBy.includes(";")) {
+          let split = this.groupBy.split(";");
+          for(let groups of split) {
+            this.table = this.groupByColumns(this.table, groups.split(","), false);            
+          }
+        } else {
+          this.table = this.groupByColumns(this.table, this.groupBy.split(","), false);
+        }
+      }    
       this.createHeaderMap();
     }
   }
@@ -69,19 +81,20 @@ export class RibbonTable {
 
   /**
    * Will group the table rows based on unique values in specified columns
+   * @param table the table to be grouped
    * @param keyColumns ids of the columns to create unique rows - will only work with cells containing single value, not array
    * @param filterRedudancy if true, the values of merged columns will be filtered
    */
-  groupByColumns(keyColumns, filterRedudancy = true) {
-    var firstRow = this.table.rows[0].cells;
+  groupByColumns(table, keyColumns, filterRedudancy = true) {
+    var firstRow = table.rows[0].cells;
     var otherCells = firstRow.filter(elt => !keyColumns.includes(elt.headerId));
     var otherColumns = otherCells.map(elt => elt.headerId);
     // console.log("other cols: ", otherColumns);
     
     // building the list of unique rows
     var uRows = new Map();
-    for(let i = 0; i < this.table.rows.length; i++) {
-      let row = this.table.rows[i];
+    for(let i = 0; i < table.rows.length; i++) {
+      let row = table.rows[i];
       let keyCells = row.cells.filter(elt => keyColumns.includes(elt.headerId));
       let key = keyCells.map(elt => elt.values[0].label).join("-");
 
@@ -95,48 +108,75 @@ export class RibbonTable {
     }
     // console.log("unique rows: ", uRows);
 
-    var newTable = { newTab: this.table.newTab, header : this.table.header, rows : [] }
+    var newTable = { newTab: table.newTab, header : table.header, rows : [] }
 
     for(let rrows of uRows.values()) {
       // console.log(urow , rrows);
       let row = { cells: [] }
-
-      // Todo: keep the original order of the tableD
-      for(let header of this.table.header) {
-
-      }
-
-      // recreating the key columns
-      for(let kc of keyColumns) {
-        let eqcell = rrows[0].cells.filter(elt => elt.headerId == kc)[0];
-        row.cells.push(eqcell);
-      }
-
-      // now merging the other columns
-      for(let oc of otherColumns) {
-        let supercell : SuperCell = {
-          headerId: oc,
-          values: []
-        }
-        // console.log("oc: ", oc);
-        for(let eqrow of rrows) {
-          let otherCell = eqrow.cells.filter(elt => elt.headerId == oc)[0]
-          supercell.headerId = otherCell.headerId;
-          supercell.id = otherCell.id;
-          supercell.clickable = otherCell.clickable;
-          supercell.foldable = otherCell.foldable;
-          supercell.selectable = otherCell.selectable;
-          // console.log("-- othercell: " , otherCell);
-          
-          // TODO: can include test here for filder redudancy
-          for(let val of otherCell.values) {
-            if(filterRedudancy) { }
-            supercell.values.push(val);            
+      console.log("ROW: ",  rrows);
+      for(let header of table.header) {
+        let eqcell : SuperCell = undefined;
+        if(keyColumns.includes(header.id)) {
+          eqcell = rrows[0].cells.filter(elt => elt.headerId == header.id)[0];
+        } else if (otherColumns.includes(header.id)) {
+          eqcell = {
+            headerId: header.id,
+            values: []
           }
+          // console.log("oc: ", oc);
+          for(let eqrow of rrows) {
+            let otherCell = eqrow.cells.filter(elt => elt.headerId == header.id)[0]
+            eqcell.headerId = otherCell.headerId;
+            eqcell.id = otherCell.id;
+            eqcell.clickable = otherCell.clickable;
+            eqcell.foldable = otherCell.foldable;
+            eqcell.selectable = otherCell.selectable;
+            // console.log("-- othercell: " , otherCell);
+            
+            // TODO: can include test here for filder redudancy
+            for(let val of otherCell.values) {
+              if(filterRedudancy) { }
+              eqcell.values.push(val);            
+            }
+          }  
         }
-        // console.log("- values of", urow , ", ", oc , ": ", supercell);
-        row.cells.push(supercell);
+        console.log(header , eqcell);
+        if(eqcell) {
+          row.cells.push(eqcell);
+        }
       }
+
+      // // recreating the key columns
+      // for(let kc of keyColumns) {
+      //   let eqcell = rrows[0].cells.filter(elt => elt.headerId == kc)[0];
+      //   row.cells.push(eqcell);
+      // }
+
+      // // now merging the other columns
+      // for(let oc of otherColumns) {
+      //   let supercell : SuperCell = {
+      //     headerId: oc,
+      //     values: []
+      //   }
+      //   // console.log("oc: ", oc);
+      //   for(let eqrow of rrows) {
+      //     let otherCell = eqrow.cells.filter(elt => elt.headerId == oc)[0]
+      //     supercell.headerId = otherCell.headerId;
+      //     supercell.id = otherCell.id;
+      //     supercell.clickable = otherCell.clickable;
+      //     supercell.foldable = otherCell.foldable;
+      //     supercell.selectable = otherCell.selectable;
+      //     // console.log("-- othercell: " , otherCell);
+          
+      //     // TODO: can include test here for filder redudancy
+      //     for(let val of otherCell.values) {
+      //       if(filterRedudancy) { }
+      //       supercell.values.push(val);            
+      //     }
+      //   }
+      //   // console.log("- values of", urow , ", ", oc , ": ", supercell);
+      //   row.cells.push(supercell);
+      // }
       newTable.rows.push(row);
     }
     return newTable;
@@ -145,9 +185,6 @@ export class RibbonTable {
 
   render() {
     let table = this.table;
-    if(this.groupBy) {
-      table = this.groupByColumns(this.groupBy.split(","), false);
-    }
 
     // console.log("TABLE:", table);
     return (

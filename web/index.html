@@ -195,7 +195,7 @@
         // create the ribbon strips element
         var element = await document.createElement("wc-ribbon-table");
         element.setAttribute("data", JSON.stringify(table));
-        element.setAttribute("groupBy", "gene,term");
+        element.setAttribute("groupBy", "gene,term;term");
         tableElement.innerHTML = "<h2>Annotations for <b>" + group_labels + "</b> and <b>" + subject_labels.join(", ") + "</b> gene(s)</h2>";
         // tableElement.innerHTML = "<wc-spinner spinner-style='default' spinner-color='blue'></wc-spinner>"
         await document.getElementById("ribbon-table").appendChild(element);
