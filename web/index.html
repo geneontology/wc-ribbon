@@ -69,6 +69,17 @@
         });
       }
 
+      function aspectShortLabel(txt) {
+        if(txt == "biological_process") {
+          return "P";
+        } else if (txt == "molecular_activity" || txt == "molecular_function") {
+          return "F";
+        } else if (txt == "cellular_component") {
+          return "C";
+        }
+        return "U";
+      }
+
 
       async function loadAssociations(details) {
         let group = details.group;
@@ -109,6 +120,11 @@
         let table = {
           newTab: true,
           header : [
+          {
+              label : "Aspect",
+              id: "aspect",
+              hide : true
+            },
             {
               label : "Gene",
               id: "gene",
@@ -137,6 +153,15 @@
         for(let assoc of subject.assocs) {
           table.rows.push({
             cells: [
+            {
+                headerId: "aspect",
+                values : [
+                  {
+                    label: aspectShortLabel(assoc.object.category[0])
+                  }
+                ]
+              },
+
               {
                 headerId: "gene",
                 values : [
@@ -195,7 +220,7 @@
         // create the ribbon strips element
         var element = await document.createElement("wc-ribbon-table");
         element.setAttribute("data", JSON.stringify(table));
-        element.setAttribute("group-by", "term,evidence;term");
+        element.setAttribute("group-by", "term,evidence");
         tableElement.innerHTML = "<h2>Annotations for <b>" + group_labels + "</b> and <b>" + subject_labels.join(", ") + "</b> gene(s)</h2>";
         // tableElement.innerHTML = "<wc-spinner spinner-style='default' spinner-color='blue'></wc-spinner>"
         await document.getElementById("ribbon-table").appendChild(element);

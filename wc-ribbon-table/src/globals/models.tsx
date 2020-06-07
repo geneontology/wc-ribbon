@@ -49,7 +49,8 @@ export const dataMockup : Table = {
         {
           label: "header-1",
           id: "hid-1",
-          description: "description of header 1 - no base URL"
+          description: "description of header 1 - no base URL",
+          hide: false
         },
         {
           label: "header-2x",
@@ -59,7 +60,8 @@ export const dataMockup : Table = {
         },
         {
           label: "header-3",
-          id: "hid-3"
+          id: "hid-3",
+          hide: false
         },
         {
           label: "header-4",

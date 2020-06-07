@@ -1,6 +1,6 @@
 {
   "name": "@geneontology/wc-ribbon-table",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Ribbon Table Web Component",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

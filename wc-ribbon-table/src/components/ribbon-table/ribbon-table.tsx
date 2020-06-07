@@ -170,7 +170,8 @@ export class RibbonTable {
       {
         table.header.map( cell => {
           return [
-            <th title={cell.description} class="table__header__cell">{cell.label}</th>
+            cell.hide ? "" 
+                      : <th title={cell.description} class="table__header__cell">{cell.label}</th>
           ]
         })
       }
@@ -186,6 +187,10 @@ export class RibbonTable {
             {
               row.cells.map( superCell => {
                 let header = this.headerMap.get(superCell.headerId);
+                if(header.hide) {
+                  return "";
+                }
+                
                 let baseURL = header.baseURL;
                 // adding automatically the ending slash cause too many problem (eg base URL that are example.com/tototo?uri=)
                 // baseURL = baseURL ? addEndingSlash(baseURL) : "";
