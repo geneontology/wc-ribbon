@@ -145,38 +145,6 @@ export class RibbonTable {
           row.cells.push(eqcell);
         }
       }
-
-      // // recreating the key columns
-      // for(let kc of keyColumns) {
-      //   let eqcell = rrows[0].cells.filter(elt => elt.headerId == kc)[0];
-      //   row.cells.push(eqcell);
-      // }
-
-      // // now merging the other columns
-      // for(let oc of otherColumns) {
-      //   let supercell : SuperCell = {
-      //     headerId: oc,
-      //     values: []
-      //   }
-      //   // console.log("oc: ", oc);
-      //   for(let eqrow of rrows) {
-      //     let otherCell = eqrow.cells.filter(elt => elt.headerId == oc)[0]
-      //     supercell.headerId = otherCell.headerId;
-      //     supercell.id = otherCell.id;
-      //     supercell.clickable = otherCell.clickable;
-      //     supercell.foldable = otherCell.foldable;
-      //     supercell.selectable = otherCell.selectable;
-      //     // console.log("-- othercell: " , otherCell);
-          
-      //     // TODO: can include test here for filder redudancy
-      //     for(let val of otherCell.values) {
-      //       if(filterRedudancy) { }
-      //       supercell.values.push(val);            
-      //     }
-      //   }
-      //   // console.log("- values of", urow , ", ", oc , ": ", supercell);
-      //   row.cells.push(supercell);
-      // }
       newTable.rows.push(row);
     }
     return newTable;

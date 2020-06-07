@@ -22,6 +22,7 @@ export class HeaderCell extends Cell {
     searchable?: boolean;
     baseURL?: string;       // if defined, convert cell URL to use this baseURL
     foldListThr?: number;   // if defined, fold the cells that have more than X items
+    hide?: boolean;          // if true, won't show the column that would be considered only for treatment (eg grouping)
 }
 
 // export class RowCell extends Cell {
