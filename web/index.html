@@ -37,7 +37,8 @@
 
       let baseAPIURL = "http://api.geneontology.org/api/ontology/ribbon/";
       // let subjects = ["RGD:620474","RGD:3889"].join("&subject=");
-      let subjects = ["UniProtKB:Q9BYF1", "UniProtKB:O15393"].join("&subject=");
+      // let subjects = ["UniProtKB:Q9BYF1", "UniProtKB:O15393"].join("&subject=");
+      let subjects = ["HGNC:11998"].join("&subject=");
       let query = baseAPIURL + '?subset=goslim_agr&subject=' + subjects;
       console.log('API query is ' + query);
 
@@ -142,6 +143,10 @@
               baseURL : "http://www.ontobee.org/ontology/ECO?iri=http://purl.obolibrary.org/obo/"
             },
             {
+              label : "With/From",
+              id: "with_from"
+            },            
+            {
               label : "Reference",
               id: "reference"
             }            
@@ -193,15 +198,14 @@
                 ]
               },
 
-              // {
-              //   headerId: "reference",
-              //   values : [
-              //     {
-              //       label: assoc.reference.join("; "),
-              //       url : assoc.evidence.replace(":", "_")
-              //     }
-              //   ]
-              // },
+              {
+                headerId: "with_from",
+                values : assoc.evidence_with ? assoc.evidence_with.map(elt => {
+                  return {
+                    label : elt
+                  }
+                }) : [{ label : "" }]
+              },
 
               {
                 headerId: "reference",
@@ -221,9 +225,10 @@
         // create the ribbon strips element
         var element = await document.createElement("wc-ribbon-table");
         element.setAttribute("data", JSON.stringify(table));
-        element.setAttribute("group-by", "term,evidence");
+        element.setAttribute("group-by", "term");
+        // element.setAttribute("group-by", "term,evidence");
         // element.setAttribute("group-by", "term,evidence;term");  // group rows by (term,evidence) then term
-        tableElement.innerHTML = "<h2>Annotations for <b>" + group_labels + "</b> and <b>" + subject_labels.join(", ") + "</b> gene(s)</h2>";
+        tableElement.innerHTML = "<h3>Annotations for <b>" + group_labels + "</b> and <b>" + subject_labels.join(", ") + "</b> gene(s)</h3>";
         // tableElement.innerHTML = "<wc-spinner spinner-style='default' spinner-color='blue'></wc-spinner>"
         await document.getElementById("ribbon-table").appendChild(element);
 
