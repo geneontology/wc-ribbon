@@ -1,6 +1,6 @@
 {
   "name": "@geneontology/wc-ribbon-table",
-  "version": "0.0.14",
+  "version": "0.0.21",
   "description": "Ribbon Table Web Component",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -35,5 +35,7 @@
   "homepage": "https://github.com/geneontology/wc-ribbon#readme",
   "author": "Laurent-Philippe Albou",
   "license": "BSD-3",
-  "dependencies": {}
+  "dependencies": {
+    "@geneontology/curie-util-es5": "^1.2.4"
+  }
 }

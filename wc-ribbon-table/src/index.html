@@ -17,12 +17,24 @@
 
   <script>
 
-  // create the ribbon table element
-  var element = document.createElement("wc-ribbon-table");
-  // element.setAttribute("data", JSON.stringify(data));
-  // element.setAttribute("group-by", "hid-1,hid-3");
-  // element.setAttribute("group-by", "hid-1,hid-3;hid-1");
-  document.body.appendChild(element);
+      let url = "https://api.geneontology.org/api/bioentityset/slimmer/function?slim=GO:0019538&subject=HGNC:11998&rows=-1";
+
+      async function loadData() {
+        let response = await fetch(url);
+        let data = await response.json();
+
+        // create the ribbon table element
+        var element = document.createElement("wc-ribbon-table");
+        element.setAttribute("bio-link-data", JSON.stringify(data));
+        // element.setAttribute("data", JSON.stringify(data));
+        // element.setAttribute("group-by", "hid-1,hid-3");
+        // element.setAttribute("group-by", "hid-1,hid-3;hid-1");
+        document.body.appendChild(element);
+
+      }
+
+      loadData();
+
 
 
   </script>

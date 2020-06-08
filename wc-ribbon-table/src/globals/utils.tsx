@@ -1,7 +1,7 @@
 
 export function addEndingSlash(url) {
-    if(url == "") return url;
-    if(url.endsWith("/")) return url;
+    if (url == "") return url;
+    if (url.endsWith("/")) return url;
     return url + "/";
 }
 
@@ -10,10 +10,36 @@ export function addEndingSlash(url) {
  * @param url 
  */
 export function removeBaseURL(url) {
-    if(!url.startsWith("http://")) return url;
+    if (!url.startsWith("http://")) return url;
     url = url.substring(7);
     let murl = url.substring(url.indexOf("/") + 1);
     return murl;
+}
+
+
+/**
+ * For table that have cells with multiple values
+ * When merging rows based on such cells with multiple values, we have to fill with empty cells the columns that
+ * don't contain as many element, so we'll keep the ordering and link between merged rows
+ * Note: Should only be launched once on a table
+ * @param table 
+ */
+export function addEmptyCells(table) {
+    for (let row of table.rows) {
+        let nbMax = 0;
+        for (let header of table.header) {
+            let eqcell = row.cells.filter(elt => elt.headerId == header.id)[0];
+            // console.log("R: ", row , "H: ", header , "E:", eqcell);
+            nbMax = Math.max(nbMax, eqcell.values.length);
+        }
+        for (let header of table.header) {
+            let eqcell = row.cells.filter(elt => elt.headerId == header.id)[0];
+            while (eqcell.values.length < nbMax) {
+                eqcell.values.push({ label: "" });
+            }
+        }
+    }
+    return table;
 }
 
 export function aspectShortLabel(txt) {
@@ -27,14 +53,14 @@ export function aspectShortLabel(txt) {
     return "U";
 }
 
-export function bioLinkToTable(slimmer_response) {
+export function bioLinkToTable(data, curie) {
     let table = {
         newTab: true,
         header: [
             {
                 label: "Aspect",
                 id: "aspect",
-                hide: false
+                hide: true
             },
             {
                 label: "Gene",
@@ -64,7 +90,7 @@ export function bioLinkToTable(slimmer_response) {
         rows: []
     };
 
-    for (let subject of slimmer_response) {
+    for (let subject of data) {
         for (let assoc of subject.assocs) {
             table.rows.push({
                 cells: [
@@ -111,7 +137,8 @@ export function bioLinkToTable(slimmer_response) {
                         headerId: "with_from",
                         values: assoc.evidence_with ? assoc.evidence_with.map(elt => {
                             return {
-                                label: elt
+                                label: elt,
+                                url: curie.getIri(elt)
                             }
                         }) : [{ label: "" }]
                     },
@@ -120,7 +147,8 @@ export function bioLinkToTable(slimmer_response) {
                         headerId: "reference",
                         values: assoc.reference.map(elt => {
                             return {
-                                label: elt
+                                label: elt,
+                                url: curie.getIri(elt)
                             }
                         })
                     }

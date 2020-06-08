@@ -1,7 +1,11 @@
 import { Component, h } from '@stencil/core';
 
-import { dataMockup, Table, SuperCell } from '../../globals/models';
-import { Prop } from '@stencil/core';
+import { Table, SuperCell } from '../../globals/models';
+import { Prop, Watch } from '@stencil/core';
+import { bioLinkToTable, addEmptyCells } from '../../globals/utils';
+
+import { parseContext, CurieUtil } from '../../../node_modules/@geneontology/curie-util-es5'
+import { State } from '@stencil/core';
 
 // import { addEndingSlash, removeBaseURL } from '../../globals/utils';
 
@@ -35,7 +39,15 @@ export class RibbonTable {
   /**
    * Contains the data object with the correct model (see model.tsx)
    */
-  table : Table = dataMockup;
+  @State()
+  table : Table; // = dataMockup;
+
+  // @Watch('table')
+  // tableChanged(newValue, oldValue) {
+  //   if(newValue != oldValue) {
+  //     this.updateTable();
+  //   }
+  // }
 
   /**
    * Contains (header_id ; header)
@@ -43,16 +55,21 @@ export class RibbonTable {
    */
   headerMap;
 
-  componentWillLoad() {
-    if(this.data) {
-      if(typeof this.data == "string") {
-        this.table = JSON.parse(this.data);
-      } else {
-          this.table = this.data;
-      }
+  /**
+   * Reading biolink data. This will trigger a render of the table as would changing data
+   */
+  @Prop() bioLinkData : string;
+
+  @Watch('bioLinkData')
+  bioLinkDataChanged(newValue, oldValue) {
+    if(newValue != oldValue) {
+      console.log("DATA CHANGED: ", newValue);
     }
+  }
+
+  updateTable() {
     if(this.table) {
-      this.table = this.addEmptyCells(this.table);
+      this.table = addEmptyCells(this.table);
       if(this.groupBy) {
         // multiple steps grouping
         if(this.groupBy.includes(";")) {
@@ -65,6 +82,52 @@ export class RibbonTable {
         }
       }    
       this.createHeaderMap();
+    }    
+  }
+
+  goContextURL = "https://raw.githubusercontent.com/prefixcommons/biocontext/master/registry/go_context.jsonld";
+  curie;
+  componentWillLoad() {
+    // console.log("TableWillLoad: data = " , this.data , " ; bioLinkData = " , this.bioLinkData);
+    // enter with the regular data format
+    if (this.data) {
+      if (typeof this.data == "string") {
+        this.table = JSON.parse(this.data);
+      } else {
+        this.table = this.data;
+      }
+      this.updateTable();
+
+      // enter with biolink data format
+    } else if (this.bioLinkData) {
+      if(this.curie) {
+        if (typeof this.bioLinkData == "string") {
+          this.table = bioLinkToTable(JSON.parse(this.bioLinkData), this.curie);
+        } else {
+          this.table = bioLinkToTable(this.bioLinkData, this.curie);
+        }
+        this.updateTable();
+      } else {
+      fetch(this.goContextURL)
+        .then(data => data.json())
+        .then(json => {
+          console.log("json: ", json);
+          var map = parseContext(json);
+          console.log("map: ", map);
+          this.curie = new CurieUtil(map);
+          console.log("curie: ",this.curie);
+          if (typeof this.bioLinkData == "string") {
+            this.table = bioLinkToTable(JSON.parse(this.bioLinkData), this.curie);
+          } else {
+            this.table = bioLinkToTable(this.bioLinkData, this.curie);
+          }
+          console.log(this.table);
+
+          this.updateTable();
+        }
+        );
+      }
+
     }
   }
 
@@ -77,31 +140,6 @@ export class RibbonTable {
 
   mergeCells(cells) {
     return cells;
-  }
-
-  /**
-   * For table that have cells with multiple values
-   * When merging rows based on such cells with multiple values, we have to fill with empty cells the columns that
-   * don't contain as many element, so we'll keep the ordering and link between merged rows
-   * Note: Should only be launched once on a table
-   * @param table 
-   */
-  addEmptyCells(table) {
-    for(let row of table.rows) {
-      let nbMax = 0;
-      for(let header of table.header) {
-        let eqcell = row.cells.filter(elt => elt.headerId == header.id)[0];
-        console.log("R: ", row , "H: ", header , "E:", eqcell);
-        nbMax = Math.max(nbMax, eqcell.values.length);
-      }
-      for(let header of table.header) {
-        let eqcell = row.cells.filter(elt => elt.headerId == header.id)[0];
-        while(eqcell.values.length < nbMax) {
-          eqcell.values.push({label: "---"});
-        }
-      }
-    }
-    return table;
   }
 
 
@@ -179,6 +217,9 @@ export class RibbonTable {
 
   render() {
     let table = this.table;
+    if(!table) {
+      return "No data available";
+    }
 
     // console.log("TABLE:", table);
     return (
@@ -212,6 +253,9 @@ export class RibbonTable {
           <tr class="table__row">
             {
               row.cells.map( superCell => {
+                if(!this.headerMap) {
+                  return "";
+                }
                 let header = this.headerMap.get(superCell.headerId);
                 if(header.hide) {
                   return "";

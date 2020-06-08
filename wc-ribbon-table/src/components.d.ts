@@ -13,6 +13,10 @@ export namespace Components {
   interface WcRibbonTable {
     'baseApiUrl': string;
     /**
+    * Reading biolink data. This will trigger a render of the table as would changing data
+    */
+    'bioLinkData': string;
+    /**
     * Must follow the appropriate JSON data model Can be given as either JSON or stringified JSON
     */
     'data': string;
@@ -41,6 +45,10 @@ declare global {
 declare namespace LocalJSX {
   interface WcRibbonTable {
     'baseApiUrl'?: string;
+    /**
+    * Reading biolink data. This will trigger a render of the table as would changing data
+    */
+    'bioLinkData'?: string;
     /**
     * Must follow the appropriate JSON data model Can be given as either JSON or stringified JSON
     */
