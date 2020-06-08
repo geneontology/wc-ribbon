@@ -111,18 +111,17 @@ export class RibbonTable {
       fetch(this.goContextURL)
         .then(data => data.json())
         .then(json => {
-          console.log("json: ", json);
+          // console.log("json: ", json);
           var map = parseContext(json);
-          console.log("map: ", map);
+          // console.log("map: ", map);
           this.curie = new CurieUtil(map);
-          console.log("curie: ",this.curie);
+          // console.log("curie: ",this.curie);
           if (typeof this.bioLinkData == "string") {
             this.table = bioLinkToTable(JSON.parse(this.bioLinkData), this.curie);
           } else {
             this.table = bioLinkToTable(this.bioLinkData, this.curie);
           }
-          console.log(this.table);
-
+          // console.log(this.table);
           this.updateTable();
         }
         );
@@ -176,7 +175,7 @@ export class RibbonTable {
 
     // going through each set of unique rows
     for(let rrows of uRows.values()) {
-      console.log("Uniq.Row", rrows);
+      // console.log("Uniq.Row", rrows);
       let row = { cells: [] }      
       for(let header of table.header) {
         let eqcell : SuperCell = undefined;
@@ -204,7 +203,7 @@ export class RibbonTable {
             }
           }  
         }
-        console.log(header , eqcell);
+        // console.log(header , eqcell);
         if(eqcell) {
           row.cells.push(eqcell);
         }
