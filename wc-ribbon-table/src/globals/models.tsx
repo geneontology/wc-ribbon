@@ -156,7 +156,7 @@ export const dataMockup : Table = {
               headerId: "hid-1",
               values: [
                 {
-                  label: "r3-h1",
+                  label: "r1-h1",
                 }
               ]
             },
@@ -173,7 +173,7 @@ export const dataMockup : Table = {
               headerId: "hid-3",
               values: [
                 {
-                  label: "r3-h3",
+                  label: "r1-h3",
                   description: "description of row 3 header 3",
                   url: "some-page-3-3"
                 }
