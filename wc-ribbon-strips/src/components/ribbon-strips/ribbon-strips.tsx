@@ -409,7 +409,12 @@ export class RibbonStrips {
             let hasAnnotations = false;
             // if single cell selection, check if it has annotations
             if(this.selectionMode == SELECTION.CELL) {
-                hasAnnotations = group.id in subjects[0].groups && subjects[0].groups[group.id]["ALL"]["nb_annotations"] > 0;
+                let keys = Object.keys(subjects[0].groups);
+                for(let key of keys) {
+                    if(subjects[0].groups[key]["ALL"].nb_annotations > 0)
+                        hasAnnotations = true;
+                }
+
             // if multiple cells selection, check if at least one has annotations
             } else {
                 for(let sub of subjects) {

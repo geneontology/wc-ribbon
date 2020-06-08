@@ -91,7 +91,9 @@ export function bioLinkToTable(data, curie) {
         rows: []
     };
 
+    console.log("data: ", data);
     for (let subject of data) {
+        console.log("S:", subject);
         for (let assoc of subject.assocs) {
             table.rows.push({
                 cells: [

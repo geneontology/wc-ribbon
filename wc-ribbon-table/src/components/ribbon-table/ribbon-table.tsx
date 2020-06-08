@@ -36,18 +36,18 @@ export class RibbonTable {
    */
   @Prop() data : string;
 
+    /**
+   * Reading biolink data. This will trigger a render of the table as would changing data
+   */
+  @Prop() bioLinkData : string;
+
+
   /**
    * Contains the data object with the correct model (see model.tsx)
    */
   @State()
   table : Table; // = dataMockup;
 
-  // @Watch('table')
-  // tableChanged(newValue, oldValue) {
-  //   if(newValue != oldValue) {
-  //     this.updateTable();
-  //   }
-  // }
 
   /**
    * Contains (header_id ; header)
@@ -55,15 +55,20 @@ export class RibbonTable {
    */
   headerMap;
 
-  /**
-   * Reading biolink data. This will trigger a render of the table as would changing data
-   */
-  @Prop() bioLinkData : string;
+
+  @Watch('data')
+  dataChanged(newValue, oldValue) {
+    if(newValue != oldValue) {
+      console.log("DATA CHANGED: ", newValue);
+      this.updateTable();
+    }
+  }
 
   @Watch('bioLinkData')
   bioLinkDataChanged(newValue, oldValue) {
     if(newValue != oldValue) {
-      console.log("DATA CHANGED: ", newValue);
+      console.log("BIOLINK DATA CHANGED: ", newValue);
+      this.updateTable();
     }
   }
 
@@ -278,7 +283,7 @@ export class RibbonTable {
                             <li title={cell.description} class="table__row__supercell__cell">
                                 { 
                                   cell.url 
-                                    ? <a href={url} target={this.table.newTab ? "_blank" : "_self"}>{cell.label}</a> 
+                                    ? <a class="table__row__supercell__cell__link" href={url} target={this.table.newTab ? "_blank" : "_self"}>{cell.label}</a> 
                                     : <div  onClick={cell.clickable ? (() => this.onCellClick(cell)) : () => "" }>{cell.label}</div>
                                 }
                             </li>

@@ -12,6 +12,8 @@ $table__row__cell--padding: 2px;
 $table__header__divider: 2px solid #ddd !default;
 $table__divider: 1px solid #ddd !default;
 
+$table__row__supercell__cell__link--decoration: none;
+
 * {
 	margin: 0;
 	padding: 0;
@@ -59,6 +61,10 @@ $table__divider: 1px solid #ddd !default;
 
             &__cell {
                 padding: $table__row__cell--padding;
+
+                &__link {
+                    text-decoration: $table__row__supercell__cell__link--decoration;
+                }
             }
 
         }
