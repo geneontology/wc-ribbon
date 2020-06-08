@@ -218,7 +218,7 @@ export class RibbonTable {
   render() {
     let table = this.table;
     if(!table) {
-      return "No data available";
+      return "";
     }
 
     // console.log("TABLE:", table);
