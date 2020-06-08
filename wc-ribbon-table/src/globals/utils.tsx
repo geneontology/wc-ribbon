@@ -65,7 +65,8 @@ export function bioLinkToTable(data, curie) {
             {
                 label: "Gene",
                 id: "gene",
-                baseURL: "http://amigo.geneontology.org/amigo/gene_product/"
+                baseURL: "http://amigo.geneontology.org/amigo/gene_product/",
+                hide: true
             },
             {
                 label: "Term",
