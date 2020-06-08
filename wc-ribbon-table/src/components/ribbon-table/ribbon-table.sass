@@ -1,13 +1,16 @@
 $table__border: 0px solid black !default;
 $table__border--radius : 5px !default;
 
-$table__header--bgcolor : rgb(24, 73, 180, 0.5) !default;
-$table__header--color : rgb(255, 255, 255) !default;
+$table__header--bgcolor : rgb(255, 255, 255) !default;
+$table__header--color : rgb(0, 0, 0) !default;
 $table__header__cell--padding : 5px !default;
 $table__header__cell--font-weight : 800 !default;
 
 $table__row--bgcolor: white !default;
 $table__row__cell--padding: 2px;
+
+$table__header__divider: 2px solid #ddd !default;
+$table__divider: 1px solid #ddd !default;
 
 * {
 	margin: 0;
@@ -26,24 +29,29 @@ $table__row__cell--padding: 2px;
         background-color: $table__header--bgcolor;
         border-bottom: 1px solid black;
         color: $table__header--color;
-        text-shadow: 3px 3px 2px #474747;
-        box-shadow: 1px 1px 3px 0px black;
+        // text-shadow: 3px 3px 2px #474747;
+        // box-shadow: 1px 1px 3px 0px black;
+        text-align: left;
+        border-top: $table__header__divider;
+        border-bottom: $table__header__divider;
+        cursor: help;
         
         &__cell {
-            // border: 1px solid red;
             padding: $table__header__cell--padding;
             font-weight: $table__header__cell--font-weight;
+            border-top: $table__header__divider;
+            border-bottom: $table__header__divider;
         }
 
     }
 
     &__row {
         background-color: $table__row--bgcolor;
-        border-bottom: 1px solid #ddd;
+        border-bottom: $table__divider;
 
         &__supercell {
             vertical-align: top;
-            border-bottom: 1px solid #ddd;
+            border-bottom: $table__divider;
 
             &__list {
                 list-style: none;

@@ -52,6 +52,7 @@ export class RibbonTable {
       }
     }
     if(this.table) {
+      this.table = this.addEmptyCells(this.table);
       if(this.groupBy) {
         // multiple steps grouping
         if(this.groupBy.includes(";")) {
@@ -76,6 +77,31 @@ export class RibbonTable {
 
   mergeCells(cells) {
     return cells;
+  }
+
+  /**
+   * For table that have cells with multiple values
+   * When merging rows based on such cells with multiple values, we have to fill with empty cells the columns that
+   * don't contain as many element, so we'll keep the ordering and link between merged rows
+   * Note: Should only be launched once on a table
+   * @param table 
+   */
+  addEmptyCells(table) {
+    for(let row of table.rows) {
+      let nbMax = 0;
+      for(let header of table.header) {
+        let eqcell = row.cells.filter(elt => elt.headerId == header.id)[0];
+        console.log("R: ", row , "H: ", header , "E:", eqcell);
+        nbMax = Math.max(nbMax, eqcell.values.length);
+      }
+      for(let header of table.header) {
+        let eqcell = row.cells.filter(elt => elt.headerId == header.id)[0];
+        while(eqcell.values.length < nbMax) {
+          eqcell.values.push({label: "---"});
+        }
+      }
+    }
+    return table;
   }
 
 
@@ -110,10 +136,10 @@ export class RibbonTable {
 
     var newTable = { newTab: table.newTab, header : table.header, rows : [] }
 
+    // going through each set of unique rows
     for(let rrows of uRows.values()) {
-      // console.log(urow , rrows);
-      let row = { cells: [] }
-      console.log("ROW: ",  rrows);
+      console.log("Uniq.Row", rrows);
+      let row = { cells: [] }      
       for(let header of table.header) {
         let eqcell : SuperCell = undefined;
         if(keyColumns.includes(header.id)) {
@@ -190,7 +216,7 @@ export class RibbonTable {
                 if(header.hide) {
                   return "";
                 }
-                
+
                 let baseURL = header.baseURL;
                 // adding automatically the ending slash cause too many problem (eg base URL that are example.com/tototo?uri=)
                 // baseURL = baseURL ? addEndingSlash(baseURL) : "";

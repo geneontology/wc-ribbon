@@ -77,7 +77,7 @@ export const dataMockup : Table = {
               headerId: "hid-1",
               values: [
                 {
-                  label: "r1-h1",
+                  label: "r0-h1",
                   description: "description of row 1 header 1"
                 }
               ]
@@ -259,7 +259,7 @@ export const dataMockup : Table = {
               headerId: "hid-3",
               values: [
                 {
-                    label: "r5-h3",
+                    label: "r1-h3",
                 }
               ]
             },
@@ -267,7 +267,10 @@ export const dataMockup : Table = {
               headerId: "hid-4",
               values: [
                 {
-                    label: "r5-h4",
+                    label: "r5-h4a",
+                },
+                {
+                  label: "r5-h4b",
                 }
               ]
             }
