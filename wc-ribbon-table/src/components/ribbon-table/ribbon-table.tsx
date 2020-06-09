@@ -34,7 +34,7 @@ export class RibbonTable {
 
   @Watch('groupBy')
   groupByChanged(newValue, oldValue) {
-    console.log("groupByChanged(" , newValue , "; " , oldValue , ")");
+    // console.log("groupByChanged(" , newValue , "; " , oldValue , ")");
     if(newValue != oldValue) {
       this.updateTable();
     }
@@ -103,7 +103,7 @@ export class RibbonTable {
   @Watch('data')
   dataChanged(newValue, oldValue) {
     if(newValue != oldValue) {
-      console.log("DATA CHANGED: ", newValue);
+      // console.log("DATA CHANGED: ", newValue);
       this.loadFromData();
     }
   }
@@ -120,14 +120,14 @@ export class RibbonTable {
   @Watch('bioLinkData')
   bioLinkDataChanged(newValue, oldValue) {
     if(newValue != oldValue) {
-      console.log("BIOLINK DATA CHANGED: ", newValue);
+      // console.log("BIOLINK DATA CHANGED: ", newValue);
       this.loadFromBioLinkData();
     }
   }
 
   loadFromBioLinkData() {
     if(this.curie) {
-      console.log("curie: ", this.curie);
+      // console.log("curie: ", this.curie);
       if (typeof this.bioLinkData == "string") {
         this.originalTable = bioLinkToTable(JSON.parse(this.bioLinkData), this.curie);
       } else {
@@ -142,7 +142,7 @@ export class RibbonTable {
         var map = parseContext(json);
         // console.log("map: ", map);
         this.curie = new CurieUtil(map);
-        console.log("curie: ", this.curie);
+        // console.log("curie: ", this.curie);
         if (typeof this.bioLinkData == "string") {
           this.originalTable = bioLinkToTable(JSON.parse(this.bioLinkData), this.curie);
         } else {
@@ -156,12 +156,12 @@ export class RibbonTable {
   }
 
   updateTable() {
-    console.log("updateTable-1: ", this.originalTable);
+    // console.log("updateTable-1: ", this.originalTable);
     if(this.originalTable) {
       let tempTable = addEmptyCells(this.originalTable);
-      console.log("updateTable-2: ", tempTable);
+      // console.log("updateTable-2: ", tempTable);
       if(this.groupBy) {
-        console.log("updateTable-3: group-by(" + this.groupBy + ")");
+        // console.log("updateTable-3: group-by(" + this.groupBy + ")");
         // multiple steps grouping
         if(this.groupBy.includes(";")) {
           let split = this.groupBy.split(";");
@@ -173,7 +173,7 @@ export class RibbonTable {
         }
       }
       this.table = tempTable;
-      console.log("updateTable-4: ", this.table);
+      // console.log("updateTable-4: ", this.table);
       this.createHeaderMap();
     }    
   }
@@ -213,12 +213,12 @@ export class RibbonTable {
    * @param filterRedudancy if true, the values of merged columns will be filtered
    */
   groupByColumns(table, keyColumns, filterRedudancy = true) {
-    console.log("groupByColumns(", table , keyColumns, filterRedudancy , ")");
+    // console.log("groupByColumns(", table , keyColumns, filterRedudancy , ")");
 
     var firstRow = table.rows[0].cells;
     var otherCells = firstRow.filter(elt => !keyColumns.includes(elt.headerId));
     var otherColumns = otherCells.map(elt => elt.headerId);
-    console.log("other cols: ", otherColumns);
+    // console.log("other cols: ", otherColumns);
     
     // building the list of unique rows
     var uRows = new Map();
@@ -235,56 +235,25 @@ export class RibbonTable {
       }
       rows.push(row);
     }
-    console.log("unique rows: ", uRows);
+    // console.log("unique rows: ", uRows);
 
     var newTable = { newTab: table.newTab, header : table.header, rows : [] }
 
-    // DEBUG
-    console.log("uRows.entries(): " , uRows.entries());
-    console.log("uRows.values(): " , uRows.values());
 
-
-    console.log("DEBUG started");
-
-    var keys = uRows.keys();
-    console.log("keys: ", keys);
-    for(var k of keys) {
-      console.log("iterator key then map[key]: ", k , uRows.get(k));
-    }
-
+    // this was required either by stenciljs or web component 
+    // for an integration in alliance REACT project
+    // somehow more recent iterators on Map were not working !
     var akeys = Array.from( uRows.keys() );
-    console.log("akeys: ", akeys);
-    for(let i = 0; i < akeys.length; i++) {
-      console.log("loop key then map[key]: ", akeys[i] , uRows.get(akeys[i]));
-    }
-
-    for(var rrows of uRows.values()) {
-      console.log("for var uRows.values() - rrows: ", rrows);
-    }
-
-    for(let rrows of uRows.values()) {
-      console.log("for let uRows.values() - rrows: ", rrows);
-    }
-
-    for(var r in uRows) {
-      for(var i = 0; i < uRows[r].length; i++) {
-        console.log("for var r in uRows - r, i, value: ", r , i , uRows[r][i]);
-      }
-    }
-    
-    for (const [key, rrows] of uRows.entries()) {      
-      console.log("for const uRows.entried() - [key, rrows]: ", key, rrows);
-    }
-    console.log("DEBUG finished");
-
 
     // going through each set of unique rows
     // for(let rrows of uRows.values()) {
-    for (const [key, rrows] of uRows.entries()) {      
-      console.log("Uniq.Row ("  , key , "): ", rrows);
+    for(let i = 0; i < akeys.length; i++) {
+      let key = akeys[i];
+      let rrows = uRows.get(key);
+      // console.log("Uniq.Row ("  , key , "): ", rrows);
       let row = { cells: [] }      
       for(let header of table.header) {
-        console.log(" --- header: ", header);
+        // console.log(" --- header: ", header);
         let eqcell : SuperCell = undefined;
         if(keyColumns.includes(header.id)) {
           eqcell = rrows[0].cells.filter(elt => elt.headerId == header.id)[0];
@@ -310,7 +279,7 @@ export class RibbonTable {
           }  
         }
 
-        console.log(" --- H: ", header , "E: ", eqcell);
+        // console.log(" --- H: ", header , "E: ", eqcell);
         if(eqcell) {
           row.cells.push(eqcell);
         }
@@ -352,7 +321,7 @@ export class RibbonTable {
   }
 
   renderRows(table) {
-    console.log("Render table: ", table);
+    // console.log("Render table: ", table);
     return ( 
       table.rows.map( row => {
         return [
