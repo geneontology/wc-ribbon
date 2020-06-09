@@ -7,12 +7,14 @@
 
   <title>Ribbon Test Page</title>
 
-  <!-- <script src="https://unpkg.com/@geneontology/wc-ribbon-strips/dist/wc-ribbon-strips.js"/> -->
-  <!-- <script src="https://unpkg.com/@geneontology/wc-ribbon-table/dist/wc-ribbon-table.js"/> -->
+  <script type="module" src="https://unpkg.com/@geneontology/wc-spinner/dist/wc-spinner/wc-spinner.esm.js"></script>
+  <script nomodule="" src="https://unpkg.com/@geneontology/wc-spinner/dist/wc-spinner/wc-spinner.js"></script>
 
-  <script src="https://unpkg.com/@geneontology/wc-spinner/dist/wc-spinner.js"></script>
-  <script src="https://unpkg.com/@geneontology/wc-ribbon-strips/dist/wc-ribbon-strips.js"></script>
-  <script src="https://unpkg.com/@geneontology/wc-ribbon-table/dist/wc-ribbon-table.js"></script>
+  <script type="module" src="https://unpkg.com/@geneontology/wc-ribbon-strips/dist/wc-ribbon-strips/wc-ribbon-strips.esm.js"></script>
+  <script nomodule="" src="https://unpkg.com/@geneontology/wc-ribbon-strips/dist/wc-ribbon-strips/wc-ribbon-strips.js"></script>
+
+  <script type="module" src="https://unpkg.com/@geneontology/wc-ribbon-table/dist/wc-ribbon-table/wc-ribbon-table.esm.js"></script>
+  <script nomodule="" src="https://unpkg.com/@geneontology/wc-ribbon-table/dist/wc-ribbon-table/wc-ribbon-table.js"></script>
 
 </head>
 
@@ -36,7 +38,10 @@
   <script>
 
       let baseAPIURL = "http://api.geneontology.org/api/ontology/ribbon/";
-      let subjects = ["RGD:620474","RGD:3889"].join("&subject=");
+      // let subjects = ["RGD:620474","RGD:3889"].join("&subject=");
+      // let subjects = ["UniProtKB:Q9BYF1", "UniProtKB:O15393"].join("&subject=");
+      // let subjects = ["HGNC:11998"].join("&subject=");
+      let subjects = ["RGD:3889"].join("&subject=");
       let query = baseAPIURL + '?subset=goslim_agr&subject=' + subjects;
       console.log('API query is ' + query);
 
@@ -55,6 +60,7 @@
         element.setAttribute("new-tab", "true");
         element.setAttribute("selection-mode", 0);
         element.setAttribute("subject-position", 1);
+        element.setAttribute("fire-event-on-empty-cells", false);
         await document.getElementById("ribbon-strips").appendChild(element);
 
         // add a listener whenever a cell is clicked
@@ -67,6 +73,17 @@
         document.addEventListener('groupClick', function hideMenu(e, v) {
           console.log('Group Clicked' , e.detail);
         });
+      }
+
+      function aspectShortLabel(txt) {
+        if(txt == "biological_process") {
+          return "P";
+        } else if (txt == "molecular_activity" || txt == "molecular_function") {
+          return "F";
+        } else if (txt == "cellular_component") {
+          return "C";
+        }
+        return "U";
       }
 
 
@@ -106,97 +123,15 @@
 
         console.log("Data fetched: " , data);
 
-        let table = {
-          newTab: true,
-          header : [
-            {
-              label : "Gene",
-              id: "gene",
-              baseURL : "http://amigo.geneontology.org/amigo/gene_product/"
-            },
-            {
-              label : "Term",
-              id: "term",
-              baseURL : "http://amigo.geneontology.org/amigo/term/"
-            },
-            {
-              label : "Evidence",
-              id: "evidence",
-              baseURL : "http://www.ontobee.org/ontology/ECO?iri=http://purl.obolibrary.org/obo/"
-            },
-            {
-              label : "Reference",
-              id: "reference"
-            }            
-          ],
-
-          rows : [ ]
-        };
-
-        for(let subject of data) {
-        for(let assoc of subject.assocs) {
-          table.rows.push({
-            cells: [
-              {
-                headerId: "gene",
-                values : [
-                  {
-                    label: assoc.subject.label,
-                    url : assoc.subject.id
-                  }
-                ]
-              },
-
-              {
-                headerId: "term",
-                values : [
-                  {
-                    label: assoc.object.label,
-                    url : assoc.object.id
-                  }
-                ]
-              },
-
-              {
-                headerId: "evidence",
-                values : [
-                  {
-                    label: assoc.evidence_type,
-                    url : assoc.evidence.replace(":", "_")
-                  }
-                ]
-              },
-
-              // {
-              //   headerId: "reference",
-              //   values : [
-              //     {
-              //       label: assoc.reference.join("; "),
-              //       url : assoc.evidence.replace(":", "_")
-              //     }
-              //   ]
-              // },
-
-              {
-                headerId: "reference",
-                values : assoc.reference.map(elt => {
-                  return {
-                    label : elt
-                  }
-                })
-              }
-
-              ]
-            })
-          }
-        }
-
 
         // create the ribbon strips element
         var element = await document.createElement("wc-ribbon-table");
-        element.setAttribute("data", JSON.stringify(table));
-        element.setAttribute("groupBy", "gene,term");
-        tableElement.innerHTML = "<h2>Annotations for <b>" + group_labels + "</b> and <b>" + subject_labels.join(", ") + "</b> gene(s)</h2>";
+        // element.setAttribute("data", JSON.stringify(table));
+        element.setAttribute("bio-link-data", JSON.stringify(data));
+        element.setAttribute("group-by", "term");
+        // element.setAttribute("group-by", "term,evidence");
+        // element.setAttribute("group-by", "term,evidence;term");  // group rows by (term,evidence) then term
+        tableElement.innerHTML = "<h3>Annotations for <b>" + group_labels + "</b> and <b>" + subject_labels.join(", ") + "</b> gene(s)</h3>";
         // tableElement.innerHTML = "<wc-spinner spinner-style='default' spinner-color='blue'></wc-spinner>"
         await document.getElementById("ribbon-table").appendChild(element);
 

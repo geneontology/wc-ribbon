@@ -22,6 +22,7 @@ export class HeaderCell extends Cell {
     searchable?: boolean;
     baseURL?: string;       // if defined, convert cell URL to use this baseURL
     foldListThr?: number;   // if defined, fold the cells that have more than X items
+    hide?: boolean;          // if true, won't show the column that would be considered only for treatment (eg grouping)
 }
 
 // export class RowCell extends Cell {
@@ -48,7 +49,8 @@ export const dataMockup : Table = {
         {
           label: "header-1",
           id: "hid-1",
-          description: "description of header 1 - no base URL"
+          description: "description of header 1 - no base URL",
+          hide: false
         },
         {
           label: "header-2x",
@@ -58,7 +60,8 @@ export const dataMockup : Table = {
         },
         {
           label: "header-3",
-          id: "hid-3"
+          id: "hid-3",
+          hide: false
         },
         {
           label: "header-4",
@@ -74,7 +77,7 @@ export const dataMockup : Table = {
               headerId: "hid-1",
               values: [
                 {
-                  label: "r1-h1",
+                  label: "r0-h1",
                   description: "description of row 1 header 1"
                 }
               ]
@@ -153,7 +156,7 @@ export const dataMockup : Table = {
               headerId: "hid-1",
               values: [
                 {
-                  label: "r3-h1",
+                  label: "r1-h1",
                 }
               ]
             },
@@ -170,7 +173,7 @@ export const dataMockup : Table = {
               headerId: "hid-3",
               values: [
                 {
-                  label: "r3-h3",
+                  label: "r1-h3",
                   description: "description of row 3 header 3",
                   url: "some-page-3-3"
                 }
@@ -229,8 +232,51 @@ export const dataMockup : Table = {
               ]
             }
           ]
-        }          
+        },
 
+        {
+          // id: 5,
+          cells: [
+            {
+              headerId: "hid-1",
+              values: [
+                {
+                  label: "r1-h1",
+                  description: "description of row 5 header 1"
+                }
+              ]
+            },
+            {
+              headerId: "hid-2",
+              values: [
+                {
+                  label: "r5-h2",
+                  url: "http://example.com/some-page-1-2"
+                }
+              ]
+            },
+            {
+              headerId: "hid-3",
+              values: [
+                {
+                    label: "r1-h3",
+                }
+              ]
+            },
+            {
+              headerId: "hid-4",
+              values: [
+                {
+                    label: "r5-h4a",
+                },
+                {
+                  label: "r5-h4b",
+                }
+              ]
+            }
+          ]
+        }
+        
       ]
     
   }

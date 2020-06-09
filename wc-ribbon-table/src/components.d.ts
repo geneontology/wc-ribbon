@@ -13,14 +13,29 @@ export namespace Components {
   interface WcRibbonTable {
     'baseApiUrl': string;
     /**
+    * Reading biolink data. This will trigger a render of the table as would changing data
+    */
+    'bioLinkData': string;
+    /**
     * Must follow the appropriate JSON data model Can be given as either JSON or stringified JSON
     */
     'data': string;
+    /**
+    * Filter rows based on the presence of one or more values in a given column Example: filter-by="evidence:ISS,ISO" Note: if value is "", remove any filtering
+    */
+    'filterBy': string;
     'groupBaseUrl': string;
     /**
-    * Using this parameter, the table rows can bee grouped based on column ids Example: hid-1,hid-3
+    * Using this parameter, the table rows can bee grouped based on column ids A multiple step grouping is possible by using a ";" between groups Example: hid-1,hid-3 OR hid-1,hid-3;hid-2 Note: if value is "", remove any grouping
     */
     'groupBy': string;
+    /**
+    * This is used to sort the table depending of a column The column cells must be single values Note: if value is "", remove any ordering
+    */
+    'orderBy': string;
+    'showCurie': () => Promise<void>;
+    'showOriginalTable': () => Promise<void>;
+    'showTable': () => Promise<void>;
     'subjectBaseUrl': string;
   }
 }
@@ -42,14 +57,26 @@ declare namespace LocalJSX {
   interface WcRibbonTable {
     'baseApiUrl'?: string;
     /**
+    * Reading biolink data. This will trigger a render of the table as would changing data
+    */
+    'bioLinkData'?: string;
+    /**
     * Must follow the appropriate JSON data model Can be given as either JSON or stringified JSON
     */
     'data'?: string;
+    /**
+    * Filter rows based on the presence of one or more values in a given column Example: filter-by="evidence:ISS,ISO" Note: if value is "", remove any filtering
+    */
+    'filterBy'?: string;
     'groupBaseUrl'?: string;
     /**
-    * Using this parameter, the table rows can bee grouped based on column ids Example: hid-1,hid-3
+    * Using this parameter, the table rows can bee grouped based on column ids A multiple step grouping is possible by using a ";" between groups Example: hid-1,hid-3 OR hid-1,hid-3;hid-2 Note: if value is "", remove any grouping
     */
     'groupBy'?: string;
+    /**
+    * This is used to sort the table depending of a column The column cells must be single values Note: if value is "", remove any ordering
+    */
+    'orderBy'?: string;
     'subjectBaseUrl'?: string;
   }
 

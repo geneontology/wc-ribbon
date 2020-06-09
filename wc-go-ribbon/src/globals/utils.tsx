@@ -1,47 +1,3 @@
-
-export function addEndingSlash(url) {
-    if (url == "") return url;
-    if (url.endsWith("/")) return url;
-    return url + "/";
-}
-
-/**
- * Transform http://example.com/page in page
- * @param url 
- */
-export function removeBaseURL(url) {
-    if (!url.startsWith("http://")) return url;
-    url = url.substring(7);
-    let murl = url.substring(url.indexOf("/") + 1);
-    return murl;
-}
-
-
-/**
- * For table that have cells with multiple values
- * When merging rows based on such cells with multiple values, we have to fill with empty cells the columns that
- * don't contain as many element, so we'll keep the ordering and link between merged rows
- * Note: Should only be launched once on a table
- * @param table 
- */
-export function addEmptyCells(table) {
-    for (let row of table.rows) {
-        let nbMax = 0;
-        for (let header of table.header) {
-            let eqcell = row.cells.filter(elt => elt.headerId == header.id)[0];
-            // console.log("R: ", row , "H: ", header , "E:", eqcell);
-            nbMax = Math.max(nbMax, eqcell.values.length);
-        }
-        for (let header of table.header) {
-            let eqcell = row.cells.filter(elt => elt.headerId == header.id)[0];
-            while (eqcell.values.length < nbMax) {
-                eqcell.values.push({ label: "" });
-            }
-        }
-    }
-    return table;
-}
-
 export function aspectShortLabel(txt) {
     if (txt == "biological_process") {
         return "P";
@@ -53,20 +9,19 @@ export function aspectShortLabel(txt) {
     return "U";
 }
 
-export function bioLinkToTable(data, curie) {
+export function bioLinkToTable(slimmer_response) {
     let table = {
         newTab: true,
         header: [
             {
                 label: "Aspect",
                 id: "aspect",
-                hide: true
+                hide: false
             },
             {
                 label: "Gene",
                 id: "gene",
-                baseURL: "http://amigo.geneontology.org/amigo/gene_product/",
-                hide: true
+                baseURL: "http://amigo.geneontology.org/amigo/gene_product/"
             },
             {
                 label: "Term",
@@ -91,9 +46,7 @@ export function bioLinkToTable(data, curie) {
         rows: []
     };
 
-    console.log("data: ", data);
-    for (let subject of data) {
-        console.log("S:", subject);
+    for (let subject of slimmer_response) {
         for (let assoc of subject.assocs) {
             table.rows.push({
                 cells: [
@@ -140,8 +93,7 @@ export function bioLinkToTable(data, curie) {
                         headerId: "with_from",
                         values: assoc.evidence_with ? assoc.evidence_with.map(elt => {
                             return {
-                                label: elt,
-                                url: curie.getIri(elt)
+                                label: elt
                             }
                         }) : [{ label: "" }]
                     },
@@ -150,8 +102,7 @@ export function bioLinkToTable(data, curie) {
                         headerId: "reference",
                         values: assoc.reference.map(elt => {
                             return {
-                                label: elt,
-                                url: curie.getIri(elt)
+                                label: elt
                             }
                         })
                     }

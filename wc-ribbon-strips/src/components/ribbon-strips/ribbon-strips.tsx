@@ -31,8 +31,8 @@ export class RibbonStrips {
      */
     @Prop() subjects: string = undefined;
 
-    @Prop() classLabels = ["term", "terms"];
-    @Prop() annotationLabels = ["annotation", "annotations"];
+    @Prop() classLabels = "term,terms";
+    @Prop() annotationLabels = "annotation,annotations";
 
     /**
      * Which value to base the cell color on
@@ -46,8 +46,8 @@ export class RibbonStrips {
      * true = show only two colors (minColor; maxColor) to indicate the values of a cell
      */
     @Prop() binaryColor = false;
-    @Prop() minColor = [255, 255, 255];
-    @Prop() maxColor = [24, 73, 180];
+    @Prop() minColor = "255,255,255";
+    @Prop() maxColor = "24,73,180";
     @Prop() maxHeatLevel = 48;
     @Prop() groupMaxLabelSize = 60;
 
@@ -213,7 +213,7 @@ export class RibbonStrips {
     /** 
      * Once the component is loaded, fetch the data
     */
-    componentDidLoad() {
+    componentWillLoad() {
         // Prioritize data if provided
         if(this.loadData(this.data))
             return;
@@ -409,7 +409,12 @@ export class RibbonStrips {
             let hasAnnotations = false;
             // if single cell selection, check if it has annotations
             if(this.selectionMode == SELECTION.CELL) {
-                hasAnnotations = group.id in subjects[0].groups && subjects[0].groups[group.id]["ALL"]["nb_annotations"] > 0;
+                let keys = Object.keys(subjects[0].groups);
+                for(let key of keys) {
+                    if(subjects[0].groups[key]["ALL"].nb_annotations > 0)
+                        hasAnnotations = true;
+                }
+
             // if multiple cells selection, check if at least one has annotations
             } else {
                 for(let sub of subjects) {
@@ -605,6 +610,11 @@ export class RibbonStrips {
                                                 group={this.groupAll}
                                                 colorBy={this.colorBy}
                                                 binaryColor={this.binaryColor}
+                                                minColor={this.minColor}
+                                                maxColor={this.maxColor}
+                                                maxHeatLevel={this.maxHeatLevel}
+                                                annotationLabels={this.annotationLabels}
+                                                classLabels={this.classLabels}
                                                 onClick={() => this.onCellClick(subjects, this.groupAll)}
                                                 onMouseEnter={() => this.onCellEnter(subjects, this.groupAll)}
                                                 onMouseLeave={() => this.onCellLeave(subjects, this.groupAll)}
@@ -640,7 +650,11 @@ export class RibbonStrips {
                                                             available={available}
                                                             colorBy={this.colorBy}
                                                             binaryColor={this.binaryColor}
-                                                            onClick={() => this.onCellClick(subjects, group)}
+                                                            minColor={this.minColor}
+                                                            maxColor={this.maxColor}
+                                                            maxHeatLevel={this.maxHeatLevel}
+                                                            annotationLabels={this.annotationLabels}
+                                                            classLabels={this.classLabels}                                                            onClick={() => this.onCellClick(subjects, group)}
                                                             onMouseEnter={() => this.onCellEnter(subjects, group)}
                                                             onMouseLeave={() => this.onCellLeave(subjects, group)}
                                         />

@@ -1,7 +1,7 @@
 {
-  "name": "@geneontology/wc-ribbon-table",
-  "version": "0.0.36",
-  "description": "Ribbon Table Web Component",
+  "name": "wc-go-ribbon",
+  "version": "0.0.1",
+  "description": "Stencil Component Starter",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "es2015": "dist/esm/index.mjs",
@@ -9,7 +9,7 @@
   "types": "dist/types/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/wc-ribbon-table/wc-ribbon-table.js",
+  "unpkg": "dist/wc-go-ribbon/wc-go-ribbon.js",
   "files": [
     "dist/",
     "loader/"
@@ -22,8 +22,7 @@
     "generate": "stencil generate"
   },
   "devDependencies": {
-    "@stencil/core": "^1.8.8",
-    "@stencil/sass": "^1.1.1"
+    "@stencil/core": "^1.12.2"
   },
   "repository": {
     "type": "git",
@@ -36,6 +35,8 @@
   "author": "Laurent-Philippe Albou",
   "license": "BSD-3",
   "dependencies": {
-    "@geneontology/curie-util-es5": "^1.2.4"
+    "@geneontology/wc-ribbon-strips": "0.0.22",
+    "@geneontology/wc-ribbon-table": "0.0.13",
+    "@geneontology/wc-spinner": "0.0.2"
   }
 }

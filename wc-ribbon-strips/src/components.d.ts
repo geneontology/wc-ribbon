@@ -15,19 +15,19 @@ import {
 
 export namespace Components {
   interface WcRibbonCell {
-    'annotationLabels': string[];
+    'annotationLabels': string;
     /**
     * If set to true, won't show any color and can not be hovered or selected This is used for group that can not have annotation for a given subject
     */
     'available': boolean;
     'binaryColor': boolean;
-    'classLabels': string[];
+    'classLabels': string;
     'colorBy': any;
     'group': RibbonGroup;
     'hovered': boolean;
-    'maxColor': number[];
+    'maxColor': string;
     'maxHeatLevel': number;
-    'minColor': number[];
+    'minColor': string;
     'selected': boolean;
     'subject': RibbonSubject;
   }
@@ -36,7 +36,7 @@ export namespace Components {
     * add a cell at the beginning of each row/subject to show all annotations
     */
     'addCellAll': boolean;
-    'annotationLabels': string[];
+    'annotationLabels': string;
     'baseApiUrl': string;
     /**
     * false = show a gradient of colors to indicate the value of a cell true = show only two colors (minColor; maxColor) to indicate the values of a cell
@@ -54,7 +54,7 @@ export namespace Components {
     * 0 = Normal 1 = Bold
     */
     'categoryOtherStyle': any;
-    'classLabels': string[];
+    'classLabels': string;
     /**
     * Which value to base the cell color on 0 = class count 1 = annotation count
     */
@@ -71,9 +71,9 @@ export namespace Components {
     'groupClickable': boolean;
     'groupMaxLabelSize': number;
     'groupNewTab': boolean;
-    'maxColor': number[];
+    'maxColor': string;
     'maxHeatLevel': number;
-    'minColor': number[];
+    'minColor': string;
     'ribbonSummary': RibbonModel;
     /**
     * If no value is provided, the ribbon will load without any group selected. If a value is provided, the ribbon will show the requested group as selected The value should be the id of the group to be selected
@@ -141,19 +141,19 @@ declare global {
 
 declare namespace LocalJSX {
   interface WcRibbonCell {
-    'annotationLabels'?: string[];
+    'annotationLabels'?: string;
     /**
     * If set to true, won't show any color and can not be hovered or selected This is used for group that can not have annotation for a given subject
     */
     'available'?: boolean;
     'binaryColor'?: boolean;
-    'classLabels'?: string[];
+    'classLabels'?: string;
     'colorBy'?: any;
     'group'?: RibbonGroup;
     'hovered'?: boolean;
-    'maxColor'?: number[];
+    'maxColor'?: string;
     'maxHeatLevel'?: number;
-    'minColor'?: number[];
+    'minColor'?: string;
     'selected'?: boolean;
     'subject'?: RibbonSubject;
   }
@@ -162,7 +162,7 @@ declare namespace LocalJSX {
     * add a cell at the beginning of each row/subject to show all annotations
     */
     'addCellAll'?: boolean;
-    'annotationLabels'?: string[];
+    'annotationLabels'?: string;
     'baseApiUrl'?: string;
     /**
     * false = show a gradient of colors to indicate the value of a cell true = show only two colors (minColor; maxColor) to indicate the values of a cell
@@ -180,7 +180,7 @@ declare namespace LocalJSX {
     * 0 = Normal 1 = Bold
     */
     'categoryOtherStyle'?: any;
-    'classLabels'?: string[];
+    'classLabels'?: string;
     /**
     * Which value to base the cell color on 0 = class count 1 = annotation count
     */
@@ -197,9 +197,9 @@ declare namespace LocalJSX {
     'groupClickable'?: boolean;
     'groupMaxLabelSize'?: number;
     'groupNewTab'?: boolean;
-    'maxColor'?: number[];
+    'maxColor'?: string;
     'maxHeatLevel'?: number;
-    'minColor'?: number[];
+    'minColor'?: string;
     /**
     * This event is triggered whenever a ribbon cell is clicked
     */
