@@ -20,6 +20,10 @@ export namespace Components {
     * Must follow the appropriate JSON data model Can be given as either JSON or stringified JSON
     */
     'data': string;
+    /**
+    * Filter rows based on the presence of one or more values in a given column Example: filter-by="evidence:ISS,ISO"
+    */
+    'filterBy': string;
     'groupBaseUrl': string;
     /**
     * Using this parameter, the table rows can bee grouped based on column ids A multiple step grouping is possible by using a ";" between groups Example: hid-1,hid-3 OR hid-1,hid-3;hid-2
@@ -57,6 +61,10 @@ declare namespace LocalJSX {
     * Must follow the appropriate JSON data model Can be given as either JSON or stringified JSON
     */
     'data'?: string;
+    /**
+    * Filter rows based on the presence of one or more values in a given column Example: filter-by="evidence:ISS,ISO"
+    */
+    'filterBy'?: string;
     'groupBaseUrl'?: string;
     /**
     * Using this parameter, the table rows can bee grouped based on column ids A multiple step grouping is possible by using a ";" between groups Example: hid-1,hid-3 OR hid-1,hid-3;hid-2

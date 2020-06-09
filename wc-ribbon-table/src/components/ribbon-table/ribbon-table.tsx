@@ -51,6 +51,18 @@ export class RibbonTable {
     }
   }
 
+  /**
+   * Filter rows based on the presence of one or more values in a given column
+   * Example: filter-by="evidence:ISS,ISO"
+   */
+  @Prop() filterBy: string;
+
+  @Watch("filterBy")
+  filterByChanged(newValue, oldValue) {
+    if(newValue != oldValue) {
+      console.log("filterBy: ", newValue);
+    }
+  }
 
   /**
    * Must follow the appropriate JSON data model
@@ -88,23 +100,59 @@ export class RibbonTable {
   dataChanged(newValue, oldValue) {
     if(newValue != oldValue) {
       console.log("DATA CHANGED: ", newValue);
-      // this.originalTable = newValue;
-      this.updateTable();
+      this.loadFromData();
     }
+  }
+
+  loadFromData() {
+    if (typeof this.data == "string") {
+      this.originalTable = JSON.parse(this.data);
+    } else {
+      this.originalTable = this.data;
+    }
+    this.updateTable();
   }
 
   @Watch('bioLinkData')
   bioLinkDataChanged(newValue, oldValue) {
     if(newValue != oldValue) {
       console.log("BIOLINK DATA CHANGED: ", newValue);
-      // this.originalTable = newValue;
+      this.loadFromBioLinkData();
+    }
+  }
+
+  loadFromBioLinkData() {
+    if(this.curie) {
+      if (typeof this.bioLinkData == "string") {
+        this.originalTable = bioLinkToTable(JSON.parse(this.bioLinkData), this.curie);
+      } else {
+        this.originalTable = bioLinkToTable(this.bioLinkData, this.curie);
+      }
       this.updateTable();
+    } else {
+    fetch(this.goContextURL)
+      .then(data => data.json())
+      .then(json => {
+        // console.log("json: ", json);
+        var map = parseContext(json);
+        // console.log("map: ", map);
+        this.curie = new CurieUtil(map);
+        // console.log("curie: ",this.curie);
+        if (typeof this.bioLinkData == "string") {
+          this.originalTable = bioLinkToTable(JSON.parse(this.bioLinkData), this.curie);
+        } else {
+          this.originalTable = bioLinkToTable(this.bioLinkData, this.curie);
+        }
+        // console.log(this.table);
+        this.updateTable();
+      }
+      );
     }
   }
 
   updateTable() {
-    if(this.table) {
-      this.table = addEmptyCells(this.table);
+    if(this.originalTable) {
+      this.table = addEmptyCells(this.originalTable);
       if(this.groupBy) {
         // multiple steps grouping
         if(this.groupBy.includes(";")) {
@@ -124,43 +172,14 @@ export class RibbonTable {
   curie;
   componentWillLoad() {
     // console.log("TableWillLoad: data = " , this.data , " ; bioLinkData = " , this.bioLinkData);
+
     // enter with the regular data format
     if (this.data) {
-      if (typeof this.data == "string") {
-        this.table = JSON.parse(this.data);
-      } else {
-        this.table = this.data;
-      }
-      this.updateTable();
+      this.loadFromData();
 
       // enter with biolink data format
     } else if (this.bioLinkData) {
-      if(this.curie) {
-        if (typeof this.bioLinkData == "string") {
-          this.table = bioLinkToTable(JSON.parse(this.bioLinkData), this.curie);
-        } else {
-          this.table = bioLinkToTable(this.bioLinkData, this.curie);
-        }
-        this.updateTable();
-      } else {
-      fetch(this.goContextURL)
-        .then(data => data.json())
-        .then(json => {
-          // console.log("json: ", json);
-          var map = parseContext(json);
-          // console.log("map: ", map);
-          this.curie = new CurieUtil(map);
-          // console.log("curie: ",this.curie);
-          if (typeof this.bioLinkData == "string") {
-            this.table = bioLinkToTable(JSON.parse(this.bioLinkData), this.curie);
-          } else {
-            this.table = bioLinkToTable(this.bioLinkData, this.curie);
-          }
-          // console.log(this.table);
-          this.updateTable();
-        }
-        );
-      }
+      this.loadFromBioLinkData();
 
     }
   }
