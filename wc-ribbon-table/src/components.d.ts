@@ -21,7 +21,7 @@ export namespace Components {
     */
     'data': string;
     /**
-    * Filter rows based on the presence of one or more values in a given column Example: filter-by="evidence:ISS,ISO" Note: if value is "", remove any filtering
+    * Filter rows based on the presence of one or more values in a given column The filtering will be based on cell label or id Example: filter-by="evidence:ISS,ISO or multi-step filters: filter-by:evidence:ISS,ISO;term:xxx" Note: if value is "", remove any filtering
     */
     'filterBy': string;
     'groupBaseUrl': string;
@@ -65,7 +65,7 @@ declare namespace LocalJSX {
     */
     'data'?: string;
     /**
-    * Filter rows based on the presence of one or more values in a given column Example: filter-by="evidence:ISS,ISO" Note: if value is "", remove any filtering
+    * Filter rows based on the presence of one or more values in a given column The filtering will be based on cell label or id Example: filter-by="evidence:ISS,ISO or multi-step filters: filter-by:evidence:ISS,ISO;term:xxx" Note: if value is "", remove any filtering
     */
     'filterBy'?: string;
     'groupBaseUrl'?: string;

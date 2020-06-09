@@ -59,7 +59,8 @@ export class RibbonTable {
 
   /**
    * Filter rows based on the presence of one or more values in a given column
-   * Example: filter-by="evidence:ISS,ISO"
+   * The filtering will be based on cell label or id
+   * Example: filter-by="evidence:ISS,ISO or multi-step filters: filter-by:evidence:ISS,ISO;term:xxx"
    * Note: if value is "", remove any filtering
    */
   @Prop() filterBy: string;
@@ -69,6 +70,7 @@ export class RibbonTable {
     // console.log("filterByChanged(" , newValue , "; " , oldValue , ")");
     if(newValue != oldValue) {
       console.log("filterBy: ", newValue);
+      this.updateTable();
     }
   }
 
@@ -160,24 +162,26 @@ export class RibbonTable {
   }
 
   updateTable() {
-    // console.log("updateTable-1: ", this.originalTable);
     if(this.originalTable) {
-      // let tempTable = {...this.originalTable}; // shallow copy not sufficient, only first level
+      // deep copy required to keep the original table safe
       let tempTable = JSON.parse(JSON.stringify(this.originalTable));
       tempTable = addEmptyCells(tempTable);
-      // console.log("updateTable-2: ", tempTable);
+
+      // step-1: is grouping the table rows based on provided columns (if any)
       if(this.groupBy && this.groupBy != "") {
-        // console.log("updateTable-3: group-by(" + this.groupBy + ")");
         // multiple steps grouping
         if(this.groupBy.includes(";")) {
           let split = this.groupBy.split(";");
           for(let groups of split) {
             tempTable = this.groupByColumns(tempTable, groups.split(","), false);            
           }
+        // single step grouping
         } else {
           tempTable = this.groupByColumns(tempTable, this.groupBy.split(","), false);
         }
       }
+
+      // step-2: order the table rows based on provided columns (if any)
       if(this.orderBy && this.orderBy != "") {
         tempTable.rows.sort((a, b) => { 
           // console.log("sort(", a, b, ")");
@@ -186,8 +190,23 @@ export class RibbonTable {
           return eqa.values[0].label.localeCompare(eqb.values[0].label);
         }); 
       }
+
+      // step-3: filter the table based on provided {col, values} (if any)
+      if(this.filterBy && this.filterBy != "") {
+        // multiple steps grouping
+        if(this.filterBy.includes(";")) {
+          let split = this.filterBy.split(";");
+          for(let filters of split) {
+            tempTable = this.filterByColumns(tempTable, filters);
+          }
+        // single step grouping
+        } else {
+          tempTable = this.filterByColumns(tempTable, this.filterBy);
+        }    
+      }
+
+      // assigning this to the state - will trigger a render
       this.table = tempTable;
-      // console.log("updateTable-4: ", this.table);
       this.createHeaderMap();
     }    
   }
@@ -300,6 +319,31 @@ export class RibbonTable {
       newTable.rows.push(row);
     }
     return newTable;
+  }
+
+  filterByColumns(table, filters) {
+    console.log("filter by columns: ", filters);
+    let split = filters.split(":");
+    let key = split[0];
+    let values = split[1];
+    if(values.includes(",")) {
+      values = values.split(",");
+    } else {
+      values  = [values];
+    }
+
+    table.rows = table.rows.filter(row => {
+      let eqcell = row.cells.filter(elt => {
+        return elt.headerId == key;
+      })[0];
+      console.log(row , eqcell);
+      let hasValue = eqcell.values.some(elt => {
+        // return (elt.label && values.includes(elt.label)) || (elt.id && values.includes(elt.id));
+        return (elt.label && values.some(val => elt.label.includes(val))) || (elt.id && values.some(val => elt.id.includes(val)));
+      });
+      return hasValue;
+    });
+    return table;
   }
 
 
