@@ -60,20 +60,20 @@ export function bioLinkToTable(data, curie) {
             {
                 label: "Aspect",
                 id: "aspect",
-                hide: true
+                // hide: true
             },
             {
                 label: "Gene",
                 id: "gene",
                 description: "Gene or gene product",
                 baseURL: "http://amigo.geneontology.org/amigo/gene_product/",
-                hide: true
+                // hide: true
             },
             {
                 label: "Qualifier",
                 id: "qualifier",
                 description: "Most often, describe if the gene has or has NOT a given feature (ontology term)",
-                hide: true
+                // hide: true
             },
             {
                 label: "Term",

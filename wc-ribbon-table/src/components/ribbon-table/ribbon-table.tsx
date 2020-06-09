@@ -74,6 +74,18 @@ export class RibbonTable {
   }
 
   /**
+   * Used to hide specific column of the table
+   */
+  @Prop() hideColumns: string;
+
+  @Watch('hideColumns')
+  hideColumnsChanged(newValue, oldValue) {
+    if(newValue != oldValue) {
+      this.updateTable();
+    }
+  }
+
+  /**
    * Must follow the appropriate JSON data model
    * Can be given as either JSON or stringified JSON
    */
@@ -202,6 +214,14 @@ export class RibbonTable {
         } else {
           tempTable = this.filterByColumns(tempTable, this.filterBy);
         }    
+      }
+
+      // step-4: hide columns based on provided hideColumns parameter
+      if(this.hideColumns && this.hideColumns != "") {
+        let cols = this.hideColumns.includes(",") ? this.hideColumns.split(",") : [this.hideColumns];
+        for(let header of tempTable.header) {
+          header.hide = cols.includes(header.id);
+        }      
       }
 
       // assigning this to the state - will trigger a render
