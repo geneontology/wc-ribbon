@@ -6,6 +6,7 @@ import { bioLinkToTable, addEmptyCells } from '../../globals/utils';
 
 import { parseContext, CurieUtil } from '../../../node_modules/@geneontology/curie-util-es5'
 import { State } from '@stencil/core';
+import { Method } from '@stencil/core';
 
 // import { addEndingSlash, removeBaseURL } from '../../globals/utils';
 
@@ -27,7 +28,7 @@ export class RibbonTable {
    * Using this parameter, the table rows can bee grouped based on column ids
    * A multiple step grouping is possible by using a ";" between groups
    * Example: hid-1,hid-3 OR hid-1,hid-3;hid-2
-   * Note: if value is null or undefined, remove any grouping
+   * Note: if value is "", remove any grouping
    */
   @Prop() groupBy: string;
 
@@ -42,7 +43,7 @@ export class RibbonTable {
   /**
    * This is used to sort the table depending of a column
    * The column cells must be single values
-   * Note: if value is null or undefined, remove any ordering
+   * Note: if value is "", remove any ordering
    */
   @Prop() orderBy: string;
 
@@ -56,7 +57,7 @@ export class RibbonTable {
   /**
    * Filter rows based on the presence of one or more values in a given column
    * Example: filter-by="evidence:ISS,ISO"
-   * Note: if value is null or undefined, remove any filtering
+   * Note: if value is "", remove any filtering
    */
   @Prop() filterBy: string;
 
@@ -126,6 +127,7 @@ export class RibbonTable {
 
   loadFromBioLinkData() {
     if(this.curie) {
+      console.log("curie: ", this.curie);
       if (typeof this.bioLinkData == "string") {
         this.originalTable = bioLinkToTable(JSON.parse(this.bioLinkData), this.curie);
       } else {
@@ -140,7 +142,7 @@ export class RibbonTable {
         var map = parseContext(json);
         // console.log("map: ", map);
         this.curie = new CurieUtil(map);
-        // console.log("curie: ",this.curie);
+        console.log("curie: ", this.curie);
         if (typeof this.bioLinkData == "string") {
           this.originalTable = bioLinkToTable(JSON.parse(this.bioLinkData), this.curie);
         } else {
@@ -156,19 +158,22 @@ export class RibbonTable {
   updateTable() {
     console.log("updateTable-1: ", this.originalTable);
     if(this.originalTable) {
-      this.table = addEmptyCells(this.originalTable);
+      let tempTable = addEmptyCells(this.originalTable);
+      console.log("updateTable-2: ", tempTable);
       if(this.groupBy) {
+        console.log("updateTable-3: group-by(" + this.groupBy + ")");
         // multiple steps grouping
         if(this.groupBy.includes(";")) {
           let split = this.groupBy.split(";");
           for(let groups of split) {
-            this.table = this.groupByColumns(this.table, groups.split(","), false);            
+            tempTable = this.groupByColumns(tempTable, groups.split(","), false);            
           }
         } else {
-          this.table = this.groupByColumns(this.table, this.groupBy.split(","), false);
+          tempTable = this.groupByColumns(tempTable, this.groupBy.split(","), false);
         }
       }
-      console.log("updateTable-2: ", this.table);
+      this.table = tempTable;
+      console.log("updateTable-4: ", this.table);
       this.createHeaderMap();
     }    
   }
@@ -208,10 +213,12 @@ export class RibbonTable {
    * @param filterRedudancy if true, the values of merged columns will be filtered
    */
   groupByColumns(table, keyColumns, filterRedudancy = true) {
+    console.log("groupByColumns(", table , keyColumns, filterRedudancy , ")");
+
     var firstRow = table.rows[0].cells;
     var otherCells = firstRow.filter(elt => !keyColumns.includes(elt.headerId));
     var otherColumns = otherCells.map(elt => elt.headerId);
-    // console.log("other cols: ", otherColumns);
+    console.log("other cols: ", otherColumns);
     
     // building the list of unique rows
     var uRows = new Map();
@@ -228,15 +235,56 @@ export class RibbonTable {
       }
       rows.push(row);
     }
-    // console.log("unique rows: ", uRows);
+    console.log("unique rows: ", uRows);
 
     var newTable = { newTab: table.newTab, header : table.header, rows : [] }
 
-    // going through each set of unique rows
+    // DEBUG
+    console.log("uRows.entries(): " , uRows.entries());
+    console.log("uRows.values(): " , uRows.values());
+
+
+    console.log("DEBUG started");
+
+    var keys = uRows.keys();
+    console.log("keys: ", keys);
+    for(var k of keys) {
+      console.log("iterator key then map[key]: ", k , uRows.get(k));
+    }
+
+    var akeys = Array.from( uRows.keys() );
+    console.log("akeys: ", akeys);
+    for(let i = 0; i < akeys.length; i++) {
+      console.log("loop key then map[key]: ", akeys[i] , uRows.get(akeys[i]));
+    }
+
+    for(var rrows of uRows.values()) {
+      console.log("for var uRows.values() - rrows: ", rrows);
+    }
+
     for(let rrows of uRows.values()) {
-      // console.log("Uniq.Row", rrows);
+      console.log("for let uRows.values() - rrows: ", rrows);
+    }
+
+    for(var r in uRows) {
+      for(var i = 0; i < uRows[r].length; i++) {
+        console.log("for var r in uRows - r, i, value: ", r , i , uRows[r][i]);
+      }
+    }
+    
+    for (const [key, rrows] of uRows.entries()) {      
+      console.log("for const uRows.entried() - [key, rrows]: ", key, rrows);
+    }
+    console.log("DEBUG finished");
+
+
+    // going through each set of unique rows
+    // for(let rrows of uRows.values()) {
+    for (const [key, rrows] of uRows.entries()) {      
+      console.log("Uniq.Row ("  , key , "): ", rrows);
       let row = { cells: [] }      
       for(let header of table.header) {
+        console.log(" --- header: ", header);
         let eqcell : SuperCell = undefined;
         if(keyColumns.includes(header.id)) {
           eqcell = rrows[0].cells.filter(elt => elt.headerId == header.id)[0];
@@ -245,7 +293,7 @@ export class RibbonTable {
             headerId: header.id,
             values: []
           }
-          // console.log("oc: ", oc);
+          
           for(let eqrow of rrows) {
             let otherCell = eqrow.cells.filter(elt => elt.headerId == header.id)[0]
             eqcell.headerId = otherCell.headerId;
@@ -253,7 +301,6 @@ export class RibbonTable {
             eqcell.clickable = otherCell.clickable;
             eqcell.foldable = otherCell.foldable;
             eqcell.selectable = otherCell.selectable;
-            // console.log("-- othercell: " , otherCell);
             
             // TODO: can include test here for filder redudancy
             for(let val of otherCell.values) {
@@ -262,7 +309,8 @@ export class RibbonTable {
             }
           }  
         }
-        // console.log(header , eqcell);
+
+        console.log(" --- H: ", header , "E: ", eqcell);
         if(eqcell) {
           row.cells.push(eqcell);
         }
@@ -359,6 +407,22 @@ export class RibbonTable {
   
   onCellClick(cell) {
     console.log("Cell clicked: ", cell);
+  }
+
+  @Method()
+  async showOriginalTable() {
+    console.log(this.originalTable);
+  }
+
+  @Method()
+  async showTable() {
+    console.log(this.table);
+  }
+
+
+  @Method()
+  async showCurie() {
+    console.log(this.curie);
   }
 
 }

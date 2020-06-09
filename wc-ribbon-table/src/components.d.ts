@@ -21,18 +21,21 @@ export namespace Components {
     */
     'data': string;
     /**
-    * Filter rows based on the presence of one or more values in a given column Example: filter-by="evidence:ISS,ISO" Note: if value is null or undefined, remove any filtering
+    * Filter rows based on the presence of one or more values in a given column Example: filter-by="evidence:ISS,ISO" Note: if value is "", remove any filtering
     */
     'filterBy': string;
     'groupBaseUrl': string;
     /**
-    * Using this parameter, the table rows can bee grouped based on column ids A multiple step grouping is possible by using a ";" between groups Example: hid-1,hid-3 OR hid-1,hid-3;hid-2 Note: if value is null or undefined, remove any grouping
+    * Using this parameter, the table rows can bee grouped based on column ids A multiple step grouping is possible by using a ";" between groups Example: hid-1,hid-3 OR hid-1,hid-3;hid-2 Note: if value is "", remove any grouping
     */
     'groupBy': string;
     /**
-    * This is used to sort the table depending of a column The column cells must be single values Note: if value is null or undefined, remove any ordering
+    * This is used to sort the table depending of a column The column cells must be single values Note: if value is "", remove any ordering
     */
     'orderBy': string;
+    'showCurie': () => Promise<void>;
+    'showOriginalTable': () => Promise<void>;
+    'showTable': () => Promise<void>;
     'subjectBaseUrl': string;
   }
 }
@@ -62,16 +65,16 @@ declare namespace LocalJSX {
     */
     'data'?: string;
     /**
-    * Filter rows based on the presence of one or more values in a given column Example: filter-by="evidence:ISS,ISO" Note: if value is null or undefined, remove any filtering
+    * Filter rows based on the presence of one or more values in a given column Example: filter-by="evidence:ISS,ISO" Note: if value is "", remove any filtering
     */
     'filterBy'?: string;
     'groupBaseUrl'?: string;
     /**
-    * Using this parameter, the table rows can bee grouped based on column ids A multiple step grouping is possible by using a ";" between groups Example: hid-1,hid-3 OR hid-1,hid-3;hid-2 Note: if value is null or undefined, remove any grouping
+    * Using this parameter, the table rows can bee grouped based on column ids A multiple step grouping is possible by using a ";" between groups Example: hid-1,hid-3 OR hid-1,hid-3;hid-2 Note: if value is "", remove any grouping
     */
     'groupBy'?: string;
     /**
-    * This is used to sort the table depending of a column The column cells must be single values Note: if value is null or undefined, remove any ordering
+    * This is used to sort the table depending of a column The column cells must be single values Note: if value is "", remove any ordering
     */
     'orderBy'?: string;
     'subjectBaseUrl'?: string;
