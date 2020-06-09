@@ -30,6 +30,28 @@ export class RibbonTable {
    */
   @Prop() groupBy: string;
 
+  @Watch('groupBy')
+  groupByChanged(newValue, oldValue) {
+    console.log("groupByChanged(" , newValue , "; " , oldValue , ")");
+    if(newValue != oldValue) {
+      this.updateTable();
+    }
+  }
+
+  /**
+   * This is used to sort the table depending of a column
+   * The column cells must be single values
+   */
+  @Prop() orderBy: string;
+
+  @Watch("orderBy")
+  orderByChanged(newValue, oldValue) {
+    if(newValue != oldValue) {
+      console.log("orderBy: ", newValue);
+    }
+  }
+
+
   /**
    * Must follow the appropriate JSON data model
    * Can be given as either JSON or stringified JSON
@@ -41,12 +63,18 @@ export class RibbonTable {
    */
   @Prop() bioLinkData : string;
 
+  /**
+   * This contains the original table, converted from either data or bioLinkData
+   * Its value only changes when data or bioLinkData changes
+   */
+  originalTable : Table;
 
   /**
-   * Contains the data object with the correct model (see model.tsx)
+   * Contains the current representation from originalTable, including any grouping or sorting
+   * Any change to this state will trigger a render
    */
   @State()
-  table : Table; // = dataMockup;
+  table : Table; 
 
 
   /**
@@ -60,6 +88,7 @@ export class RibbonTable {
   dataChanged(newValue, oldValue) {
     if(newValue != oldValue) {
       console.log("DATA CHANGED: ", newValue);
+      // this.originalTable = newValue;
       this.updateTable();
     }
   }
@@ -68,6 +97,7 @@ export class RibbonTable {
   bioLinkDataChanged(newValue, oldValue) {
     if(newValue != oldValue) {
       console.log("BIOLINK DATA CHANGED: ", newValue);
+      // this.originalTable = newValue;
       this.updateTable();
     }
   }

@@ -25,6 +25,10 @@ export namespace Components {
     * Using this parameter, the table rows can bee grouped based on column ids A multiple step grouping is possible by using a ";" between groups Example: hid-1,hid-3 OR hid-1,hid-3;hid-2
     */
     'groupBy': string;
+    /**
+    * This is used to sort the table depending of a column The column cells must be single values
+    */
+    'orderBy': string;
     'subjectBaseUrl': string;
   }
 }
@@ -58,6 +62,10 @@ declare namespace LocalJSX {
     * Using this parameter, the table rows can bee grouped based on column ids A multiple step grouping is possible by using a ";" between groups Example: hid-1,hid-3 OR hid-1,hid-3;hid-2
     */
     'groupBy'?: string;
+    /**
+    * This is used to sort the table depending of a column The column cells must be single values
+    */
+    'orderBy'?: string;
     'subjectBaseUrl'?: string;
   }
 
