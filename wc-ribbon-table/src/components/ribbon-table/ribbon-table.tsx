@@ -27,6 +27,7 @@ export class RibbonTable {
   /**
    * Using this parameter, the table rows can bee grouped based on column ids
    * A multiple step grouping is possible by using a ";" between groups
+   * The grouping applies before the ordering
    * Example: hid-1,hid-3 OR hid-1,hid-3;hid-2
    * Note: if value is "", remove any grouping
    */
@@ -43,14 +44,16 @@ export class RibbonTable {
   /**
    * This is used to sort the table depending of a column
    * The column cells must be single values
+   * The ordering applies after the grouping
    * Note: if value is "", remove any ordering
    */
   @Prop() orderBy: string;
 
   @Watch("orderBy")
   orderByChanged(newValue, oldValue) {
+    // console.log("orderByChanged(" , newValue , "; " , oldValue , ")");
     if(newValue != oldValue) {
-      console.log("orderBy: ", newValue);
+      this.updateTable();
     }
   }
 
@@ -63,6 +66,7 @@ export class RibbonTable {
 
   @Watch("filterBy")
   filterByChanged(newValue, oldValue) {
+    // console.log("filterByChanged(" , newValue , "; " , oldValue , ")");
     if(newValue != oldValue) {
       console.log("filterBy: ", newValue);
     }
@@ -158,9 +162,11 @@ export class RibbonTable {
   updateTable() {
     // console.log("updateTable-1: ", this.originalTable);
     if(this.originalTable) {
-      let tempTable = addEmptyCells(this.originalTable);
+      // let tempTable = {...this.originalTable}; // shallow copy not sufficient, only first level
+      let tempTable = JSON.parse(JSON.stringify(this.originalTable));
+      tempTable = addEmptyCells(tempTable);
       // console.log("updateTable-2: ", tempTable);
-      if(this.groupBy) {
+      if(this.groupBy && this.groupBy != "") {
         // console.log("updateTable-3: group-by(" + this.groupBy + ")");
         // multiple steps grouping
         if(this.groupBy.includes(";")) {
@@ -172,6 +178,14 @@ export class RibbonTable {
           tempTable = this.groupByColumns(tempTable, this.groupBy.split(","), false);
         }
       }
+      if(this.orderBy && this.orderBy != "") {
+        tempTable.rows.sort((a, b) => { 
+          // console.log("sort(", a, b, ")");
+          let eqa = a.cells.filter(elt => elt.headerId == this.orderBy)[0]; 
+          let eqb = b.cells.filter(elt => elt.headerId == this.orderBy)[0];
+          return eqa.values[0].label.localeCompare(eqb.values[0].label);
+        }); 
+      }
       this.table = tempTable;
       // console.log("updateTable-4: ", this.table);
       this.createHeaderMap();
@@ -181,7 +195,6 @@ export class RibbonTable {
   goContextURL = "https://raw.githubusercontent.com/prefixcommons/biocontext/master/registry/go_context.jsonld";
   curie;
   componentWillLoad() {
-    // console.log("TableWillLoad: data = " , this.data , " ; bioLinkData = " , this.bioLinkData);
 
     // enter with the regular data format
     if (this.data) {

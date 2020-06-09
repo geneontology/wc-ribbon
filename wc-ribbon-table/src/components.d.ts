@@ -26,11 +26,11 @@ export namespace Components {
     'filterBy': string;
     'groupBaseUrl': string;
     /**
-    * Using this parameter, the table rows can bee grouped based on column ids A multiple step grouping is possible by using a ";" between groups Example: hid-1,hid-3 OR hid-1,hid-3;hid-2 Note: if value is "", remove any grouping
+    * Using this parameter, the table rows can bee grouped based on column ids A multiple step grouping is possible by using a ";" between groups The grouping applies before the ordering Example: hid-1,hid-3 OR hid-1,hid-3;hid-2 Note: if value is "", remove any grouping
     */
     'groupBy': string;
     /**
-    * This is used to sort the table depending of a column The column cells must be single values Note: if value is "", remove any ordering
+    * This is used to sort the table depending of a column The column cells must be single values The ordering applies after the grouping Note: if value is "", remove any ordering
     */
     'orderBy': string;
     'showCurie': () => Promise<void>;
@@ -70,11 +70,11 @@ declare namespace LocalJSX {
     'filterBy'?: string;
     'groupBaseUrl'?: string;
     /**
-    * Using this parameter, the table rows can bee grouped based on column ids A multiple step grouping is possible by using a ";" between groups Example: hid-1,hid-3 OR hid-1,hid-3;hid-2 Note: if value is "", remove any grouping
+    * Using this parameter, the table rows can bee grouped based on column ids A multiple step grouping is possible by using a ";" between groups The grouping applies before the ordering Example: hid-1,hid-3 OR hid-1,hid-3;hid-2 Note: if value is "", remove any grouping
     */
     'groupBy'?: string;
     /**
-    * This is used to sort the table depending of a column The column cells must be single values Note: if value is "", remove any ordering
+    * This is used to sort the table depending of a column The column cells must be single values The ordering applies after the grouping Note: if value is "", remove any ordering
     */
     'orderBy'?: string;
     'subjectBaseUrl'?: string;
