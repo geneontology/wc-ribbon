@@ -27,6 +27,7 @@ export class RibbonTable {
    * Using this parameter, the table rows can bee grouped based on column ids
    * A multiple step grouping is possible by using a ";" between groups
    * Example: hid-1,hid-3 OR hid-1,hid-3;hid-2
+   * Note: if value is null or undefined, remove any grouping
    */
   @Prop() groupBy: string;
 
@@ -41,6 +42,7 @@ export class RibbonTable {
   /**
    * This is used to sort the table depending of a column
    * The column cells must be single values
+   * Note: if value is null or undefined, remove any ordering
    */
   @Prop() orderBy: string;
 
@@ -54,6 +56,7 @@ export class RibbonTable {
   /**
    * Filter rows based on the presence of one or more values in a given column
    * Example: filter-by="evidence:ISS,ISO"
+   * Note: if value is null or undefined, remove any filtering
    */
   @Prop() filterBy: string;
 
@@ -151,6 +154,7 @@ export class RibbonTable {
   }
 
   updateTable() {
+    console.log("updateTable-1: ", this.originalTable);
     if(this.originalTable) {
       this.table = addEmptyCells(this.originalTable);
       if(this.groupBy) {
@@ -163,7 +167,8 @@ export class RibbonTable {
         } else {
           this.table = this.groupByColumns(this.table, this.groupBy.split(","), false);
         }
-      }    
+      }
+      console.log("updateTable-2: ", this.table);
       this.createHeaderMap();
     }    
   }
