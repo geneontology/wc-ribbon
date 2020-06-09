@@ -69,7 +69,6 @@ export class RibbonTable {
   filterByChanged(newValue, oldValue) {
     // console.log("filterByChanged(" , newValue , "; " , oldValue , ")");
     if(newValue != oldValue) {
-      console.log("filterBy: ", newValue);
       this.updateTable();
     }
   }
@@ -322,7 +321,6 @@ export class RibbonTable {
   }
 
   filterByColumns(table, filters) {
-    console.log("filter by columns: ", filters);
     let split = filters.split(":");
     let key = split[0];
     let values = split[1];
@@ -336,7 +334,6 @@ export class RibbonTable {
       let eqcell = row.cells.filter(elt => {
         return elt.headerId == key;
       })[0];
-      console.log(row , eqcell);
       let hasValue = eqcell.values.some(elt => {
         // return (elt.label && values.includes(elt.label)) || (elt.id && values.includes(elt.id));
         return (elt.label && values.some(val => elt.label.includes(val))) || (elt.id && values.some(val => elt.id.includes(val)));

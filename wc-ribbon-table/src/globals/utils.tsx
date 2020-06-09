@@ -65,25 +65,30 @@ export function bioLinkToTable(data, curie) {
             {
                 label: "Gene",
                 id: "gene",
+                description: "Gene or gene product",
                 baseURL: "http://amigo.geneontology.org/amigo/gene_product/",
                 hide: true
             },
             {
                 label: "Term",
                 id: "term",
+                description: "Ontology term used to describe a feature of the gene product",
                 baseURL: "http://amigo.geneontology.org/amigo/term/"
             },
             {
                 label: "Evidence",
                 id: "evidence",
+                description: "Type of evidence supporting that a given gene product has a certain feature (ontology term)",
                 baseURL: "http://www.ontobee.org/ontology/ECO?iri=http://purl.obolibrary.org/obo/"
             },
             {
                 label: "With/From",
+                description: "In case of sequence similarity, is used to state from which gene product the feature (ontology term) was inferred",
                 id: "with_from"
             },
             {
                 label: "Reference",
+                description: "Reference that support that a given gene product has a certain feature (ontology term)",
                 id: "reference"
             }
         ],
