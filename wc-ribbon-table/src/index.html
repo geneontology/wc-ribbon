@@ -21,6 +21,7 @@
       url = "https://api.geneontology.org/api/bioentityset/slimmer/function?slim=GO:0008219&subject=RGD:3889&rows=-1";
       url = "https://api.geneontology.org/api/bioentityset/slimmer/function?slim=GO:0016043&subject=RGD:3889&rows=-1";
       url = "https://api.geneontology.org/api/bioentityset/slimmer/function?slim=GO:0003677&subject=RGD:3889&rows=-1";
+      url = "https://api.geneontology.org/api/bioentityset/slimmer/function?slim=GO:0003674&slim=GO:0008150&slim=GO:0005575&subject=MGI:98941&rows=-1";
 
       async function loadData() {
         let response = await fetch(url);
@@ -32,7 +33,7 @@
         // create the ribbon table element
         var element = document.createElement("wc-ribbon-table");
         element.setAttribute("bio-link-data", JSON.stringify(data));
-        // element.setAttribute("group-by", "term");
+        element.setAttribute("group-by", "term,qualifier");
         // element.setAttribute("data", JSON.stringify(data));
         // element.setAttribute("group-by", "hid-1,hid-3");
         // element.setAttribute("group-by", "hid-1,hid-3;hid-1");

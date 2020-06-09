@@ -3,16 +3,20 @@ $table__border--radius : 5px !default;
 
 $table__header--bgcolor : rgb(255, 255, 255) !default;
 $table__header--color : rgb(0, 0, 0) !default;
-$table__header__cell--padding : 5px !default;
+$table__header__cell--padding : 2px !default;
 $table__header__cell--font-weight : 800 !default;
 
 $table__row--bgcolor: white !default;
-$table__row__cell--padding: 2px;
+$table__row__cell--padding: 2px !default;
 
 $table__header__divider: 2px solid #ddd !default;
 $table__divider: 1px solid #ddd !default;
 
-$table__row__supercell__cell__link--decoration: none;
+$table__row__supercell__cell__link--decoration: none !default;
+$table__row__supercell__cell__link--color: rgb(0, 0, 238) !default;
+
+
+
 
 * {
 	margin: 0;
@@ -64,6 +68,16 @@ $table__row__supercell__cell__link--decoration: none;
 
                 &__link {
                     text-decoration: $table__row__supercell__cell__link--decoration;
+                    color: $table__row__supercell__cell__link--color;
+                }
+
+                &--not {
+                    color: red;
+                    text-transform: uppercase;
+                    font-weight: 700;
+                    border: 1px solid red;
+                    padding: 2px;
+                    margin-right: 10px;                    
                 }
             }
 

@@ -70,6 +70,12 @@ export function bioLinkToTable(data, curie) {
                 hide: true
             },
             {
+                label: "Qualifier",
+                id: "qualifier",
+                description: "Most often, describe if the gene has or has NOT a given feature (ontology term)",
+                hide: true
+            },
+            {
                 label: "Term",
                 id: "term",
                 description: "Ontology term used to describe a feature of the gene product",
@@ -121,11 +127,22 @@ export function bioLinkToTable(data, curie) {
                     },
 
                     {
+                        headerId: "qualifier",
+                        values: assoc.qualifiers ? assoc.qualifiers.map(elt => {
+                            return {
+                                label: elt
+                            }
+                        }) : [{ label: "" }]
+
+                    },
+
+                    {
                         headerId: "term",
                         values: [
                             {
                                 label: assoc.object.label,
-                                url: assoc.object.id
+                                url: assoc.object.id,
+                                tags: assoc.qualifiers ? assoc.qualifiers : undefined
                             }
                         ]
                     },
@@ -135,6 +152,7 @@ export function bioLinkToTable(data, curie) {
                         values: [
                             {
                                 label: assoc.evidence_type,
+                                description: assoc.evidence_label,
                                 url: assoc.evidence.replace(":", "_")
                             }
                         ]

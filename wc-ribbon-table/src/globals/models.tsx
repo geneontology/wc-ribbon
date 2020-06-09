@@ -13,6 +13,7 @@ export class Cell {
     description?: string;
     url?: string;
     icon?: string;
+    tags?: string[];
     clickable?: boolean;
     selectable?: boolean;
 }

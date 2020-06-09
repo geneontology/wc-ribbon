@@ -404,12 +404,19 @@ export class RibbonTable {
                           if(url && baseURL.length > 0) {
                             url = baseURL + url.replace(baseURL, "");
                           }
+
+                          // create tags if any
+                          let tag_span = "";
+                          if(cell.tags) {
+                            tag_span = <span class='table__row__supercell__cell--not'>{cell.tags.join(", ")}</span>;
+                          }
+                          
                           return [
                             <li title={cell.description} class="table__row__supercell__cell">
                                 { 
                                   cell.url 
-                                    ? <a class="table__row__supercell__cell__link" href={url} target={this.table.newTab ? "_blank" : "_self"}>{cell.label}</a> 
-                                    : <div  onClick={cell.clickable ? (() => this.onCellClick(cell)) : () => "" }>{cell.label}</div>
+                                    ? <a class="table__row__supercell__cell__link" href={url} target={this.table.newTab ? "_blank" : "_self"}>{tag_span} {cell.label}</a> 
+                                    : <div onClick={cell.clickable ? (() => this.onCellClick(cell)) : () => "" }>{tag_span} {cell.label}</div>
                                 }
                             </li>
                         ]                          
