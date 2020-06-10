@@ -18,15 +18,15 @@ $table__row__supercell__cell__link--color: rgb(0, 0, 238) !default;
 
 
 
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-    font-weight: normal;
-}
-
-
 .table {
+
+    &, & * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-weight: normal;
+    }
+
     width: 100%;
     border: $table__border;
     border-radius: $table__border--radius;
@@ -41,7 +41,7 @@ $table__row__supercell__cell__link--color: rgb(0, 0, 238) !default;
         border-top: $table__header__divider;
         border-bottom: $table__header__divider;
         cursor: help;
-        
+
         &__cell {
             padding: $table__header__cell--padding;
             font-weight: $table__header__cell--font-weight;
@@ -83,5 +83,5 @@ $table__row__supercell__cell__link--color: rgb(0, 0, 238) !default;
 
         }
 
-    } 
+    }
 }
