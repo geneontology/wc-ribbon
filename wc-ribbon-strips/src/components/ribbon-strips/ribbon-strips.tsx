@@ -635,7 +635,9 @@ export class RibbonStrips {
                                         let available = true;
 
                                         // if a value was given, then override the default value
-                                        if(cell && cell.available) available = cell.available;
+                                        if(cell && cell.hasOwnProperty("available")) {
+                                            available = cell.available;
+                                        }
 
                                         // TODO: fix the Cells of type "Other"
                                         if(group.type == CELL_TYPES.OTHER && !this.showOtherCategory) {
