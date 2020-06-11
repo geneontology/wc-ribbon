@@ -155,10 +155,10 @@ export class RibbonCell {
         
         if (nbAnnotations > 0) {
             title += "\n\n" + nbClasses + " " + (nbClasses > 1 ? this.arrayClassLabels[1] : this.arrayClassLabels[0]) + ", " + nbAnnotations + " " + (nbAnnotations > 1 ? this.arrayAnnotationLabels[1] : this.arrayAnnotationLabels[0]);
-            this.el.style.setProperty('background', this.cellColor(nbClasses, nbAnnotations));
         } else {
             title += "\n\nNo data available";
         }
+        this.el.style.setProperty('background', this.cellColor(nbClasses, nbAnnotations));
 
         let classes = (this.selected && nbAnnotations > 0) ? "ribbon__subject--cell clicked" : "ribbon__subject--cell"
         classes += (this.hovered && nbAnnotations > 0) ? " hovered" : ""
