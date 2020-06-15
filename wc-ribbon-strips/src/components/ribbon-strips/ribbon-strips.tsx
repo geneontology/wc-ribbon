@@ -70,7 +70,7 @@ export class RibbonStrips {
      */
     @Prop() categoryOtherStyle = FONT_STYLE.NORMAL;
 
-    @Prop() showOtherCategory = false;
+    @Prop() showOtherGroup = false;
 
     /**
      * Position the subject label of each row
@@ -559,7 +559,7 @@ export class RibbonStrips {
                         return [
                             <th class="ribbon__category--separator"></th>,
                             category.groups.map( (group : RibbonGroup) => {
-                                if(group.type == CELL_TYPES.OTHER && !this.showOtherCategory) {
+                                if(group.type == CELL_TYPES.OTHER && !this.showOtherGroup) {
                                     return ;
                                 }
 
@@ -627,7 +627,8 @@ export class RibbonStrips {
                                 return [
                                     <td class="ribbon__subject--separator"></td>,
                                     category.groups.map( (group : RibbonGroup) => {
-                                        let cell = group.id in subject.groups ? subject.groups[group.id] : undefined;
+                                        let cellid = group.id + (group.type == CELL_TYPES.OTHER ? "-other" : "");
+                                        let cell = cellid in subject.groups ? subject.groups[cellid] : undefined;
 
                                         let nbAnnotations = cell ? cell["ALL"]["nb_annotations"] : 0;
                                         
@@ -639,8 +640,7 @@ export class RibbonStrips {
                                             available = cell.available;
                                         }
 
-                                        // TODO: fix the Cells of type "Other"
-                                        if(group.type == CELL_TYPES.OTHER && !this.showOtherCategory) {
+                                        if(group.type == CELL_TYPES.OTHER && !this.showOtherGroup) {
                                             return ;
                                         }
 

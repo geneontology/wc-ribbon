@@ -3,7 +3,7 @@ import { h } from '@stencil/core';
 import { Component, Prop, Element } from '@stencil/core';
 
 import { heatColor, darken } from '../../globals/utils';
-import { COLOR_BY } from '../../globals/enums';
+import { CELL_TYPES, COLOR_BY } from '../../globals/enums';
 
 import { RibbonGroup, RibbonSubject } from '../../globals/models';
 import { Watch } from '@stencil/core';
@@ -114,17 +114,19 @@ export class RibbonCell {
     getNbClasses() {
         if(this.group.type == "GlobalAll") {
             return this.subject.nb_classes;
-        } else {
-            return this.group.id in this.subject.groups ? this.subject.groups[this.group.id]["ALL"]["nb_classes"] : 0;;
         }
+        let cellid = this.group.id + (this.group.type == CELL_TYPES.OTHER ? "-other" : "");
+        let cell = cellid in this.subject.groups ? this.subject.groups[cellid] : undefined;
+        return cell ? cell["ALL"]["nb_classes"] : 0;
     }
 
     getNbAnnotations() {
         if(this.group.type == "GlobalAll") {
             return this.subject.nb_annotations;
-        } else {
-            return this.group.id in this.subject.groups ? this.subject.groups[this.group.id]["ALL"]["nb_annotations"] : 0;;
         }
+        let cellid = this.group.id + (this.group.type == CELL_TYPES.OTHER ? "-other" : "");
+        let cell = cellid in this.subject.groups ? this.subject.groups[cellid] : undefined;
+        return cell ? cell["ALL"]["nb_annotations"] : 0;
     }
 
     hasAnnotations() {
