@@ -419,6 +419,7 @@ export class RibbonTable {
                   <td class="table__row__supercell">
                     <ul class="table__row__supercell__list">
                       {
+                        // Todo: this is where we can have a strategy for folding cells                        
                         superCell.values.map( cell => {
                           let url = cell.url;
                           if(url && baseURL.length > 0) {
