@@ -387,7 +387,7 @@ export class RibbonTable {
         table.header.map( cell => {
           return [
             cell.hide ? "" 
-                      : <th title={cell.description} class="table__header__cell">{cell.label}</th>
+                      : <th title={cell.description} id={cell.id} class="table__header__cell">{cell.label}</th>
           ]
         })
       }
