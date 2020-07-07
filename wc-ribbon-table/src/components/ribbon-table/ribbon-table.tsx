@@ -15,7 +15,7 @@ import { Method } from '@stencil/core';
 @Component({
   tag: 'wc-ribbon-table',
   styleUrl: './ribbon-table.sass',
-  shadow: true
+  shadow: false
 })
 export class RibbonTable {
 
