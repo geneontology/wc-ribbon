@@ -570,7 +570,7 @@ export class RibbonStrips {
                                     onMouseEnter={() => this.onGroupEnter(category, group)}
                                     onMouseLeave={() => this.onGroupLeave(category, group)}
                                     onClick={ (this.groupClickable) ? () => this.onGroupClick(category, group) : undefined }>
-                                    {this.selectedGroup == group ? <b>{this.applyCategoryStyling(group.label)}</b> : this.applyCategoryStyling(group.label) }       
+                                    {this.selectedGroup == group ? <b style={{"color": "#002eff"}}>{this.applyCategoryStyling(group.label)}</b> : this.applyCategoryStyling(group.label) }       
                                 </th>
                             })
                         ];
