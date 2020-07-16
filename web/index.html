@@ -129,7 +129,7 @@
         var element = await document.createElement("wc-ribbon-table");
         // element.setAttribute("data", JSON.stringify(table));
         element.setAttribute("bio-link-data", JSON.stringify(data));
-        element.setAttribute("group-by", "term");
+        element.setAttribute("group-by", "term,qualifier");
         // element.setAttribute("group-by", "term,evidence");
         // element.setAttribute("group-by", "term,evidence;term");  // group rows by (term,evidence) then term
         tableElement.innerHTML = "<h3>Annotations for <b>" + group_labels + "</b> and <b>" + subject_labels.join(", ") + "</b> gene(s)</h3>";

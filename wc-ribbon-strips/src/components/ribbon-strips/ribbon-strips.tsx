@@ -2,7 +2,7 @@ import { h } from '@stencil/core';
 
 import { Component, Prop, Element, Event, EventEmitter } from '@stencil/core';
 
-import { truncate, groupKey, subjectGroupKey, arraysMatch } from '../../globals/utils';
+import { truncate, groupKey, subjectGroupKey, sameArray } from '../../globals/utils';
 import { COLOR_BY, POSITION, SELECTION, EXP_CODES, CELL_TYPES, FONT_CASE, FONT_STYLE } from '../../globals/enums';
 
 import { RibbonModel, RibbonCategory, RibbonGroup, RibbonSubject, RibbonCellEvent, RibbonCellClick, RibbonGroupEvent } from '../../globals/models';
@@ -344,9 +344,9 @@ export class RibbonStrips {
             subjects = [subjects];
         }
 
-        let subs = subjects.map(elt => elt.id + "@" + group.id);
-        let prevSubs = this.previouslyHovered.map(elt => elt.subject.id + "@" + elt.group.id);
-        let same = arraysMatch(subs, prevSubs);
+        let subs = subjects.map(elt => elt.id + "@" + group.id + "@" + group.type);
+        let prevSubs = this.previouslyHovered.map(elt => elt.subject.id + "@" + elt.group.id + "@" + elt.group.type);
+        let same = sameArray(subs, prevSubs);
 
         if(!same) {
             for(let cell of this.previouslyHovered) {
@@ -371,9 +371,9 @@ export class RibbonStrips {
             subjects = [subjects];
         }
 
-        let subs = subjects.map(elt => elt.id + "@" + group.id);
-        let prevSubs = this.previouslySelected.map(elt => elt.subject.id + "@" + elt.group.id);
-        let same = arraysMatch(subs, prevSubs);
+        let subs = subjects.map(elt => elt.id + "@" + group.id + "@" + group.type);
+        let prevSubs = this.previouslySelected.map(elt => elt.subject.id + "@" + elt.group.id + "@" + elt.group.type);
+        let same = sameArray(subs, prevSubs);
 
         if(!same) {
             for(let cell of this.previouslySelected) {

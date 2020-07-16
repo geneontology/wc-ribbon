@@ -22,7 +22,7 @@
     "generate": "stencil generate"
   },
   "devDependencies": {
-    "@stencil/core": "^1.12.2"
+    "@stencil/core": "^1.16.3"
   },
   "repository": {
     "type": "git",
@@ -35,8 +35,8 @@
   "author": "Laurent-Philippe Albou",
   "license": "BSD-3",
   "dependencies": {
-    "@geneontology/wc-ribbon-strips": "0.0.22",
-    "@geneontology/wc-ribbon-table": "0.0.13",
+    "@geneontology/wc-ribbon-strips": "0.0.28",
+    "@geneontology/wc-ribbon-table": "0.0.47",
     "@geneontology/wc-spinner": "0.0.2"
   }
 }

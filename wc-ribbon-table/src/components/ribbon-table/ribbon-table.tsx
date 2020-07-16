@@ -143,8 +143,15 @@ export class RibbonTable {
   }
 
   loadFromBioLinkData() {
+    
+    // if no data, empty the current table
+    if(this.bioLinkData == undefined || this.bioLinkData == "") {
+      this.originalTable = undefined;
+      this.table = undefined;
+      return;
+    }
+
     if(this.curie) {
-      // console.log("curie: ", this.curie);
       if (typeof this.bioLinkData == "string") {
         this.originalTable = bioLinkToTable(JSON.parse(this.bioLinkData), this.curie);
       } else {
@@ -152,22 +159,21 @@ export class RibbonTable {
       }
       this.updateTable();
     } else {
-    fetch(this.goContextURL)
-      .then(data => data.json())
-      .then(json => {
-        // console.log("json: ", json);
-        var map = parseContext(json);
-        // console.log("map: ", map);
-        this.curie = new CurieUtil(map);
-        // console.log("curie: ", this.curie);
-        if (typeof this.bioLinkData == "string") {
-          this.originalTable = bioLinkToTable(JSON.parse(this.bioLinkData), this.curie);
-        } else {
-          this.originalTable = bioLinkToTable(this.bioLinkData, this.curie);
+      fetch(this.goContextURL)
+        .then(data => data.json())
+        .then(json => {
+          // console.log("json: ", json);
+          var map = parseContext(json);
+          // console.log("map: ", map);
+          this.curie = new CurieUtil(map);
+          // console.log("curie: ", this.curie);
+          if (typeof this.bioLinkData == "string") {
+            this.originalTable = bioLinkToTable(JSON.parse(this.bioLinkData), this.curie);
+          } else {
+            this.originalTable = bioLinkToTable(this.bioLinkData, this.curie);
+          }
+          this.updateTable();
         }
-        // console.log(this.table);
-        this.updateTable();
-      }
       );
     }
   }
@@ -232,6 +238,7 @@ export class RibbonTable {
 
   goContextURL = "https://raw.githubusercontent.com/prefixcommons/biocontext/master/registry/go_context.jsonld";
   curie;
+
   componentWillLoad() {
 
     // enter with the regular data format
@@ -365,8 +372,7 @@ export class RibbonTable {
 
 
   render() {
-    let table = this.table;
-    if(!table) {
+    if(!this.table) {
       return "";
     }
 
@@ -374,8 +380,8 @@ export class RibbonTable {
     return (
       <div>
         <table class="table">
-            { this.renderHeader(table) }
-            { this.renderRows(table) }
+            { this.renderHeader(this.table) }
+            { this.renderRows(this.table) }
         </table>
       </div>
     );
