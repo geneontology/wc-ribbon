@@ -1,13 +1,9 @@
-import { h } from '@stencil/core';
-
-import { Component, Prop, Element, Event, EventEmitter } from '@stencil/core';
+import { h, Component, Prop, Element, Event, EventEmitter, State, Watch } from '@stencil/core';
 
 import { truncate, groupKey, subjectGroupKey, sameArray } from '../../globals/utils';
-import { COLOR_BY, POSITION, SELECTION, EXP_CODES, CELL_TYPES, FONT_CASE, FONT_STYLE } from '../../globals/enums';
-
 import { RibbonModel, RibbonCategory, RibbonGroup, RibbonSubject, RibbonCellEvent, RibbonCellClick, RibbonGroupEvent } from '../../globals/models';
-import { State } from '@stencil/core';
-import { Watch } from '@stencil/core';
+
+import { COLOR_BY, POSITION, SELECTION, EXP_CODES, CELL_TYPES, FONT_CASE, FONT_STYLE } from '../../globals/enums';
 
 
 @Component({

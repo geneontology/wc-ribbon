@@ -35,8 +35,8 @@
   "author": "Laurent-Philippe Albou",
   "license": "BSD-3",
   "dependencies": {
-    "@geneontology/wc-ribbon-strips": "0.0.29",
-    "@geneontology/wc-ribbon-table": "0.0.50",
+    "@geneontology/wc-ribbon-strips": "0.0.30",
+    "@geneontology/wc-ribbon-table": "0.0.51",
     "@geneontology/wc-spinner": "0.0.2"
   }
 }

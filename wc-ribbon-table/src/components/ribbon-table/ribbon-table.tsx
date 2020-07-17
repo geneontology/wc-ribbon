@@ -1,7 +1,6 @@
-import { Component, h } from '@stencil/core';
+import { Component, h, Prop, Watch, State, Method } from '@stencil/core';
 
 import { Table, SuperCell } from '../../globals/models';
-import { Prop, Watch, State, Method } from '@stencil/core';
 import { bioLinkToTable, addEmptyCells } from '../../globals/utils';
 
 import { parseContext, CurieUtil } from '@geneontology/curie-util-es5'
