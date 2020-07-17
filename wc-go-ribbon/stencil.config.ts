@@ -3,6 +3,9 @@ import { Config } from '@stencil/core';
 export const config: Config = {
   namespace: 'wc-go-ribbon',
   buildEs5: true,
+  // bundles: [
+  //   { components: ['wc-ribbon-strips', 'wc-ribbon-table', 'wc-spinner']}
+  // ],
   enableCache: false,
   taskQueue: 'async',
   outputTargets: [

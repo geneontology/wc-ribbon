@@ -356,7 +356,7 @@ export class GORibbon {
     return [
         <wc-ribbon-strips 
           id="wc-go-ribbon-strips"
-          ref={el => this.ribbonStrips = el as HTMLElement}
+          ref={el => this.ribbonStrips = el as RibbonStrips}
           
           base-api-url={this.baseApiUrl}
           subject-base-url={this.subjectBaseUrl}
@@ -409,7 +409,7 @@ export class GORibbon {
         :       
         <wc-ribbon-table
           id="wc-go-ribbon-table"
-          ref={el => this.ribbonTable = el as HTMLElement}
+          ref={el => this.ribbonTable = el as RibbonTable}
           
           base-api-url={this.baseApiUrl}
           subject-base-url={this.subjectBaseUrl}
