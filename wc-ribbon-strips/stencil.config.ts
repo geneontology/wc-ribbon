@@ -3,6 +3,7 @@ import { sass } from '@stencil/sass';
 
 export const config: Config = {
   namespace: 'wc-ribbon-strips',
+  buildEs5: true,
   plugins: [
     sass()
   ],  

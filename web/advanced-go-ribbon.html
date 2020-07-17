@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+
+  <title>Advanced GO Ribbon Example</title>
+
+  <script type="module" src="https://unpkg.com/@geneontology/wc-spinner/dist/wc-spinner/wc-spinner.esm.js"></script>
+  <script nomodule="" src="https://unpkg.com/@geneontology/wc-spinner/dist/wc-spinner/wc-spinner.js"></script>
+
+  <script type="module" src="https://unpkg.com/@geneontology/wc-ribbon-strips/dist/wc-ribbon-strips/wc-ribbon-strips.esm.js"></script>
+  <script nomodule="" src="https://unpkg.com/@geneontology/wc-ribbon-strips/dist/wc-ribbon-strips/wc-ribbon-strips.js"></script>
+
+  <script type="module" src="https://unpkg.com/@geneontology/wc-ribbon-table/dist/wc-ribbon-table/wc-ribbon-table.esm.js"></script>
+  <script nomodule="" src="https://unpkg.com/@geneontology/wc-ribbon-table/dist/wc-ribbon-table/wc-ribbon-table.js"></script>
+
+</head>
+
+<body>
+
+  <h2>GO Ribbon - Annotation Summary</h2>
+
+  <div id="ribbon-strips" style="width: 1500px"></div>
+  
+  <br>
+  
+  <div id="ribbon-table" style="width: 1500px"></div>
+
+
+
+  <script>
+
+      let baseAPIURL = "http://api.geneontology.org/api/ontology/ribbon/";
+      // let subjects = ["RGD:620474","RGD:3889"].join("&subject=");
+      // let subjects = ["UniProtKB:Q9BYF1", "UniProtKB:O15393"].join("&subject=");
+      // let subjects = ["HGNC:11998"].join("&subject=");
+      // let subjects = ["RGD:3889"].join("&subject=");
+      let subjects = ["FB:FBgn0000490"].join("&subject=");
+      let query = baseAPIURL + '?subset=goslim_agr&subject=' + subjects;
+      console.log('API query is ' + query);
+
+
+      async function loadData() {
+
+        // fetch the json data
+        let response = await fetch(query);
+        let data = await response.json();
+
+        // create the ribbon strips element
+        var element = await document.createElement("wc-ribbon-strips");
+        element.setAttribute("data", JSON.stringify(data));
+        element.setAttribute("binary-color", "false");
+        element.setAttribute("category-all-style", 1);
+        element.setAttribute("new-tab", "true");
+        element.setAttribute("selection-mode", 0);
+        element.setAttribute("subject-position", 1);
+        element.setAttribute("fire-event-on-empty-cells", false);
+        await document.getElementById("ribbon-strips").appendChild(element);
+
+        // add a listener whenever a cell is clicked
+        document.addEventListener('cellClick', function hideMenu(e, v) {
+          console.log('Cell Clicked' , e.detail);
+          loadAssociations(e.detail);
+        });
+
+        // add a listener whenever a group is clicked
+        document.addEventListener('groupClick', function hideMenu(e, v) {
+          console.log('Group Clicked' , e.detail);
+        });
+      }
+
+      function aspectShortLabel(txt) {
+        if(txt == "biological_process") {
+          return "P";
+        } else if (txt == "molecular_activity" || txt == "molecular_function") {
+          return "F";
+        } else if (txt == "cellular_component") {
+          return "C";
+        }
+        return "U";
+      }
+
+
+      async function loadAssociations(details) {
+        let group = details.group;
+        let group_ids, group_labels;
+
+        let subject_ids = details.subjects.map(elt => elt.id );
+        let subject_labels = details.subjects.map(elt => elt.label );
+        
+        if(group == 'all') {
+          // var groups = this.state.ribbon.categories.map(elt => {
+          //   return elt.id;
+          // });
+          // group = groups.join('&slim=');
+        // } else if (group instanceof Array) {
+        //   group_id = group.join('&slim=');
+        } else {
+          group_ids = group.id;
+          group_labels = group.label;
+        }
+
+        let tableElement = document.getElementById("ribbon-table");
+
+        // tableElement.innerHTML = "<br>Loading associations for <b>" + group_labels + "</b> and <b>" + subject_labels.join(", ") + "</b> genes ...";
+
+        tableElement.innerHTML = "<wc-spinner spinner-style='default' spinner-color='blue'></wc-spinner>"
+
+        const goApiUrl = 'https://api.geneontology.org/api/';
+        subject_ids = subject_ids.join('&subject=');
+        let query = goApiUrl + 'bioentityset/slimmer/function?slim=' + group_ids + '&subject=' + subject_ids + '&rows=-1';
+        console.log("query: ", query);
+
+        // fetch the json data
+        let response = await fetch(query);
+        let data = await response.json();
+
+        console.log("Data fetched: " , data);
+
+
+        // create the ribbon strips element
+        var element = await document.createElement("wc-ribbon-table");
+        // element.setAttribute("data", JSON.stringify(table));
+        element.setAttribute("bio-link-data", JSON.stringify(data));
+        element.setAttribute("group-by", "term,qualifier");
+        // element.setAttribute("group-by", "term,evidence");
+        // element.setAttribute("group-by", "term,evidence;term");  // group rows by (term,evidence) then term
+        tableElement.innerHTML = "<h3>Annotations for <b>" + group_labels + "</b> and <b>" + subject_labels.join(", ") + "</b> gene(s)</h3>";
+        // tableElement.innerHTML = "<wc-spinner spinner-style='default' spinner-color='blue'></wc-spinner>"
+        await document.getElementById("ribbon-table").appendChild(element);
+
+      }
+
+      loadData();
+
+
+</script>
+
+
+
+</body>
+
+</html>

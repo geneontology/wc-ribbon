@@ -1,7 +1,7 @@
 {
-  "name": "wc-go-ribbon",
-  "version": "0.0.1",
-  "description": "Stencil Component Starter",
+  "name": "@geneontology/wc-go-ribbon",
+  "version": "0.0.3",
+  "description": "Web Component Ribbon",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "es2015": "dist/esm/index.mjs",
@@ -35,8 +35,8 @@
   "author": "Laurent-Philippe Albou",
   "license": "BSD-3",
   "dependencies": {
-    "@geneontology/wc-ribbon-strips": "0.0.28",
-    "@geneontology/wc-ribbon-table": "0.0.47",
+    "@geneontology/wc-ribbon-strips": "0.0.29",
+    "@geneontology/wc-ribbon-table": "0.0.50",
     "@geneontology/wc-spinner": "0.0.2"
   }
 }

@@ -1,16 +1,10 @@
 import { Component, h } from '@stencil/core';
 
 import { Table, SuperCell } from '../../globals/models';
-import { Prop, Watch } from '@stencil/core';
+import { Prop, Watch, State, Method } from '@stencil/core';
 import { bioLinkToTable, addEmptyCells } from '../../globals/utils';
 
-import { parseContext, CurieUtil } from '../../../node_modules/@geneontology/curie-util-es5'
-import { State } from '@stencil/core';
-import { Method } from '@stencil/core';
-
-// import { addEndingSlash, removeBaseURL } from '../../globals/utils';
-
-// import { Table, Cell, Header, HeaderCell } from '../../globals/models';
+import { parseContext, CurieUtil } from '@geneontology/curie-util-es5'
 
 @Component({
   tag: 'wc-ribbon-table',

@@ -3,6 +3,7 @@ import { sass } from '@stencil/sass';
 
 export const config: Config = {
   namespace: 'wc-ribbon-table',
+  buildEs5: true,  
   plugins: [
     sass()
   ],  

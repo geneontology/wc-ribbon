@@ -2,6 +2,8 @@ import { Config } from '@stencil/core';
 
 export const config: Config = {
   namespace: 'wc-go-ribbon',
+  buildEs5: true,
+  enableCache: false,
   taskQueue: 'async',
   outputTargets: [
     {

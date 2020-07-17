@@ -1,15 +1,12 @@
 import { Component, Element, h, Prop, State } from '@stencil/core';
 
-import { COLOR_BY, POSITION, SELECTION, FONT_CASE, FONT_STYLE } from '@geneontology/wc-ribbon-strips/dist/collection/globals/enums.js';
-
 import { RibbonGroup, RibbonStrips } from '@geneontology/wc-ribbon-strips/dist'
-import { RibbonTable } from '@geneontology/wc-ribbon-table/dist'
+import { RibbonTable } from '@geneontology/wc-ribbon-table/dist';
+
+import { COLOR_BY, POSITION, SELECTION, FONT_CASE, FONT_STYLE } from '@geneontology/wc-ribbon-strips/dist/collection/globals/enums.js';
 
 import { getCategory, getCategoryIdLabel, diffAssociations, sameArray } from '../../globals/utils';
 
-
-
-// import { bioLinkToTable } from '../../globals/utils';
 
 @Component({
   tag: 'wc-go-ribbon',
@@ -424,8 +421,6 @@ export class GORibbon {
           order-by={this.orderBy}
           filter-by={this.filterBy}
           hide-columns={this.hideColumns}
-
-          // bio-link-data={JSON.stringify(this.mockup)}
         />
       ]
   }
