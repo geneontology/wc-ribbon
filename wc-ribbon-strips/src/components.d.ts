@@ -75,6 +75,7 @@ export namespace Components {
     'maxHeatLevel': number;
     'minColor': string;
     'ribbonSummary': RibbonModel;
+    'selectGroup': (group_id: any) => Promise<void>;
     /**
     * If no value is provided, the ribbon will load without any group selected. If a value is provided, the ribbon will show the requested group as selected The value should be the id of the group to be selected
     */

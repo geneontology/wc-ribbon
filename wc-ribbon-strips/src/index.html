@@ -15,12 +15,38 @@
 
   <div style="width:1400px" id="ribbon-container"></div>
 
+  <button onclick=button_switch()>Switch</button>
 
   <script>
 
+        let subs = [
+          ["RGD:620474","RGD:3889"],
+          ["UniProtKB:Q9BYF1", "UniProtKB:O15393"],
+          ["MGI:1890682"]
+        ];
+
+        pos = 0;
+        alternate = function() {
+          if(pos < 1)
+            pos++;
+          else
+            pos = 0;
+          return subs[pos];
+        }
+
+        button_switch = function() {
+          let baseAPIURL = "http://api.geneontology.org/api/ontology/ribbon/";
+          let subjects = alternate();
+          subjects = subjects.join("&subject=");
+          let query = baseAPIURL + '?subset=goslim_agr&subject=' + subjects;
+          console.log('API query is ' + query);
+          loadData(query)
+        }
+
         let baseAPIURL = "http://api.geneontology.org/api/ontology/ribbon/";
-        // let subjects = ["RGD:620474","RGD:3889"].join("&subject=");
-        let subjects = ["UniProtKB:Q9BYF1", "UniProtKB:O15393"].join("&subject=");
+        let subjects = ["RGD:620474","RGD:3889"].join("&subject=");
+        // let subjects = ["UniProtKB:Q9BYF1", "UniProtKB:O15393"].join("&subject=");
+        // let subjects = ["MGI:1890682"].join("&subject=");
         let query = baseAPIURL + '?subset=goslim_agr&subject=' + subjects;
         console.log('API query is ' + query);
 
@@ -35,13 +61,14 @@
         // })
 
 
-        async function loadData() {
+        async function loadData(query) {
           // fetch the json data
           let response = await fetch(query);
           let data = await response.json();
 
           // create the ribbon strips element
           var element = await document.createElement("wc-ribbon-strips");
+          // element.setAttribute("subject-base-url", 'http://stage.alliancegenome.org/gene/');
           element.setAttribute("add-cell-all", "true");
           element.setAttribute("data", JSON.stringify(data));
           element.setAttribute("binary-color", "false");
@@ -54,6 +81,7 @@
           // element.setAttribute("selected", "all");
 
           var parent = document.getElementById("ribbon-container");
+          parent.innerHTML = '';
           await parent.appendChild(element);
 
           // add a listener whenever a cell is clicked
@@ -74,7 +102,7 @@
 
         }
 
-        loadData();
+        loadData(query);
 
 
   </script>

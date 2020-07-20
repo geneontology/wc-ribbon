@@ -4,6 +4,7 @@ import { truncate, groupKey, subjectGroupKey, sameArray } from '../../globals/ut
 import { RibbonModel, RibbonCategory, RibbonGroup, RibbonSubject, RibbonCellEvent, RibbonCellClick, RibbonGroupEvent } from '../../globals/models';
 
 import { COLOR_BY, POSITION, SELECTION, EXP_CODES, CELL_TYPES, FONT_CASE, FONT_STYLE } from '../../globals/enums';
+import { Method } from '@stencil/core';
 
 
 @Component({
@@ -527,6 +528,24 @@ export class RibbonStrips {
             return category.toUpperCase();
         }
         return category;
+    }
+
+
+    @Method()
+    selectGroup(group_id) {
+        let group;
+        for(let cat of this.ribbonSummary.categories) {
+            for(let gp of cat.groups) {
+                if(gp.id == group_id) {
+                    group = gp;
+                }
+            }
+        }
+        if(group) {
+            this.selectCells(this.ribbonSummary.subjects, group);
+        } else {
+            console.warn("Could not find group <" , group_id , ">");
+        }
     }
 
     renderCategory() {
