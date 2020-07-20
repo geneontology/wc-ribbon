@@ -235,7 +235,7 @@ export class RibbonStrips {
         );
     }
 
-    componentDidRender() {
+    componentDidLoad() {
         this.selectGroup(this.selected)
         this.selected = null;
     }
@@ -530,14 +530,16 @@ export class RibbonStrips {
 
     @Method()
     async selectGroup(group_id) {
-        if(group_id && this.ribbonSummary) {
-            let gp = this.getGroup(group_id);
-            if(gp) {
-                this.selectCells(this.ribbonSummary.subjects, gp, false);            
-            } else {
-                console.warn("Could not find group <" , group_id , ">");
+        setTimeout(() => {
+            if(group_id && this.ribbonSummary) {
+                let gp = this.getGroup(group_id);
+                if(gp) {
+                    this.selectCells(this.ribbonSummary.subjects, gp, false);            
+                } else {
+                    console.warn("Could not find group <" , group_id , ">");
+                }
             }
-        }
+        }, 500);
     }
 
     renderCategory() {
