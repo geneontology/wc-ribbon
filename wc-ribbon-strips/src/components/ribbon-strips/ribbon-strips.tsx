@@ -539,7 +539,7 @@ export class RibbonStrips {
                     console.warn("Could not find group <" , group_id , ">");
                 }
             }
-        }, 500);
+        }, 750);
     }
 
     renderCategory() {
