@@ -51,6 +51,19 @@
 | `groupLeave` | This event is triggered whenever the mouse leaves a group cell area | `CustomEvent<any>` |
 
 
+## Methods
+
+### `selectGroup(group_id: any) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Dependencies
 
 ### Depends on
