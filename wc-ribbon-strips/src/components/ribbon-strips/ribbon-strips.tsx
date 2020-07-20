@@ -236,11 +236,8 @@ export class RibbonStrips {
     }
 
     componentDidRender() {
-        if(this.selected && this.ribbonSummary) {
-            let gp = this.getGroup(this.selected);
-            this.selectCells(this.ribbonSummary.subjects, gp);            
-            this.selected = null;
-        }
+        this.selectGroup(this.selected)
+        this.selected = null;
     }
 
     fetchData(subjects) {
@@ -363,7 +360,7 @@ export class RibbonStrips {
     }
 
     previouslySelected = [];
-    selectCells(subjects, group) {
+    selectCells(subjects, group, toggle = true) {
         if(!(subjects instanceof Array)) {
             subjects = [subjects];
         }
@@ -383,7 +380,7 @@ export class RibbonStrips {
         let lastCell;
         for(let subject of subjects) {
             let cell = this.ribbonElement.querySelector("#" + subjectGroupKey(subject, group));
-            cell.selected = !cell.selected;
+            cell.selected = toggle ? !cell.selected : true;
             selected.push(cell.selected);
             this.previouslySelected.push(cell);
             lastCell = cell;
@@ -532,19 +529,14 @@ export class RibbonStrips {
 
 
     @Method()
-    selectGroup(group_id) {
-        let group;
-        for(let cat of this.ribbonSummary.categories) {
-            for(let gp of cat.groups) {
-                if(gp.id == group_id) {
-                    group = gp;
-                }
+    async selectGroup(group_id) {
+        if(group_id && this.ribbonSummary) {
+            let gp = this.getGroup(group_id);
+            if(gp) {
+                this.selectCells(this.ribbonSummary.subjects, gp, false);            
+            } else {
+                console.warn("Could not find group <" , group_id , ">");
             }
-        }
-        if(group) {
-            this.selectCells(this.ribbonSummary.subjects, group);
-        } else {
-            console.warn("Could not find group <" , group_id , ">");
         }
     }
 
