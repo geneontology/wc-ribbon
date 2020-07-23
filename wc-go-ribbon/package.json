@@ -1,6 +1,6 @@
 {
   "name": "@geneontology/wc-go-ribbon",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Web Component Ribbon",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

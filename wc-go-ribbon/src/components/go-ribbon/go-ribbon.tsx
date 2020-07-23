@@ -7,6 +7,11 @@ import { COLOR_BY, POSITION, SELECTION, FONT_CASE, FONT_STYLE } from '@geneontol
 
 import { getCategory, getCategoryIdLabel, diffAssociations, sameArray } from '../../globals/utils';
 
+// The graph dependency of imported components was broken
+// Fix from suggestion: https://github.com/ionic-team/stencil/issues/2578#issuecomment-662974231
+import '@geneontology/wc-ribbon-table';
+import '@geneontology/wc-ribbon-strips';
+
 
 @Component({
   tag: 'wc-go-ribbon',

@@ -50,11 +50,13 @@
 ### Depends on
 
 - wc-ribbon-strips
+- wc-ribbon-table
 
 ### Graph
 ```mermaid
 graph TD;
   wc-go-ribbon --> wc-ribbon-strips
+  wc-go-ribbon --> wc-ribbon-table
   wc-ribbon-strips --> wc-ribbon-subject
   wc-ribbon-strips --> wc-ribbon-cell
   style wc-go-ribbon fill:#f9f,stroke:#333,stroke-width:4px
