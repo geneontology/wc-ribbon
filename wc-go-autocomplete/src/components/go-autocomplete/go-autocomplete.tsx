@@ -86,7 +86,7 @@ export class GOAutocomplete {
                             ref={(el) => this.searchBox = el as HTMLInputElement}
                             onInput={(evt) => this.newSearch(evt)}>
               </input>
-              <i class="far fa-times-circle icon-right" onClick={() => {this.docs = undefined;} }></i>
+              <i class="far fa-times-circle icon-right" onClick={() => {this.docs = undefined; this.value = ""} }></i>
                             
                           {!this.docs ? "" : <div class="autocomplete-items">
                                               { this.docs.map(doc => {
