@@ -1,0 +1,29 @@
+{
+  "name": "@geneontology/wc-go-autocomplete",
+  "version": "0.0.2",
+  "description": "Autocomplete Web Component for GO",
+  "main": "dist/index.cjs.js",
+  "module": "dist/custom-elements/index.js",
+  "es2015": "dist/esm/index.mjs",
+  "es2017": "dist/esm/index.mjs",
+  "types": "dist/custom-elements/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/wc-go-autocomplete/wc-go-autocomplete.esm.js",
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "scripts": {
+    "build": "stencil build --docs",
+    "start": "stencil build --dev --watch --serve",
+    "test": "stencil test --spec --e2e",
+    "test.watch": "stencil test --spec --e2e --watchAll",
+    "generate": "stencil generate"
+  },
+  "dependencies": {
+    "@geneontology/dbxrefs": "^1.0.9",
+    "@stencil/core": "^1.8.8"
+  },
+  "license": "BSD-3"
+}

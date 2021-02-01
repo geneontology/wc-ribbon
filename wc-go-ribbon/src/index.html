@@ -8,10 +8,37 @@
   <script type="module" src="/build/wc-go-ribbon.esm.js"></script>
   <script nomodule src="/build/wc-go-ribbon.js"></script>
  
+  <script type="module" src="https://unpkg.com/@geneontology/wc-go-autocomplete/dist/wc-go-autocomplete/wc-go-autocomplete.esm.js"></script>
+  <script nomodule="" src="https://unpkg.com/@geneontology/wc-go-autocomplete/dist/wc-go-autocomplete/wc-go-autocomplete.js"></script>
+
+
 </head>
 <body>
 
-  <wc-go-ribbon subjects="RGD:620474,RGD:3889"/>
+  <!-- Control div -->
+  <div style=width:100%>
+    <strong>Add gene to the GO ribbon:</strong><br><small>(can use gene symbol or model organism ID such as RGD:3889)</small><br>
+    <wc-go-autocomplete id="ac"></wc-go-autocomplete>
+
+    <button onclick="document.getElementById('ribbon').subjects=''" style="padding: 10px">Clear GO ribbon</button>
+  </div>
+
+  <!-- Ribbon itself -->
+  <wc-go-ribbon id="ribbon" subjects="RGD:620474,RGD:3889"></wc-go-ribbon>
+
+
+  <!-- Some script to control the ribbon and autocomplete -->
+  <script>
+      let elt = document.getElementById("ac");
+      document.addEventListener("itemSelected", (evt) => {
+        let selected = evt.detail.selected;
+        // console.log("item selected: ", evt.detail);
+        if(selected && selected.id) {
+          let ribbon = document.getElementById("ribbon");
+          ribbon.subjects += "," + selected.id;
+        }
+      });
+  </script>
 
 </body>
 </html>

@@ -419,7 +419,9 @@ export class GORibbon {
         
         ,
 
+        ((this.subjects && this.subjects.length > 0) || (this.data)) ?
         <div style={{"font-style": "italic", "color": "#7b7b7b"}}>Cell color indicative of annotation volume</div>
+        : ""
 
         ,        
 

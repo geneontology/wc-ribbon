@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>GO Autocomplete Web Component</title>
+
+    <script type="module" src="/build/wc-go-autocomplete.esm.js"></script>
+    <script nomodule src="/build/wc-go-autocomplete.js"></script>
+  </head>
+
+  <body>
+    <!-- Add the autocomplete element to the HTML page -->
+    <wc-go-autocomplete id="ac"></wc-go-autocomplete>
+
+    <!-- This part is to listen to any selection done with the autocomplete -->
+    <script>
+      let elt = document.getElementById("ac");
+      document.addEventListener("itemSelected", (evt) => {
+        console.log("item selected: ", evt.detail);
+      });
+    </script>
+  </body>
+
+</html>
