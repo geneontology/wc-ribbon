@@ -47,6 +47,6 @@ Accepted values for 'spinner-style': default, spinner, circle, ring, dual-ring, 
 
 
 ### Node Modules
-- Run `npm install wc-ribbon-spinner --save`
+- Run `npm install @geneontology/wc-spinner --save`
 - Put a script tag similar to this `<script src='node_modules/@geneontology/wc-spinner/dist/wc-spinner.js'></script>` in the head of your index.html
 - Then you can use the element anywhere in your template, JSX, html etc

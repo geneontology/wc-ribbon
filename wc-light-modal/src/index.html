@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>Lightweight Modal Component</title>
+
+    <script type="module" src="/build/wc-light-modal.esm.js"></script>
+    <script nomodule src="/build/wc-light-modal.js"></script>
+  </head>
+  <body>
+
+    <h1>Lightweight Modal Web Component example</h1>
+
+    <wc-light-modal id="modal-1" 
+                    modal-title="Modal Title" 
+                    modal-content="Modal Content accepts HTML:<br><button>click</button>">
+    </wc-light-modal>
+
+    <button onclick="document.getElementById('modal-1').toggle()">Toggle modal</button>
+
+
+  </body>
+</html>
