@@ -8,7 +8,7 @@ This repository contains multiple web components, each published on NPM for easy
 | GH folder | Description | NPM package |
 | ------------- | ------------- | ------------- |
 | [wc-go-ribbon](https://github.com/geneontology/wc-ribbon/tree/master/wc-go-ribbon) | GO ribbon component benefiting from the components described below |  [@geneontology/wc-go-ribbon](https://www.npmjs.com/package/@geneontology/wc-go-ribbon) |
-| [wc-ribbon-strips](https://github.com/geneontology/wc-ribbon/tree/master/wc-ribbon-strips) | interactive visual summary with colored cells for association data | [@geneontology/wc-ribbon-strips](https://www.npmjs.com/package/@geneontology/wc-ribbon-strips) |
+| [wc-ribbon-strips](https://github.com/geneontology/wc-ribbon/tree/master/wc-ribbon-strips) | interactive visual summary with colored cells for association data (e.g. gene <-> number of GO annotations | [@geneontology/wc-ribbon-strips](https://www.npmjs.com/package/@geneontology/wc-ribbon-strips) |
 |  [wc-ribbon-table](https://github.com/geneontology/wc-ribbon/tree/master/wc-ribbon-table) |  table to display association data (e.g. gene <-> GO annotation | [@geneontology/wc-ribbon-table](https://www.npmjs.com/package/@geneontology/wc-ribbon-table)  |
 |  [wc-spinner](https://github.com/geneontology/wc-ribbon/tree/master/wc-spinner) | simple spinner shared across components to display a pending process  |  [@geneontology/wc-spinner](https://www.npmjs.com/package/@geneontology/wc-spinner) |
 |  [wc-light-modal](https://github.com/geneontology/wc-ribbon/tree/master/wc-light-modal) | simple modal component able to display HTML content and controllable through JS events  | [@geneontology/wc-light-modal](https://www.npmjs.com/package/@geneontology/wc-light-modal) |
