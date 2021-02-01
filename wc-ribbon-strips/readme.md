@@ -32,10 +32,13 @@ npm test
 ```html
 <html>
 <head>
-    <script src="https://unpkg.com/@geneontology/wc-ribbon-strips/dist/wc-ribbon-strips.js"/>
+  <script type="module" src="https://unpkg.com/@geneontology/wc-ribbon-strips/dist/wc-ribbon-strips/wc-ribbon-strips.esm.js"></script>
+  <script nomodule="" src="https://unpkg.com/@geneontology/wc-ribbon-strips/dist/wc-ribbon-strips/wc-ribbon-strips.js"></script>
 </head>
 <body>
-  <wc-ribbon-strips subjects="RGD:620474,RGD:3889"></wc-ribbon-strips>
+
+  <wc-ribbon-strips subjects="RGD:620474,RGD:3889" />
+
 </body>
 </html>
 ```
@@ -52,7 +55,7 @@ This script will load two specific genes as in the above example but by creating
 ```html
 <script>
 
-        let baseAPIURL = "http://api.geneontology.org/api/ontology/ribbon/";
+        let baseAPIURL = "https://api.geneontology.org/api/ontology/ribbon/";
         let subjects = ["RGD:620474","RGD:3889"].join("&subject=");
         let query = baseAPIURL + '?subset=goslim_agr&subject=' + subjects;
         console.log('API query is ' + query);

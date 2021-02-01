@@ -35,7 +35,7 @@ export class GORibbon {
 
   @Prop() filterCrossAspect = true;
 
-  @Prop() baseApiUrl = "http://api.geneontology.org/api/ontology/ribbon/";
+  @Prop() baseApiUrl = "https://api.geneontology.org/api/ontology/ribbon/";
 
   @Prop() subjectBaseUrl: string = "http://amigo.geneontology.org/amigo/gene_product/";
   @Prop() groupBaseUrl: string = "http://amigo.geneontology.org/amigo/term/";

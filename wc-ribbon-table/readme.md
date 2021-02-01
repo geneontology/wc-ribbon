@@ -31,10 +31,13 @@ npm test
 ```html
 <html>
 <head>
-    <script src="https://unpkg.com/@geneontology/wc-ribbon-table/dist/wc-ribbon-table.js"/>
+  <script type="module" src="https://unpkg.com/@geneontology/wc-ribbon-table/dist/wc-ribbon-table/wc-ribbon-table.esm.js"></script>
+  <script nomodule="" src="https://unpkg.com/@geneontology/wc-ribbon-table/dist/wc-ribbon-table/wc-ribbon-table.js"></script>
 </head>
 <body>
+
   <wc-ribbon-table data="{your_json_data}"></wc-ribbon-table>
+
 </body>
 </html>
 ```

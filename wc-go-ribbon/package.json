@@ -1,6 +1,6 @@
 {
   "name": "@geneontology/wc-go-ribbon",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "description": "Web Component Ribbon",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -35,8 +35,8 @@
   "author": "Laurent-Philippe Albou",
   "license": "BSD-3",
   "dependencies": {
-    "@geneontology/wc-ribbon-strips": "0.0.30",
-    "@geneontology/wc-ribbon-table": "0.0.53",
+    "@geneontology/wc-ribbon-strips": "0.0.35",
+    "@geneontology/wc-ribbon-table": "0.0.54",
     "@geneontology/wc-spinner": "0.0.2"
   }
 }

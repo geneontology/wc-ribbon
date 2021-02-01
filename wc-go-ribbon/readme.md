@@ -32,10 +32,13 @@ npm test
 ```html
 <html>
 <head>
-    <script src="https://unpkg.com/@geneontology/wc-go-ribbon/dist/wc-go-ribbon.js"/>
+  <script type="module" src="https://unpkg.com/@geneontology/wc-go-ribbon/dist/wc-go-ribbon/wc-go-ribbon.esm.js"></script>
+  <script nomodule="" src="https://unpkg.com/@geneontology/wc-go-ribbon/dist/wc-go-ribbon/wc-go-ribbon.js"></script>
 </head>
 <body>
-  <wc-go-ribbon subjects="RGD:620474,RGD:3889"></wc-go-ribbon>
+
+  <wc-go-ribbon subjects="RGD:620474,RGD:3889" />
+
 </body>
 </html>
 ```
