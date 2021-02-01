@@ -1,4 +1,4 @@
-import { Component, Element, h, Prop, State } from '@stencil/core';
+import { Component, Element, h, Prop, Watch, State } from '@stencil/core';
 
 import { RibbonGroup, RibbonStrips } from '@geneontology/wc-ribbon-strips/dist'
 import { RibbonTable } from '@geneontology/wc-ribbon-table/dist';
@@ -184,6 +184,20 @@ export class GORibbon {
    */
   @State() bioLinkData : string;
 
+
+
+  /**
+   * This method is automatically called whenever the value of "subjects" changes
+   * @param newValue a new subject is submitted (e.g. gene)
+   * @param oldValue old value of the subject (e.g. gene or genes)
+   */
+  @Watch('subjects')
+  subjectsChanged(newValue, oldValue) {
+      if(newValue != oldValue) {
+        this.bioLinkData = undefined;
+        this.tableData = undefined;
+      }
+  }
 
   /**
    * Check if a HTML element has a parent with provided id

@@ -129,6 +129,29 @@ export class RibbonStrips {
         }
     }
 
+  /**
+   * This method is automatically called whenever the value of "subjects" changes
+   * @param newValue a new subject is submitted (e.g. gene)
+   * @param oldValue old value of the subject (e.g. gene or genes)
+   */
+  @Watch('subjects')
+  subjectsChanged(newValue, oldValue) {
+      if(newValue != oldValue) {
+        // Fetch data based on subjects and subset
+        this.fetchData(this.subjects)
+        .then(
+            data => {
+                this.ribbonSummary = data;
+                this.loading = false;
+            },
+            error => {
+                console.error(error);
+                this.loading = false;
+            }
+        );        
+      }
+  }    
+
     @State() selectedGroup: RibbonGroup;
 
     /**
