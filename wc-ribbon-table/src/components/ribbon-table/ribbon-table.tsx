@@ -154,7 +154,7 @@ export class RibbonTable {
 
     } else {
       dbxrefs.init()
-      .then(data => {
+      .then(() => {
         console.log("dbx: ", dbxrefs);
         console.log(dbxrefs.getURL("WB", undefined, "WBGene00006575"))
         if (typeof this.bioLinkData == "string") {

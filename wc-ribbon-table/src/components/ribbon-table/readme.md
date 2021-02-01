@@ -32,6 +32,16 @@ Type: `Promise<void>`
 
 
 
+### `showDBXrefs() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `showOriginalTable() => Promise<void>`
 
 
