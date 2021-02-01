@@ -2,12 +2,20 @@
 
 # Ribbon Web Component
 
-This Web Component is divided in three parts:
-- wc-ribbon-strips : graphical part of the ribbon with cells
-- wc-ribbon-table (under development) : a table to load the association data upon a click of a cell
-- wc-spinner: simple spinner shared across components and used when loading data
-- wc-light-modal: simple modal able to display HTML content and controllable through JS events
+This repository contains multiple web components, each published on NPM for easy integration in 3rd party projects:
+
+
+| GH folder | Description | NPM package |
+| ------------- | ------------- | ------------- |
+| [wc-go-ribbon](https://github.com/geneontology/wc-ribbon/tree/master/wc-go-ribbon) | GO ribbon component benefiting from the components described below |  [@geneontology/wc-go-ribbon](https://www.npmjs.com/package/@geneontology/wc-go-ribbon) |
+| [wc-ribbon-strips](https://github.com/geneontology/wc-ribbon/tree/master/wc-ribbon-strips) | interactive visual summary with colored cells for association data | [@geneontology/wc-ribbon-strips](https://www.npmjs.com/package/@geneontology/wc-ribbon-strips) |
+|  [wc-ribbon-table](https://github.com/geneontology/wc-ribbon/tree/master/wc-ribbon-table) |  table to display association data (e.g. gene <-> GO annotation | [@geneontology/wc-ribbon-table](https://www.npmjs.com/package/@geneontology/wc-ribbon-table)  |
+|  [wc-spinner](https://github.com/geneontology/wc-ribbon/tree/master/wc-spinner) | simple spinner shared across components to display a pending process  |  [@geneontology/wc-spinner](https://www.npmjs.com/package/@geneontology/wc-spinner) |
+|  [wc-light-modal](https://github.com/geneontology/wc-ribbon/tree/master/wc-light-modal) | simple modal component able to display HTML content and controllable through JS events  | [@geneontology/wc-light-modal](https://www.npmjs.com/package/@geneontology/wc-light-modal) |
+
 
 An integrated simple to use Web Component dedicated to GO data and benefit from all these parts is available in the folder wc-go-ribbon.
 
-An example of web integration for the GO ribbon is also provided in the web/ folder.
+Examples of web integration of the GO ribbon are also provided in the [web/](https://github.com/geneontology/wc-ribbon/tree/master/web) folder:
+- [basic example](https://github.com/geneontology/wc-ribbon/blob/master/web/basic-go-ribbon.html) : the simplest way to integrate the GO ribbon anywhere
+- [advanced example](https://github.com/geneontology/wc-ribbon/blob/master/web/advanced-go-ribbon.html) : advanced example to integrate the GO ribbon, giving access to various events and how to link the wc-ribbon-strips and wc-ribbon-table with Javascript
