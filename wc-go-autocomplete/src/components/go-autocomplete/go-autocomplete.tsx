@@ -25,7 +25,7 @@ export class GOAutocomplete {
 
   @State() ready = false;
 
-  goApiUrl = "http://api.geneontology.org/api/search/entity/autocomplete/";
+  goApiUrl = "https://api.geneontology.org/api/search/entity/autocomplete/";
   ncbiTaxonUrl = "https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=";
 
 
