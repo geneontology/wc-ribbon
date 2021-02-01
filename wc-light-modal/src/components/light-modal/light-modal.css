@@ -1,0 +1,81 @@
+/* Inspired by: https://codepen.io/timothylong/pen/HhAer */
+
+
+.modal-card {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.25);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+  
+  
+  }
+  
+  .modal-card>div {
+    width: 400px;
+    position: absolute;
+    top: 0px;
+    left: 100px;
+    transform: translate(0%, -50%);
+    padding: 2em;
+    background: #ffffff;
+    border-radius: 15px;
+    -webkit-box-shadow: 4px 6px 42px 0px rgba(194,194,194,1);
+    -moz-box-shadow: 4px 6px 42px 0px rgba(194,194,194,1);
+    box-shadow: 4px 6px 42px 0px rgba(194,194,194,1);
+  }
+  
+  .modal-card-visible {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  
+  header {
+    font-weight: bold;
+  }
+  
+  h1 {
+    font-size: 150%;
+    margin: 0 0 15px;
+  }
+  
+  
+  
+  
+  a {
+    color: inherit;
+  }
+  
+  .container {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .modal-window div:not(:last-of-type) {
+    margin-bottom: 15px;
+  }
+  
+  small {
+    color: #aaa;
+  }
+  
+  .btn {
+    background-color: #fff;
+    padding: 1em 1.5em;
+    border-radius: 3px;
+    text-decoration: none;
+  }
+  
+  .absolute-position {
+    position: absolute !important;
+  }

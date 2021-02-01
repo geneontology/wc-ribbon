@@ -22,7 +22,13 @@
       url = "https://api.geneontology.org/api/bioentityset/slimmer/function?slim=GO:0016043&subject=RGD:3889&rows=-1";
       url = "https://api.geneontology.org/api/bioentityset/slimmer/function?slim=GO:0003677&subject=RGD:3889&rows=-1";
       url = "https://api.geneontology.org/api/bioentityset/slimmer/function?slim=GO:0003674&slim=GO:0008150&slim=GO:0005575&subject=MGI:98941&rows=-1";
+      url = "https://api.geneontology.org/api/bioentityset/slimmer/function?slim=GO:0005515&subject=WB:WBGene00006575&rows=-1";
+      url = "https://api.geneontology.org/api/bioentityset/slimmer/function?slim=GO:0003674&subject=SGD:S000006555&rows=-1";
+      
+      url = "https://api.geneontology.org/api/bioentityset/slimmer/function?slim=GO:0005575&subject=RGD:620474&rows=-1";
+      url = "https://api.geneontology.org/api/bioentityset/slimmer/function?slim=GO:0003674&subject=HGNC:11998&rows=-1";
 
+      
       async function loadData() {
         let response = await fetch(url);
         let data = await response.json();

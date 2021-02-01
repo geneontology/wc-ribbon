@@ -6,7 +6,8 @@ This Web Component is divided in three parts:
 - wc-ribbon-strips : graphical part of the ribbon with cells
 - wc-ribbon-table (under development) : a table to load the association data upon a click of a cell
 - wc-spinner: simple spinner shared across components and used when loading data
+- wc-light-modal: simple modal able to display HTML content and controllable through JS events
 
-An integrated simple to use Web Component that uses both these parts will be available in the folder wc-ribbon
+An integrated simple to use Web Component dedicated to GO data and benefit from all these parts is available in the folder wc-go-ribbon.
 
-An example of web integration is available in the web/ folder
+An example of web integration for the GO ribbon is also provided in the web/ folder.

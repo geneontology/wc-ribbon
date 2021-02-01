@@ -3,7 +3,7 @@ import { Component, h, Prop, Watch, State, Method } from '@stencil/core';
 import { Table, SuperCell } from '../../globals/models';
 import { bioLinkToTable, addEmptyCells } from '../../globals/utils';
 
-import { parseContext, CurieUtil } from '@geneontology/curie-util-es5'
+import * as dbxrefs from '@geneontology/dbxrefs';
 
 @Component({
   tag: 'wc-ribbon-table',
@@ -144,30 +144,26 @@ export class RibbonTable {
       return;
     }
 
-    if(this.curie) {
+    if(dbxrefs.isReady()) {
       if (typeof this.bioLinkData == "string") {
-        this.originalTable = bioLinkToTable(JSON.parse(this.bioLinkData), this.curie);
+        this.originalTable = bioLinkToTable(JSON.parse(this.bioLinkData), dbxrefs.getURL);
       } else {
-        this.originalTable = bioLinkToTable(this.bioLinkData, this.curie);
+        this.originalTable = bioLinkToTable(this.bioLinkData, dbxrefs.getURL);
       }
       this.updateTable();
+
     } else {
-      fetch(this.goContextURL)
-        .then(data => data.json())
-        .then(json => {
-          // console.log("json: ", json);
-          var map = parseContext(json);
-          // console.log("map: ", map);
-          this.curie = new CurieUtil(map);
-          // console.log("curie: ", this.curie);
-          if (typeof this.bioLinkData == "string") {
-            this.originalTable = bioLinkToTable(JSON.parse(this.bioLinkData), this.curie);
-          } else {
-            this.originalTable = bioLinkToTable(this.bioLinkData, this.curie);
-          }
-          this.updateTable();
+      dbxrefs.init()
+      .then(() => {
+        console.log("dbx: ", dbxrefs);
+        console.log(dbxrefs.getURL("WB", undefined, "WBGene00006575"))
+        if (typeof this.bioLinkData == "string") {
+          this.originalTable = bioLinkToTable(JSON.parse(this.bioLinkData), dbxrefs.getURL);
+        } else {
+          this.originalTable = bioLinkToTable(this.bioLinkData, dbxrefs.getURL);
         }
-      );
+        this.updateTable();
+      })
     }
   }
 
@@ -473,6 +469,11 @@ export class RibbonTable {
   @Method()
   async showCurie() {
     console.log(this.curie);
+  }
+
+  @Method()
+  async showDBXrefs() {
+    console.log(dbxrefs.getDBXrefs())
   }
 
 }

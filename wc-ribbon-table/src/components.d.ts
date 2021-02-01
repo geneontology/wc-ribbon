@@ -38,6 +38,7 @@ export namespace Components {
     */
     'orderBy': string;
     'showCurie': () => Promise<void>;
+    'showDBXrefs': () => Promise<void>;
     'showOriginalTable': () => Promise<void>;
     'showTable': () => Promise<void>;
     'subjectBaseUrl': string;

@@ -53,7 +53,7 @@ export function aspectShortLabel(txt) {
     return "U";
 }
 
-export function bioLinkToTable(data, curie) {
+export function bioLinkToTable(data, getURL) {
     let table = {
         newTab: true,
         header: [
@@ -161,7 +161,7 @@ export function bioLinkToTable(data, curie) {
                         values: assoc.evidence_with ? assoc.evidence_with.map(elt => {
                             return {
                                 label: elt,
-                                url: curie.getIri(elt)
+                                url: getURL(elt.substring(0, elt.indexOf(":")), undefined, elt.substring(elt.indexOf(":") + 1))
                             }
                         }) : [{ label: "" }]
                     },
@@ -171,7 +171,7 @@ export function bioLinkToTable(data, curie) {
                         values: assoc.reference.map(elt => {
                             return {
                                 label: elt,
-                                url: curie.getIri(elt)
+                                url: getURL(elt.substring(0, elt.indexOf(":")), undefined, elt.substring(elt.indexOf(":") + 1))
                             }
                         })
                     }
