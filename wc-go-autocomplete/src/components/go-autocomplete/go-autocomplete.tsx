@@ -13,12 +13,31 @@ export class GOAutocomplete {
 
   @Prop() value: string;
 
+  /**
+   * Category to constrain the search; by default search "gene"
+   * Other values accepted:
+  * `undefined` : search both terms and genes
+  * `gene` : will only search genes used in GO
+  * `biological%20process` : will search for GO BP terms
+  * `molecular%20function` : will search for GO MF terms
+  * `cellular%20component` : will search for GO CC terms
+  * `cellular%20component,molecular%20function,biological%20process` : will search any GO term
+   */
   @Prop() category: string = "gene";
 
+  /**
+   * Maximum number of results to show
+   */
   @Prop() maxResults = 100;
 
+  /**
+   * Default placeholder for the autocomplete
+   */
   @Prop() placeholder = "";
 
+  /**
+   * Event triggered whenever an item is selected from the autocomplete
+   */
   @Event({eventName: 'itemSelected', cancelable: true, bubbles: true}) itemSelected: EventEmitter;
 
   @State() docs;  // will contain the results of the search (e.g. from the GO API)

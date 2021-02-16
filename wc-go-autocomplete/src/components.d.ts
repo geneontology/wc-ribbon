@@ -7,8 +7,17 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface WcGoAutocomplete {
+        /**
+          * Category to constrain the search; by default search "gene" Other values accepted: `undefined` : search both terms and genes `gene` : will only search genes used in GO `biological%20process` : will search for GO BP terms `molecular%20function` : will search for GO MF terms `cellular%20component` : will search for GO CC terms `cellular%20component,molecular%20function,biological%20process` : will search any GO term
+         */
         "category": string;
+        /**
+          * Maximum number of results to show
+         */
         "maxResults": number;
+        /**
+          * Default placeholder for the autocomplete
+         */
         "placeholder": string;
         "value": string;
     }
@@ -26,9 +35,21 @@ declare global {
 }
 declare namespace LocalJSX {
     interface WcGoAutocomplete {
+        /**
+          * Category to constrain the search; by default search "gene" Other values accepted: `undefined` : search both terms and genes `gene` : will only search genes used in GO `biological%20process` : will search for GO BP terms `molecular%20function` : will search for GO MF terms `cellular%20component` : will search for GO CC terms `cellular%20component,molecular%20function,biological%20process` : will search any GO term
+         */
         "category"?: string;
+        /**
+          * Maximum number of results to show
+         */
         "maxResults"?: number;
+        /**
+          * Event triggered whenever an item is selected from the autocomplete
+         */
         "onItemSelected"?: (event: CustomEvent<any>) => void;
+        /**
+          * Default placeholder for the autocomplete
+         */
         "placeholder"?: string;
         "value"?: string;
     }
