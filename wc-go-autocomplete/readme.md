@@ -34,7 +34,7 @@ The GO Autocomplete is a Web Component to quickly find genes and terms used in G
 ```
 
 ### Node Modules
-- Run `npm install wc-go-autocomplete --save`
+- Run `npm install @geneontology/wc-go-autocomplete --save`
 - Put a script tag similar to this `<script src='node_modules/@geneontology/wc-go-autocomplete/dist/wc-go-autocomplete.js'></script>` in the head of your index.html
 - Then you can use the element anywhere in your template, JSX, html etc
 

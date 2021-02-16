@@ -6,26 +6,6 @@ This is a lightweight web component to display modals. It allows notably to incl
 
 ## Getting Started
 
-To start the component in a dev environment:
-```bash
-npm install
-npm start
-```
-
-To build the component for production, run:
-
-```bash
-npm run build
-```
-
-To run the unit tests for the components, run:
-
-```bash
-npm test
-```
-
-## Using this component
-
 ### Script tag
 
 - Put a script tag  `<script src='https://unpkg.com/@geneontology/wc-light-modal/dist/wc-light-modal.js'></script>` in the head of your index.html

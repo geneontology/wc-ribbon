@@ -25,6 +25,6 @@ The Ribbon Table is used to list, cluster and order annotations usually selected
 ```
 
 ### Node Modules
-- Run `npm install wc-ribbon-table --save`
+- Run `npm install @geneontology/wc-ribbon-table --save`
 - Put a script tag similar to this `<script src='node_modules/@geneontology/wc-ribbon-table/dist/wc-ribbon-table.js'></script>` in the head of your index.html
 - Then you can use the element anywhere in your template, JSX, html etc

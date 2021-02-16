@@ -26,6 +26,6 @@ Try the GO ribbon here: [http://geneontology.org/ribbon.html](http://geneontolog
 ```
 
 ### Node Modules
-- Run `npm install wc-go-ribbon --save`
+- Run `npm install @geneontology/wc-go-ribbon --save`
 - Put a script tag similar to this `<script src='node_modules/@geneontology/wc-go-ribbon/dist/wc-go-ribbon.js'></script>` in the head of your index.html
 - Then you can use the element anywhere in your template, JSX, html etc
