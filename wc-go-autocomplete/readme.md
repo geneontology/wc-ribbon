@@ -2,6 +2,8 @@
 
 # GO Autocomplete Web Component
 
+The GO Autocomplete is a Web Component to quickly find genes and terms used in GO [http://geneontology.org/](http://geneontology.org/){:target="_blank"}. It is used in the GO ribbon sandbox to help users find their genes of interest. Try the GO ribbon here: [http://geneontology.org/ribbon.html](http://geneontology.org/ribbon.html){:target="_blank"}
+
 ## Getting Started
 
 ### Script tag

@@ -2,27 +2,9 @@
 
 # GO Ribbon Web Component
 
+Try the GO ribbon here: [http://geneontology.org/ribbon.html](http://geneontology.org/ribbon.html){:target="_blank"}
+
 ## Getting Started
-
-To start the component in a dev environment:
-```bash
-npm install
-npm start
-```
-
-To build the component for production, run:
-
-```bash
-npm run build
-```
-
-To run the unit tests for the components, run:
-
-```bash
-npm test
-```
-
-## Using this component
 
 ### Script tag
 
