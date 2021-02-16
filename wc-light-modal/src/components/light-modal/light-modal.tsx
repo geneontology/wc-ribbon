@@ -7,7 +7,7 @@ import { Component, Prop, Element, Method, Watch, h } from '@stencil/core';
 @Component({
     tag: 'wc-light-modal',
     styleUrl: 'light-modal.css',
-    shadow: true,
+    shadow: false,
 })
 export class LightModal {
 
@@ -37,21 +37,21 @@ export class LightModal {
     @Watch('modalContent')
     modalTitleChanged(newValue, oldValue) {
         if(this.modalContentDiv && newValue != oldValue) {
-            console.log("content div: ", this.modalContentDiv);
+            // console.log("content div: ", this.modalContentDiv);
             this.modalContentDiv.innerHTML = newValue;
         }
     }
 
     componentDidLoad() {
         if(this.modalContentDiv) {
-            console.log("content div: ", this.modalContentDiv);
+            // console.log("content div: ", this.modalContentDiv);
             this.modalContentDiv.innerHTML = this.modalContent;
         }
     }
 
     @Method()
     async open() {
-        console.log("open" , this.modalCard);
+        // console.log("open" , this.modalCard);
         if(this.modalCard.classList && !this.modalCard.classList.contains(this.mclass)) {
             this.modalCard.classList.add(this.mclass);     
         }
@@ -59,7 +59,7 @@ export class LightModal {
 
     @Method()
     async close() {
-        console.log("close" , this.modalCard);
+        // console.log("close" , this.modalCard);
         if(this.modalCard.classList && this.modalCard.classList.contains(this.mclass)) {
             this.modalCard.classList.remove(this.mclass);
         }
@@ -67,7 +67,7 @@ export class LightModal {
 
     @Method()
     async toggle() {
-        console.log("close" , this.modalCard);
+        // console.log("close" , this.modalCard);
         if(this.modalCard.classList) {
             if(this.modalCard.classList.contains(this.mclass)) {
                 this.modalCard.classList.remove(this.mclass);

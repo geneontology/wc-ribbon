@@ -12,6 +12,10 @@
   <body>
     <!-- Add the autocomplete element to the HTML page -->
     <wc-go-autocomplete id="ac"></wc-go-autocomplete>
+    <div>
+      <button id="cat-gene" class="active" alt="Search gene products" onclick="toggleGene()">G</button>
+      <button id="cat-term" class="" alt="Search GO terms" onclick="toggleTerm()">T</button>
+    </div>
 
     <!-- This part is to listen to any selection done with the autocomplete -->
     <script>
@@ -19,7 +23,56 @@
       document.addEventListener("itemSelected", (evt) => {
         console.log("item selected: ", evt.detail);
       });
-    </script>
+
+      let gos = ["cellular%20component", "molecular%20function", "biological%20process"];
+
+      function toggleGene() {
+        let catgene = document.getElementById('cat-gene');
+        let cg = catgene.classList.contains("active");
+        if(cg) {
+          catgene.classList.remove("active");
+        } else {
+          catgene.classList.add("active");
+        }
+        this.changeCategory();
+      }
+
+
+      function toggleTerm() {
+        let catterm = document.getElementById('cat-term');
+        let ct = catterm.classList.contains("active");
+        if(ct) {
+          catterm.classList.remove("active");
+        } else {
+          catterm.classList.add("active");
+        }
+        this.changeCategory();
+      }
+
+      function changeCategory() {
+        let catgene = document.getElementById('cat-gene');
+        let catterm = document.getElementById('cat-term');
+        let cg = catgene.classList.contains("active");
+        let ct = catterm.classList.contains("active");
+        
+        let ac = document.getElementById("ac");
+        if((cg && ct) || (!cg && !ct)) {
+          ac.category = undefined;
+        } else if(cg && !ct) {
+          ac.category = "gene";
+        } else if(!cg && ct) {
+          ac.category = goCategory();
+        }
+
+      }
+
+      function goCategory() {
+        return gos.join(",");
+      }
+      
+
+  </script>
+
   </body>
 
 </html>

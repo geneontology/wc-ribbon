@@ -40,7 +40,18 @@ export class GOAutocomplete {
   }
 
   autocomplete() {
-    let url = this.goApiUrl + this.value + "?category=" + this.category + "&rows=" + this.maxResults;
+    let url = "";
+    if(!this.category) {
+      url = this.goApiUrl + this.value + "&rows=" + this.maxResults;
+      
+    } else if(this.category && this.category.includes(",")) {
+      let tmp = "?category=" + this.category.split(",").join("&category=");
+      url = this.goApiUrl + this.value + tmp + "&rows=" + this.maxResults;
+      console.log(url);
+
+    } else {
+      url = this.goApiUrl + this.value + "?category=" + this.category + "&rows=" + this.maxResults;
+    }
     fetch(url)
     .then(response => {
       if(response.status != 200) {
@@ -99,12 +110,19 @@ export class GOAutocomplete {
   }
 
   renderDoc(doc) {
+    // TODO: url taxon should also be fetch from dbxrefs.yaml; have to look in synonyms
     let url_taxon = this.ncbiTaxonUrl + doc.taxon.replace("NCBITaxon:", "");
     let db = doc.id.substring(0, doc.id.indexOf(":"));
     let id = doc.id.substring(doc.id.indexOf(":") + 1);
-    let url_id = dbxrefs.getURL(db, undefined, id);
+    // console.log("DOC: " ,doc);
+    let url_id = "#";
+    try {
+      url_id = dbxrefs.getURL(db, undefined, id);
+    } catch(err) {
+      // console.error(err);
+    }
 
-    // temporary fix while the db-xrefs.yaml gets updated
+    // TODO: temporary fix while the db-xrefs.yaml gets updated
     if(url_id.includes("https://www.ncbi.nlm.nih.gov/gene/")) {
       // then this was fixed
     } else if(url_id.includes("https://www.ncbi.nlm.nih.gov/gene")) {
