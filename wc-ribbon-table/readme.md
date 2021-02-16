@@ -1,7 +1,7 @@
 
 # Ribbon Table Web Component
 
-The Ribbon Table is used to list, cluster and order annotations usually selected from the Ribbon Strips. Try the GO ribbon here: [http://geneontology.org/ribbon.html](http://geneontology.org/ribbon.html){:target="_blank"}
+The Ribbon Table is used to list, cluster and order annotations usually selected from the Ribbon Strips. Try the GO ribbon here: [http://geneontology.org/ribbon.html](http://geneontology.org/ribbon.html)
 
 ## Getting Started
 

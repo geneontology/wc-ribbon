@@ -2,7 +2,7 @@
 
 # GO Ribbon Web Component
 
-Try the GO ribbon here: [http://geneontology.org/ribbon.html](http://geneontology.org/ribbon.html){:target="_blank"}
+Try the GO ribbon here: [http://geneontology.org/ribbon.html](http://geneontology.org/ribbon.html)
 
 ## Getting Started
 

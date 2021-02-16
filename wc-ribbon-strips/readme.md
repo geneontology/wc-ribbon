@@ -2,7 +2,7 @@
 
 # Ribbon Strips Web Component
 
-The Ribbon Strips is a Web Component to quickly visualize annotation summaries for a gene or gene set. Try the GO ribbon here: [http://geneontology.org/ribbon.html](http://geneontology.org/ribbon.html){:target="_blank"}
+The Ribbon Strips is a Web Component to quickly visualize annotation summaries for a gene or gene set. Try the GO ribbon here: [http://geneontology.org/ribbon.html](http://geneontology.org/ribbon.html)
 
 ## Getting Started
 
