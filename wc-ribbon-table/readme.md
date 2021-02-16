@@ -18,6 +18,7 @@ The Ribbon Table is used to list, cluster and order annotations usually selected
 </head>
 <body>
 
+  <!--  This add the ribbon table to your page based on a json data object -->
   <wc-ribbon-table data="{your_json_data}"></wc-ribbon-table>
 
 </body>

@@ -18,6 +18,7 @@ This is a lightweight web component to display modals. It allows notably to incl
 </head>
 <body>
 
+  <!--  This add a light modal to your page -->
   <wc-light-modal   modal-title="Your Modal Title" 
                     modal-content="Your Modal Content including HTML:                                   <button>test button</button>"></wc-light-modal>
 </body>

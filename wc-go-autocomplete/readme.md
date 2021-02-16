@@ -19,9 +19,10 @@ The GO Autocomplete is a Web Component to quickly find genes and terms used in G
 </head>
 <body>
 
+    <!--  This add the go autocomplete to your page -->
     <wc-go-autocomplete id="ac"></wc-go-autocomplete>
 
-    <!-- You can also listen to the selection of an item from the autocomplete -->
+    <!-- This allows to react when an item is selected from the go autocomplete -->
     <script>
       let elt = document.getElementById("ac");
       document.addEventListener("itemSelected", (evt) => {

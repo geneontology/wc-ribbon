@@ -19,6 +19,7 @@ Try the GO ribbon here: [http://geneontology.org/ribbon.html](http://geneontolog
 </head>
 <body>
 
+  <!--  This add the full go ribbon (strips + table) to your page for two RGD genes -->
   <wc-go-ribbon subjects="RGD:620474,RGD:3889" />
 
 </body>

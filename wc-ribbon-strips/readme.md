@@ -19,6 +19,7 @@ The Ribbon Strips is a Web Component to quickly visualize annotation summaries f
 </head>
 <body>
 
+  <!--  This add the ribbon strips to your page and load two RGD genes -->
   <wc-ribbon-strips subjects="RGD:620474,RGD:3889" />
 
 </body>
