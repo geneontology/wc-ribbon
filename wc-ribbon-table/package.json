@@ -1,6 +1,6 @@
 {
   "name": "@geneontology/wc-ribbon-table",
-  "version": "0.0.54",
+  "version": "0.0.55",
   "description": "Ribbon Table Web Component",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -36,6 +36,6 @@
   "author": "Laurent-Philippe Albou",
   "license": "BSD-3",
   "dependencies": {
-    "@geneontology/dbxrefs": "^1.0.7"
+    "@geneontology/dbxrefs": "^1.0.15"
   }
 }
