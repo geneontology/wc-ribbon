@@ -37,6 +37,7 @@
 | `subjectUseTaxonIcon`   | `subject-use-taxon-icon`    |                                                                                                                                                                                                                                                                  | `boolean`     | `undefined`                                           |
 | `subjects`              | `subjects`                  | provide gene ids (e.g. RGD:620474,RGD:3889 or as a list ["RGD:620474", "RGD:3889"])                                                                                                                                                                              | `string`      | `undefined`                                           |
 | `subset`                | `subset`                    |                                                                                                                                                                                                                                                                  | `string`      | `"goslim_agr"`                                        |
+| `updateOnSubjectChange` | `update-on-subject-change`  | When this is set to false, changing the subjects Prop won't trigger the reload of the ribbon This is necessary when the ribbon is showing data other than GO or not using the internal fetchData mechanism                                                       | `boolean`     | `true`                                                |
 
 
 ## Events

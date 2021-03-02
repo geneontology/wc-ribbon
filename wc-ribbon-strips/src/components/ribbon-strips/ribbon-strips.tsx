@@ -129,13 +129,23 @@ export class RibbonStrips {
         }
     }
 
+    /**
+     * When this is set to false, changing the subjects Prop won't trigger the reload of the ribbon
+     * This is necessary when the ribbon is showing data other than GO or not using the internal fetchData mechanism
+     */
+    @Prop() updateOnSubjectChange = true;
+
   /**
    * This method is automatically called whenever the value of "subjects" changes
+   * Note this method can be (and should be) deactivated (use updateOnSubjectChange) when the ribbon is not loading from GO and not using the internal fetchData mechanism
    * @param newValue a new subject is submitted (e.g. gene)
    * @param oldValue old value of the subject (e.g. gene or genes)
    */
   @Watch('subjects')
   subjectsChanged(newValue, oldValue) {
+      // if we don't want to update the ribbon on subject changes
+      if(!this.updateOnSubjectChange) { this.loading = false; return; }
+
       if(newValue != oldValue) {
         // Fetch data based on subjects and subset
         this.fetchData(this.subjects)

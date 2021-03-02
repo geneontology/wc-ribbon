@@ -97,6 +97,10 @@ export namespace Components {
     */
     'subjects': string;
     'subset': string;
+    /**
+    * When this is set to false, changing the subjects Prop won't trigger the reload of the ribbon This is necessary when the ribbon is showing data other than GO or not using the internal fetchData mechanism
+    */
+    'updateOnSubjectChange': boolean;
   }
   interface WcRibbonSubject {
     'newTab': boolean;
@@ -247,6 +251,10 @@ declare namespace LocalJSX {
     */
     'subjects'?: string;
     'subset'?: string;
+    /**
+    * When this is set to false, changing the subjects Prop won't trigger the reload of the ribbon This is necessary when the ribbon is showing data other than GO or not using the internal fetchData mechanism
+    */
+    'updateOnSubjectChange'?: boolean;
   }
   interface WcRibbonSubject {
     'newTab'?: boolean;
