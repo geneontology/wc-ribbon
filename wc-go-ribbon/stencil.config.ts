@@ -1,7 +1,13 @@
 import { Config } from '@stencil/core';
+import nodePolyfills from 'rollup-plugin-node-polyfills';
 
 export const config: Config = {
   namespace: 'wc-go-ribbon',
+  rollupPlugins: {
+    after: [
+      nodePolyfills(),
+    ]
+  },
   buildEs5: true,
   // bundles: [
   //   { components: ['wc-go-ribbon', 'wc-ribbon-strips', 'wc-ribbon-table', 'wc-spinner']}

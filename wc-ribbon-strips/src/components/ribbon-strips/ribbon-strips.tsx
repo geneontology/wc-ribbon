@@ -297,6 +297,23 @@ export class RibbonStrips {
     }    
 
 
+    filterExperiment(checkbox) {
+        this.onlyExperimental = checkbox.target.checked;
+
+        // Fetch data based on subjects and subset
+        this.fetchData(this.subjects)
+        .then(
+            data => {
+                this.ribbonSummary = data;
+                this.loading = false;
+            },
+            error => {
+                console.error(error);
+                this.loading = false;
+            }
+        );
+    }    
+
     formerColor;
     formerColors;
     onCellEnter(subjects, group) {
@@ -467,23 +484,6 @@ export class RibbonStrips {
         this.groupClick.emit(event);
     }
 
-    filterExperiment(checkbox) {
-        this.onlyExperimental = checkbox.target.checked;
-
-        // Fetch data based on subjects and subset
-        this.fetchData(this.subjects)
-        .then(
-            data => {
-                this.ribbonSummary = data;
-                this.loading = false;
-            },
-            error => {
-                console.error(error);
-                this.loading = false;
-            }
-        );
-    }
-
     onGroupEnter(category, group) {
         this.overCells(this.ribbonSummary.subjects, group);
         let event : RibbonGroupEvent = { subjects : this.ribbonSummary.subjects, category : category, group: group };
@@ -496,42 +496,6 @@ export class RibbonStrips {
         this.groupLeave.emit(event);        
     }
 
-    render() {
-        // return [ "hello", <Spinner spinner-style='default' spinner-color='blue' style='display:block;width:100px;height:100px'/>]
-
-        // Still loading (executing fetch)
-        if(this.loading) {
-            // return ( "Loading Ribbon..." );
-            return <wc-spinner spinner-style='default' spinner-color='blue'></wc-spinner>
-        }
-
-        if(!this.subjects && !this.ribbonSummary) {
-            return ( <div>Must provide at least one subject</div> )   
-        }
-
-        // API request undefined
-        if (!this.ribbonSummary) {
-            return ( <div>No data available</div> );
-        }
-
-        // API request done but not subject retrieved
-        let nbSubjects : number = this.ribbonSummary.subjects.length;
-        if(nbSubjects == 0) {
-            return ( <div>Must provide at least one subject</div> )
-        }
-
-        // Data is present, show the ribbon
-        return (
-            <div>
-            <table class="ribbon">
-                { this.renderCategory() }
-                { this.renderSubjects() }
-            </table>
-            {/* <br/>
-            <input type="checkbox" onClick={ this.filterExperiment.bind(this) }/> Show only experimental annotations */}
-            </div>
-        );
-    }
 
     applyCategoryStyling(category) {
         let cc0 = truncate(category, this.groupMaxLabelSize, "...");
@@ -573,6 +537,44 @@ export class RibbonStrips {
                 }
             }
         }, 750);
+    }
+
+
+    render() {
+        // return [ "hello", <Spinner spinner-style='default' spinner-color='blue' style='display:block;width:100px;height:100px'/>]
+
+        // Still loading (executing fetch)
+        if(this.loading) {
+            // return ( "Loading Ribbon..." );
+            return <wc-spinner spinner-style='default' spinner-color='blue'></wc-spinner>
+        }
+
+        if(!this.subjects && !this.ribbonSummary) {
+            return ( <div>Must provide at least one subject</div> )   
+        }
+
+        // API request undefined
+        if (!this.ribbonSummary) {
+            return ( <div>No data available</div> );
+        }
+
+        // API request done but not subject retrieved
+        let nbSubjects : number = this.ribbonSummary.subjects.length;
+        if(nbSubjects == 0) {
+            return ( <div>Must provide at least one subject</div> )
+        }
+
+        // Data is present, show the ribbon
+        return (
+            <div>
+            <table class="ribbon">
+                { this.renderCategory() }
+                { this.renderSubjects() }
+            </table>
+            {/* <br/>
+            <input type="checkbox" onClick={ this.filterExperiment.bind(this) }/> Show only experimental annotations */}
+            </div>
+        );
     }
 
     renderCategory() {

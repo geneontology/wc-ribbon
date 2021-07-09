@@ -22,7 +22,9 @@
     "generate": "stencil generate"
   },
   "devDependencies": {
-    "@stencil/core": "^1.16.3"
+    "@stencil/core": "^1.16.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-polyfills": "^0.2.1"
   },
   "repository": {
     "type": "git",
