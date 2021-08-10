@@ -137,7 +137,8 @@ export class RibbonStrips {
 
   /**
    * This method is automatically called whenever the value of "subjects" changes
-   * Note this method can be (and should be) deactivated (use updateOnSubjectChange) when the ribbon is not loading from GO and not using the internal fetchData mechanism
+   * Note this method can be (and should be) deactivated (use updateOnSubjectChange) 
+   * when the ribbon is not loading from GO and not using the internal fetchData mechanism
    * @param newValue a new subject is submitted (e.g. gene)
    * @param oldValue old value of the subject (e.g. gene or genes)
    */
