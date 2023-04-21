@@ -37,7 +37,7 @@
 
   <script>
 
-      let baseAPIURL = "https://api.geneontology.org/api/ontology/ribbon/";
+      let baseAPIURL = "https://api-sierra.geneontology.io/api/ontology/ribbon/";
       // let subjects = ["RGD:620474","RGD:3889"].join("&subject=");
       // let subjects = ["UniProtKB:Q9BYF1", "UniProtKB:O15393"].join("&subject=");
       // let subjects = ["HGNC:11998"].join("&subject=");
@@ -113,7 +113,7 @@
 
         tableElement.innerHTML = "<wc-spinner spinner-style='default' spinner-color='blue'></wc-spinner>"
 
-        const goApiUrl = 'https://api.geneontology.org/api/';
+        const goApiUrl = 'https://api-sierra.geneontology.io/api/';
         subject_ids = subject_ids.join('&subject=');
         let query = goApiUrl + 'bioentityset/slimmer/function?slim=' + group_ids + '&subject=' + subject_ids + '&rows=-1';
         console.log("query: ", query);

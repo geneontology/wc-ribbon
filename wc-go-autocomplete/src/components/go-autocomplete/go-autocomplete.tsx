@@ -44,11 +44,11 @@ export class GOAutocomplete {
 
   @State() ready = false;
 
-  goApiUrl = "https://api.geneontology.org/api/search/entity/autocomplete/";
+  goApiUrl = "https://api-sierra.geneontology.io/api/search/entity/autocomplete/";
   ncbiTaxonUrl = "https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=";
 
 
-  /** 
+  /**
    * Executed once during component initialization
    * Here, just ask for dbxrefs to load
   */
@@ -62,7 +62,7 @@ export class GOAutocomplete {
     let url = "";
     if(!this.category) {
       url = this.goApiUrl + this.value + "&rows=" + this.maxResults;
-      
+
     } else if(this.category && this.category.includes(",")) {
       let tmp = "?category=" + this.category.split(",").join("&category=");
       url = this.goApiUrl + this.value + tmp + "&rows=" + this.maxResults;
@@ -117,15 +117,15 @@ export class GOAutocomplete {
                             onInput={(evt) => this.newSearch(evt)}>
               </input>
               <i class="far fa-times-circle icon-right" onClick={() => {this.docs = undefined; this.value = ""} }></i>
-                            
+
                           {!this.docs ? "" : <div class="autocomplete-items">
                                               { this.docs.map(doc => {
                                                   return this.renderDoc(doc);
                                               })}
-                                              </div>}        
-                            
-                    
-            </div>    
+                                              </div>}
+
+
+            </div>
   }
 
   renderDoc(doc) {

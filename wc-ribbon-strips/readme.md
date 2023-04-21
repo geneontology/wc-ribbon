@@ -38,7 +38,7 @@ This script will load two specific genes as in the above example but by creating
 ```html
 <script>
 
-        let baseAPIURL = "https://api.geneontology.org/api/ontology/ribbon/";
+        let baseAPIURL = "https://api-sierra.geneontology.io/api/ontology/ribbon/";
         let subjects = ["RGD:620474","RGD:3889"].join("&subject=");
         let query = baseAPIURL + '?subset=goslim_agr&subject=' + subjects;
         console.log('API query is ' + query);

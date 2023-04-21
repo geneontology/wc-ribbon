@@ -35,7 +35,7 @@ export class GORibbon {
 
   @Prop() filterCrossAspect = true;
 
-  @Prop() baseApiUrl = "https://api.geneontology.org/api/ontology/ribbon/";
+  @Prop() baseApiUrl = "https://api-sierra.geneontology.io/api/ontology/ribbon/";
 
   @Prop() subjectBaseUrl: string = "http://amigo.geneontology.org/amigo/gene_product/";
   @Prop() groupBaseUrl: string = "http://amigo.geneontology.org/amigo/term/";
@@ -110,7 +110,7 @@ export class GORibbon {
   @Prop() groupClickable: boolean = true;
 
   /**
-   * Click handling of a cell. 
+   * Click handling of a cell.
    * 0 = select only the cell (1 subject, 1 group)
    * 1 = select the whole column (all subjects, 1 group)
    */
@@ -150,7 +150,7 @@ export class GORibbon {
    * Example: hid-1,hid-3 OR hid-1,hid-3;hid-2
    * Note: if value is "", remove any grouping
    */
-  @Prop() groupBy: string = "term,qualifier";  
+  @Prop() groupBy: string = "term,qualifier";
 
   /**
    * This is used to sort the table depending of a column
@@ -177,7 +177,7 @@ export class GORibbon {
    * Must follow the appropriate JSON data model
    * Can be given as either JSON or stringified JSON
    */
-  @State() tableData : string;  
+  @State() tableData : string;
 
   /**
    * Reading biolink data. This will trigger a render of the table as would changing data
@@ -210,17 +210,17 @@ export class GORibbon {
     return this.hasParentElementId(elt.parentElement, id);
   }
 
-  /** 
+  /**
    * Add listeners to the Ribbon strips
   */
   componentWillLoad() {
     // if(this.hasParentElementId())
     document.addEventListener('cellClick', this.onCellClick.bind(this));
-    document.addEventListener('groupClick', this.onGroupClick.bind(this));    
+    document.addEventListener('groupClick', this.onGroupClick.bind(this));
   }
 
-  /** 
-   * Remove listeners to the Ribbon strips 
+  /**
+   * Remove listeners to the Ribbon strips
   */
   componentDidUnload() {
     document.removeEventListener('cellClick', this.onCellClick);
@@ -242,8 +242,8 @@ export class GORibbon {
   }
 
   applyFilterReference(data) {
-    let filters = (this.filterReference.includes(",")) 
-    ? this.filterReference.split(",") 
+    let filters = (this.filterReference.includes(","))
+    ? this.filterReference.split(",")
     : [this.filterReference.trim()];
 
     for(let i = 0; i < data.length; i++) {
@@ -251,7 +251,7 @@ export class GORibbon {
         assoc.reference = assoc.reference.filter(ref => filters.some(filter => ref.includes(filter)));
         return assoc;
       });
-    }                      
+    }
     return data;
   }
 
@@ -312,7 +312,7 @@ export class GORibbon {
       group_ids = group_ids.join('&slim=');
     }
 
-    const goApiUrl = 'https://api.geneontology.org/api/';
+    const goApiUrl = 'https://api-sierra.geneontology.io/api/';
     subject_ids = subject_ids.join('&subject=');
     let query = goApiUrl + 'bioentityset/slimmer/function?slim=' + group_ids + '&subject=' + subject_ids + '&rows=-1';
     console.log("query: ", query);
@@ -335,7 +335,7 @@ export class GORibbon {
 
         let query_terms = goApiUrl + 'bioentityset/slimmer/function?slim=' + terms + '&subject=' + subject_ids + '&rows=-1';
         console.log("query_terms: ", query_terms);
-    
+
         // fetch the json data
         fetch(query_terms)
         .then(response_terms => {
@@ -348,19 +348,19 @@ export class GORibbon {
           for(let array of data_terms) {
             concat_assocs = concat_assocs.concat(array.assocs);
           }
-  
+
           let other_assocs = diffAssociations(data[0].assocs, concat_assocs);
-          data[0].assocs = other_assocs;          
+          data[0].assocs = other_assocs;
           this.loadingTable = false;
           this.bioLinkData = JSON.stringify(data);
-        });              
+        });
 
       } else {
         this.loadingTable = false;
         this.bioLinkData = JSON.stringify(data);
 
       }
-    })    
+    })
 
 
   }
@@ -373,10 +373,10 @@ export class GORibbon {
 
   render() {
     return [
-        <wc-ribbon-strips 
+        <wc-ribbon-strips
           id="wc-go-ribbon-strips"
           ref={el => this.ribbonStrips = el as RibbonStrips}
-          
+
           base-api-url={this.baseApiUrl}
           subject-base-url={this.subjectBaseUrl}
           group-base-url={this.groupBaseUrl}
@@ -388,7 +388,7 @@ export class GORibbon {
           min-color={this.minColor}
           max-color={this.maxColor}
           max-heat-level={this.maxHeatLevel}
-          
+
           annotation-labels={this.annotationLabels}
           class-labels={this.classLabels}
 
@@ -416,22 +416,22 @@ export class GORibbon {
           show-other-group={this.showOtherGroup}
 
         />
-        
+
         ,
 
         ((this.subjects && this.subjects.length > 0) || (this.data)) ?
         <div style={{"font-style": "italic", "color": "#7b7b7b"}}>Cell color indicative of annotation volume</div>
         : ""
 
-        ,        
+        ,
 
-        this.loadingTable 
-        ? <wc-spinner spinner-style='default' spinner-color='blue'></wc-spinner> 
-        :       
+        this.loadingTable
+        ? <wc-spinner spinner-style='default' spinner-color='blue'></wc-spinner>
+        :
         <wc-ribbon-table
           id="wc-go-ribbon-table"
           ref={el => this.ribbonTable = el as RibbonTable}
-          
+
           base-api-url={this.baseApiUrl}
           subject-base-url={this.subjectBaseUrl}
           group-base-url={this.groupBaseUrl}

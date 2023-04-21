@@ -40,4 +40,4 @@ The GO Autocomplete is a Web Component to quickly find genes and terms used in G
 - Then you can use the element anywhere in your template, JSX, html etc
 
 ## Additional note
-The GO Autocomplete Web Component is powered by the GO API [http://api.geneontology.org/](http://api.geneontology.org/){:target="blank"}
+The GO Autocomplete Web Component is powered by the GO API [http://api-sierra.geneontology.io/](http://api-sierra.geneontology.io/){:target="blank"}
