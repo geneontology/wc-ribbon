@@ -22,7 +22,7 @@
     "generate": "stencil generate"
   },
   "dependencies": {
-    "@stencil/core": "^2.22.3"
+    "@stencil/core": "^3.4.2"
   },
   "author": "Laurent-Philippe Albou",
   "license": "BSD-3"

@@ -6,6 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { RibbonGroup, RibbonModel, RibbonSubject } from "./globals/models";
+export { RibbonGroup, RibbonModel, RibbonSubject } from "./globals/models";
 export namespace Components {
     interface WcRibbonCell {
         "annotationLabels": string;
