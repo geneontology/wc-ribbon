@@ -59,13 +59,6 @@ export class Spinner {
     // }
   }
 
-  componentDidUnload() {
-  }
-
-  componentWillUpdate() {
-  }
-
-
   render() {
     switch(this.spinnerStyle) {
       case SPINNER_STYLE.CIRCLE:
@@ -80,7 +73,7 @@ export class Spinner {
         return <div class="lds-ring"><div></div><div></div><div></div><div></div></div>;
       case SPINNER_STYLE.ROLLER:
         return <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>;
-      case SPINNER_STYLE.DEFAULT: 
+      case SPINNER_STYLE.DEFAULT:
         return <div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>;
       case SPINNER_STYLE.ELLIPSIS:
         return <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>;
