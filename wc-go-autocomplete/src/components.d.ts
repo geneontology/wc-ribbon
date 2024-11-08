@@ -22,6 +22,10 @@ export namespace Components {
         "value": string;
     }
 }
+export interface WcGoAutocompleteCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLWcGoAutocompleteElement;
+}
 declare global {
     interface HTMLWcGoAutocompleteElement extends Components.WcGoAutocomplete, HTMLStencilElement {
     }
@@ -46,7 +50,7 @@ declare namespace LocalJSX {
         /**
           * Event triggered whenever an item is selected from the autocomplete
          */
-        "onItemSelected"?: (event: CustomEvent<any>) => void;
+        "onItemSelected"?: (event: WcGoAutocompleteCustomEvent<any>) => void;
         /**
           * Default placeholder for the autocomplete
          */
