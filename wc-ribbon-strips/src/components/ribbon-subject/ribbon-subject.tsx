@@ -7,7 +7,7 @@ import { EventEmitter, Event } from '@stencil/core';
 
 @Component({
     tag: 'wc-ribbon-subject',
-    styleUrl: './ribbon-subject.sass',
+    styleUrl: './ribbon-subject.scss',
     shadow: false
 })
 export class RibbonSubject {
@@ -28,7 +28,7 @@ export class RibbonSubject {
     @Prop() newTab: boolean;
 
     @State() id: string;
-    
+
     constructor() {
         if(!this.subjectBaseURL.endsWith("/")) {
             this.subjectBaseURL += "/";

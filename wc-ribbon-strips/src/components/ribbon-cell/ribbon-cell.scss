@@ -5,18 +5,18 @@
 }
 
 .hovered {
-    // border: 1px solid black;                
+    // border: 1px solid black;
 }
 
 .unavailable {
     cursor: not-allowed;
-    background: 
+    background:
         linear-gradient(to top left,
             rgba(0,0,0,0) 0%,
             rgba(0,0,0,0) calc(50% - 0.8px),
             rgba(240, 32, 32, 0.5) 50%,
             rgba(0,0,0,0) calc(50% + 0.8px),
-            rgba(0,0,0,0) 100%),
+            rgba(0,0,0,0) 100%);
     //    linear-gradient(to top right,
     //        rgba(0,0,0,0) 0%,
     //        rgba(0,0,0,0) calc(50% - 0.8px),

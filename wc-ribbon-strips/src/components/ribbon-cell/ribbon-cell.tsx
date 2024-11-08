@@ -11,7 +11,7 @@ import { Watch } from '@stencil/core';
 
 @Component({
     tag: 'wc-ribbon-cell',
-    styleUrl: './ribbon-cell.sass',
+    styleUrl: './ribbon-cell.scss',
     shadow: false
 })
 export class RibbonCell {
@@ -89,7 +89,7 @@ export class RibbonCell {
             this.arrayClassLabels = newValue.split(",");
         }
         this.arrayClassLabels = this.arrayClassLabels.map(elt => elt.trim());
-    }    
+    }
 
     /**
      * If set to true, won't show any color and can not be hovered or selected
@@ -133,7 +133,7 @@ export class RibbonCell {
         return this.getNbAnnotations() > 0;
     }
 
-    /** 
+    /**
      * This is executed once when the component gets loaded
     */
     componentWillLoad() {
@@ -147,14 +147,14 @@ export class RibbonCell {
         if(!this.available) {
             let title = this.subject.label + " can not have data for " + this.group.label;
             let classes = "ribbon__subject--cell unavailable";
-            return (<td title={title} class={classes}> </td>);            
+            return (<td title={title} class={classes}> </td>);
         }
 
         let nbClasses = this.getNbClasses();
         let nbAnnotations = this.getNbAnnotations();
 
         let title = "Subject: " + this.subject.id + ":" + this.subject.label + "\n\nGroup: " + this.group.id + ": " + this.group.label;
-        
+
         if (nbAnnotations > 0) {
             title += "\n\n" + nbClasses + " " + (nbClasses > 1 ? this.arrayClassLabels[1] : this.arrayClassLabels[0]) + ", " + nbAnnotations + " " + (nbAnnotations > 1 ? this.arrayAnnotationLabels[1] : this.arrayAnnotationLabels[0]);
         } else {
