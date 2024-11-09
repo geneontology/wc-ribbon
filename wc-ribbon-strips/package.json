@@ -22,7 +22,7 @@
     "generate": "stencil generate"
   },
   "devDependencies": {
-    "@stencil/core": "^3.4.2",
+    "@stencil/core": "^4.22.2",
     "@stencil/sass": "^2.0.4"
   },
   "repository": {

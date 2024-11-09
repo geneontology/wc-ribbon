@@ -58,6 +58,12 @@
 
 
 
+#### Parameters
+
+| Name       | Type  | Description |
+| ---------- | ----- | ----------- |
+| `group_id` | `any` |             |
+
 #### Returns
 
 Type: `Promise<void>`

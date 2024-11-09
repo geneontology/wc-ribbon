@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@geneontology/dbxrefs": "^1.0.9",
-    "@stencil/core": "^3.4.2"
+    "@stencil/core": "^4.22.2"
   },
   "license": "BSD-3"
 }
