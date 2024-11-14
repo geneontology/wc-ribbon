@@ -9,7 +9,7 @@ import { Method } from '@stencil/core';
 
 @Component({
     tag: 'wc-ribbon-strips',
-    styleUrl: './ribbon-strips.sass',
+    styleUrl: './ribbon-strips.scss',
     shadow: false
 })
 export class RibbonStrips {
@@ -83,7 +83,7 @@ export class RibbonStrips {
     @Prop() groupClickable: boolean = true;
 
     /**
-     * Click handling of a cell. 
+     * Click handling of a cell.
      * 0 = select only the cell (1 subject, 1 group)
      * 1 = select the whole column (all subjects, 1 group)
      */
@@ -102,7 +102,7 @@ export class RibbonStrips {
      * Note: if selectionMode == SELECTION.COLUMN, then the event will trigger if at least one of the selected cells has annotations
      */
     @Prop() fireEventOnEmptyCells = false;
-    
+
     // @Watch('selected')
     // selectedChanged(newValue, oldValue) {
     //     console.log("selectedChanged(", newValue , oldValue , ")");
@@ -137,7 +137,7 @@ export class RibbonStrips {
 
   /**
    * This method is automatically called whenever the value of "subjects" changes
-   * Note this method can be (and should be) deactivated (use updateOnSubjectChange) 
+   * Note this method can be (and should be) deactivated (use updateOnSubjectChange)
    * when the ribbon is not loading from GO and not using the internal fetchData mechanism
    * @param newValue a new subject is submitted (e.g. gene)
    * @param oldValue old value of the subject (e.g. gene or genes)
@@ -159,9 +159,9 @@ export class RibbonStrips {
                 console.error(error);
                 this.loading = false;
             }
-        );        
+        );
       }
-  }    
+  }
 
     @State() selectedGroup: RibbonGroup;
 
@@ -191,14 +191,14 @@ export class RibbonStrips {
     @Event({eventName: 'groupEnter', cancelable: true, bubbles: true}) groupEnter: EventEmitter;
 
     /**
-     * This event is triggered whenever the mouse leaves a group cell area 
+     * This event is triggered whenever the mouse leaves a group cell area
      */
     @Event({eventName: 'groupLeave', cancelable: true, bubbles: true}) groupLeave: EventEmitter;
 
 
 
     @Prop() ribbonSummary: RibbonModel;
-    
+
     loading = true;
     onlyExperimental = false;
 
@@ -241,7 +241,7 @@ export class RibbonStrips {
         return null;
     }
 
-    /** 
+    /**
      * Once the component is loaded, fetch the data
     */
     componentWillLoad() {
@@ -295,7 +295,7 @@ export class RibbonStrips {
         .catch( (error) => {
             return error;
         })
-    }    
+    }
 
 
     filterExperiment(checkbox) {
@@ -313,7 +313,7 @@ export class RibbonStrips {
                 this.loading = false;
             }
         );
-    }    
+    }
 
     formerColor;
     formerColors;
@@ -323,7 +323,7 @@ export class RibbonStrips {
 
             // change header style
             let el = this.ribbonElement.querySelector("#" + groupKey(group));
-            el.classList.add("selected")    
+            el.classList.add("selected")
 
             for(let subject of subjects) {
                 let el = this.ribbonElement.querySelector("#" + subjectGroupKey(subject, group));
@@ -338,19 +338,19 @@ export class RibbonStrips {
                 nbAnnotations = subjects.nb_annotations;
             } else {
                 nbAnnotations = group.id in subjects.groups ? subjects.groups[group.id]["ALL"]["nb_annotations"] : 0;
-            }        
+            }
 
             // let el = this.ribbonElement.shadowRoot.querySelector("#" + this.transform(subjects.id) + "-" + this.transform(group.id));
             let el = this.ribbonElement.querySelector("#" + subjectGroupKey(subjects, group));
-                
+
             el.style.cursor = nbAnnotations == 0 ? "not-allowed" : "pointer";
-            
+
             if(nbAnnotations > 0) {
                 el.hovered = true;
 
                 // change header style
                 el = this.ribbonElement.querySelector("#" + groupKey(group));
-                el.classList.add("selected")            
+                el.classList.add("selected")
             }
         }
         let event : RibbonCellEvent = { subjects : subjects, group: group };
@@ -362,7 +362,7 @@ export class RibbonStrips {
 
             // change the header style
             let el = this.ribbonElement.querySelector("#" + groupKey(group));
-            el.classList.remove("selected")                  
+            el.classList.remove("selected")
 
             for(let subject of subjects) {
                 let el = this.ribbonElement.querySelector("#" + subjectGroupKey(subject, group));
@@ -468,11 +468,11 @@ export class RibbonStrips {
                     } else {
                         hasAnnotations = hasAnnotations || (group.id in sub.groups && sub.groups[group.id]["ALL"]["nb_annotations"] > 0);
                     }
-                }    
+                }
             }
             if(!hasAnnotations) { return; }
         }
-        
+
         let selected = this.selectCells(subjects, group);
 
         let event : RibbonCellClick = { subjects : subjects, group: group, selected : selected };
@@ -488,13 +488,13 @@ export class RibbonStrips {
     onGroupEnter(category, group) {
         this.overCells(this.ribbonSummary.subjects, group);
         let event : RibbonGroupEvent = { subjects : this.ribbonSummary.subjects, category : category, group: group };
-        this.groupEnter.emit(event);        
+        this.groupEnter.emit(event);
     }
 
     onGroupLeave(category, group) {
         this.overCells(this.ribbonSummary.subjects, group);
         let event : RibbonGroupEvent = { subjects : this.ribbonSummary.subjects, category : category, group: group };
-        this.groupLeave.emit(event);        
+        this.groupLeave.emit(event);
     }
 
 
@@ -532,7 +532,7 @@ export class RibbonStrips {
             if(group_id && this.ribbonSummary) {
                 let gp = this.getGroup(group_id);
                 if(gp) {
-                    this.selectCells(this.ribbonSummary.subjects, gp, false);            
+                    this.selectCells(this.ribbonSummary.subjects, gp, false);
                 } else {
                     console.warn("Could not find group <" , group_id , ">");
                 }
@@ -551,7 +551,7 @@ export class RibbonStrips {
         }
 
         if(!this.subjects && !this.ribbonSummary) {
-            return ( <div>Must provide at least one subject</div> )   
+            return ( <div>Must provide at least one subject</div> )
         }
 
         // API request undefined
@@ -584,7 +584,7 @@ export class RibbonStrips {
 
                 {
                     this.subjectPosition == POSITION.LEFT ? <td  class="ribbon__subject__label--left"></td> : ""
-                }                    
+                }
 
                 {
                     this.addCellAll ?
@@ -594,8 +594,8 @@ export class RibbonStrips {
                             onMouseEnter={() => this.onGroupEnter(null, this.groupAll)}
                             onMouseLeave={() => this.onGroupLeave(null, this.groupAll)}
                             onClick={ (this.groupClickable) ? () => this.onGroupClick(undefined, this.groupAll) : undefined }>
-                            {this.applyCategoryStyling(this.groupAll.label)}  
-                    </th>                
+                            {this.applyCategoryStyling(this.groupAll.label)}
+                    </th>
                     : ""
                 }
 
@@ -615,7 +615,7 @@ export class RibbonStrips {
                                     onMouseEnter={() => this.onGroupEnter(category, group)}
                                     onMouseLeave={() => this.onGroupLeave(category, group)}
                                     onClick={ (this.groupClickable) ? () => this.onGroupClick(category, group) : undefined }>
-                                    {this.selectedGroup == group ? <b style={{"color": "#002eff"}}>{this.applyCategoryStyling(group.label)}</b> : this.applyCategoryStyling(group.label) }       
+                                    {this.selectedGroup == group ? <b style={{"color": "#002eff"}}>{this.applyCategoryStyling(group.label)}</b> : this.applyCategoryStyling(group.label) }
                                 </th>
                             })
                         ];
@@ -624,7 +624,7 @@ export class RibbonStrips {
 
                 {
                     this.subjectPosition == POSITION.RIGHT ? <td  class="ribbon__subject__label--right"/> : ""
-                }                    
+                }
 
             </tr>
         )
@@ -636,22 +636,22 @@ export class RibbonStrips {
                 let subjects = this.selectionMode == SELECTION.CELL ? subject : this.ribbonSummary.subjects;
                 return (
                     <tr class="ribbon__subject">
-                    
+
                         {
-                            this.subjectPosition == POSITION.LEFT 
+                            this.subjectPosition == POSITION.LEFT
                                                 ? <wc-ribbon-subject    class="ribbon__subject__label--left"
-                                                                        subject={subject} 
+                                                                        subject={subject}
                                                                         subjectBaseURL={this.subjectBaseUrl}
-                                                                        
-                                                                        newTab={this.subjectOpenNewTab}/> 
+
+                                                                        newTab={this.subjectOpenNewTab}/>
                                                 : ""
                         }
 
-                        {         
-                            this.addCellAll ? 
+                        {
+                            this.addCellAll ?
                             <wc-ribbon-cell     class="ribbon__subject--cell"
-                                                id={subjectGroupKey(subject, this.groupAll)}                                                
-                                                subject={subject} 
+                                                id={subjectGroupKey(subject, this.groupAll)}
+                                                subject={subject}
                                                 group={this.groupAll}
                                                 colorBy={this.colorBy}
                                                 binaryColor={this.binaryColor}
@@ -676,7 +676,7 @@ export class RibbonStrips {
                                         let cell = cellid in subject.groups ? subject.groups[cellid] : undefined;
 
                                         let nbAnnotations = cell ? cell["ALL"]["nb_annotations"] : 0;
-                                        
+
                                         // by default the group should be available
                                         let available = true;
 
@@ -692,7 +692,7 @@ export class RibbonStrips {
                                         return(
                                         <wc-ribbon-cell     class={(nbAnnotations == 0 ? "ribbon__subject--cell--no-annotation" : "ribbon__subject--cell")}
                                                             id={subjectGroupKey(subject, group)}
-                                                            subject={subject} 
+                                                            subject={subject}
                                                             group={group}
                                                             available={available}
                                                             colorBy={this.colorBy}
@@ -713,14 +713,14 @@ export class RibbonStrips {
                         }
 
                         {
-                            this.subjectPosition == POSITION.RIGHT 
+                            this.subjectPosition == POSITION.RIGHT
                                                 ? <wc-ribbon-subject    class="ribbon__subject__label--right"
-                                                                        subject={subject} 
-                                                                        subjectBaseURL={this.subjectBaseUrl} 
-                                                                        newTab={this.subjectOpenNewTab}/> 
+                                                                        subject={subject}
+                                                                        subjectBaseURL={this.subjectBaseUrl}
+                                                                        newTab={this.subjectOpenNewTab}/>
                                                 : ""
                         }
-                        
+
                     </tr>
                 )
             })

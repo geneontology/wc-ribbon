@@ -7,7 +7,7 @@ import * as dbxrefs from '@geneontology/dbxrefs';
 
 @Component({
   tag: 'wc-ribbon-table',
-  styleUrl: './ribbon-table.sass',
+  styleUrl: './ribbon-table.scss',
   shadow: false
 })
 export class RibbonTable {
@@ -100,7 +100,7 @@ export class RibbonTable {
    * Any change to this state will trigger a render
    */
   @State()
-  table : Table; 
+  table : Table;
 
 
   /**
@@ -136,7 +136,7 @@ export class RibbonTable {
   }
 
   loadFromBioLinkData() {
-    
+
     // if no data, empty the current table
     if(this.bioLinkData == undefined || this.bioLinkData == "") {
       this.originalTable = undefined;
@@ -179,7 +179,7 @@ export class RibbonTable {
         if(this.groupBy.includes(";")) {
           let split = this.groupBy.split(";");
           for(let groups of split) {
-            tempTable = this.groupByColumns(tempTable, groups.split(","), false);            
+            tempTable = this.groupByColumns(tempTable, groups.split(","), false);
           }
         // single step grouping
         } else {
@@ -189,12 +189,12 @@ export class RibbonTable {
 
       // step-2: order the table rows based on provided columns (if any)
       if(this.orderBy && this.orderBy != "") {
-        tempTable.rows.sort((a, b) => { 
+        tempTable.rows.sort((a, b) => {
           // console.log("sort(", a, b, ")");
-          let eqa = a.cells.filter(elt => elt.headerId == this.orderBy)[0]; 
+          let eqa = a.cells.filter(elt => elt.headerId == this.orderBy)[0];
           let eqb = b.cells.filter(elt => elt.headerId == this.orderBy)[0];
           return eqa.values[0].label.localeCompare(eqb.values[0].label);
-        }); 
+        });
       }
 
       // step-3: filter the table based on provided {col, values} (if any)
@@ -208,7 +208,7 @@ export class RibbonTable {
         // single step grouping
         } else {
           tempTable = this.filterByColumns(tempTable, this.filterBy);
-        }    
+        }
       }
 
       // step-4: hide columns based on provided hideColumns parameter
@@ -216,13 +216,13 @@ export class RibbonTable {
         let cols = this.hideColumns.includes(",") ? this.hideColumns.split(",") : [this.hideColumns];
         for(let header of tempTable.header) {
           header.hide = cols.includes(header.id);
-        }      
+        }
       }
 
       // assigning this to the state - will trigger a render
       this.table = tempTable;
       this.createHeaderMap();
-    }    
+    }
   }
 
   goContextURL = "https://raw.githubusercontent.com/prefixcommons/biocontext/master/registry/go_context.jsonld";
@@ -266,7 +266,7 @@ export class RibbonTable {
     var otherCells = firstRow.filter(elt => !keyColumns.includes(elt.headerId));
     var otherColumns = otherCells.map(elt => elt.headerId);
     // console.log("other cols: ", otherColumns);
-    
+
     // building the list of unique rows
     var uRows = new Map();
     for(let i = 0; i < table.rows.length; i++) {
@@ -287,7 +287,7 @@ export class RibbonTable {
     var newTable = { newTab: table.newTab, header : table.header, rows : [] }
 
 
-    // this was required either by stenciljs or web component 
+    // this was required either by stenciljs or web component
     // for an integration in alliance REACT project
     // somehow more recent iterators on Map were not working !
     var akeys = Array.from( uRows.keys() );
@@ -298,7 +298,7 @@ export class RibbonTable {
       let key = akeys[i];
       let rrows = uRows.get(key);
       // console.log("Uniq.Row ("  , key , "): ", rrows);
-      let row = { cells: [] }      
+      let row = { cells: [] }
       for(let header of table.header) {
         // console.log(" --- header: ", header);
         let eqcell : SuperCell = undefined;
@@ -309,7 +309,7 @@ export class RibbonTable {
             headerId: header.id,
             values: []
           }
-          
+
           for(let eqrow of rrows) {
             let otherCell = eqrow.cells.filter(elt => elt.headerId == header.id)[0]
             eqcell.headerId = otherCell.headerId;
@@ -317,13 +317,13 @@ export class RibbonTable {
             eqcell.clickable = otherCell.clickable;
             eqcell.foldable = otherCell.foldable;
             eqcell.selectable = otherCell.selectable;
-            
+
             // TODO: can include test here for filder redudancy
             for(let val of otherCell.values) {
               if(filterRedudancy) { }
-              eqcell.values.push(val);            
+              eqcell.values.push(val);
             }
-          }  
+          }
         }
 
         // console.log(" --- H: ", header , "E: ", eqcell);
@@ -381,7 +381,7 @@ export class RibbonTable {
       {
         table.header.map( cell => {
           return [
-            cell.hide ? "" 
+            cell.hide ? ""
                       : <th title={cell.description} id={cell.id} class="table__header__cell">{cell.label}</th>
           ]
         })
@@ -391,7 +391,7 @@ export class RibbonTable {
 
   renderRows(table) {
     // console.log("Render table: ", table);
-    return ( 
+    return (
       table.rows.map( row => {
         return [
           <tr class="table__row">
@@ -414,7 +414,7 @@ export class RibbonTable {
                   <td class="table__row__supercell">
                     <ul class="table__row__supercell__list">
                       {
-                        // Todo: this is where we can have a strategy for folding cells                        
+                        // Todo: this is where we can have a strategy for folding cells
                         superCell.values.map( cell => {
                           let url = cell.url;
                           if(url && baseURL.length > 0) {
@@ -426,20 +426,20 @@ export class RibbonTable {
                           if(cell.tags) {
                             tag_span = <span class='table__row__supercell__cell--not'>{cell.tags.join(", ")}</span>;
                           }
-                          
+
                           return [
                             <li title={cell.description} class="table__row__supercell__cell">
-                                { 
-                                  cell.url 
-                                    ? <a class="table__row__supercell__cell__link" href={url} target={this.table.newTab ? "_blank" : "_self"}>{tag_span} {cell.label}</a> 
+                                {
+                                  cell.url
+                                    ? <a class="table__row__supercell__cell__link" href={url} target={this.table.newTab ? "_blank" : "_self"}>{tag_span} {cell.label}</a>
                                     : <div onClick={cell.clickable ? (() => this.onCellClick(cell)) : () => "" }>{tag_span} {cell.label}</div>
                                 }
                             </li>
-                        ]                          
+                        ]
                         })
                       }
                     </ul>
-                  </td>                  
+                  </td>
                 )
 
               })
@@ -449,8 +449,8 @@ export class RibbonTable {
       })
     )
   }
- 
-  
+
+
   onCellClick(cell) {
     console.log("Cell clicked: ", cell);
   }

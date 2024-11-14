@@ -2,7 +2,6 @@ import { Config } from '@stencil/core';
 
 export const config: Config = {
   namespace: 'wc-spinner',
-  taskQueue: 'async',
   outputTargets: [
     {
       type: 'dist',

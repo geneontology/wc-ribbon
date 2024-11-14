@@ -22,8 +22,23 @@ export namespace Components {
         "value": string;
     }
 }
+export interface WcGoAutocompleteCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLWcGoAutocompleteElement;
+}
 declare global {
+    interface HTMLWcGoAutocompleteElementEventMap {
+        "itemSelected": any;
+    }
     interface HTMLWcGoAutocompleteElement extends Components.WcGoAutocomplete, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLWcGoAutocompleteElementEventMap>(type: K, listener: (this: HTMLWcGoAutocompleteElement, ev: WcGoAutocompleteCustomEvent<HTMLWcGoAutocompleteElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLWcGoAutocompleteElementEventMap>(type: K, listener: (this: HTMLWcGoAutocompleteElement, ev: WcGoAutocompleteCustomEvent<HTMLWcGoAutocompleteElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLWcGoAutocompleteElement: {
         prototype: HTMLWcGoAutocompleteElement;
@@ -46,7 +61,7 @@ declare namespace LocalJSX {
         /**
           * Event triggered whenever an item is selected from the autocomplete
          */
-        "onItemSelected"?: (event: CustomEvent<any>) => void;
+        "onItemSelected"?: (event: WcGoAutocompleteCustomEvent<any>) => void;
         /**
           * Default placeholder for the autocomplete
          */

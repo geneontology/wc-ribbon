@@ -73,7 +73,7 @@ export namespace Components {
          */
         "selected": any;
         /**
-          * Click handling of a cell.  0 = select only the cell (1 subject, 1 group) 1 = select the whole column (all subjects, 1 group)
+          * Click handling of a cell. 0 = select only the cell (1 subject, 1 group) 1 = select the whole column (all subjects, 1 group)
          */
         "selectionMode": any;
         /**
@@ -173,7 +173,7 @@ declare namespace LocalJSX {
          */
         "selected"?: any;
         /**
-          * Click handling of a cell.  0 = select only the cell (1 subject, 1 group) 1 = select the whole column (all subjects, 1 group)
+          * Click handling of a cell. 0 = select only the cell (1 subject, 1 group) 1 = select the whole column (all subjects, 1 group)
          */
         "selectionMode"?: any;
         /**

@@ -13,7 +13,6 @@ export const config: Config = {
   //   { components: ['wc-go-ribbon', 'wc-ribbon-strips', 'wc-ribbon-table', 'wc-spinner']}
   // ],
   enableCache: false,
-  taskQueue: 'async',
   outputTargets: [
     {
       type: 'dist',
