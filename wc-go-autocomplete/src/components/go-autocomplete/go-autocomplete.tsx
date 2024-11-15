@@ -149,7 +149,7 @@ export class GOAutocomplete {
     }
 
     return  <div onClick={(evt) => this.select(evt.target, doc) }>
-              <span class="autocomplete__item__label">{<a href={url_id} target="blank">{doc.label[0]}</a>}</span>
+              <span class="autocomplete__item__label">{<a href={url_id} target="blank">{doc.label}</a>}</span>
               <span class="autocomplete__item__taxon">{<a href={url_taxon} target="blank">{doc.taxon_label}</a>}</span>
             </div>
   }
